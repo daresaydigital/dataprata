@@ -1,0 +1,26 @@
+name: Build and deploy
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+      - name: Extract branch name
+        shell: bash
+        run: echo "::set-env name=BRANCH_NAME::$(echo ${{ github.ref }} | sed 's/\//_/g' | sed 's/head_ref_//g')"
+      - name: Branch name
+        run: echo running on branch ${BRANCH_NAME} ${{ github.ref }}
+      - name: Build the Docker image
+        run: docker build . -t ringmera.azurecr.io/ringmera:${BRANCH_NAME}
+      - name: Login to Registry
+        run: echo ${{ secrets.REGISTRY_PASSWORD }} | docker login --username ${{ secrets.REGISTRY_USERNAME }} --password-stdin ringmera.azurecr.io
+      - name: Publish to Registry
+        run: docker push ringmera.azurecr.io/ringmera:${BRANCH_NAME}
