@@ -2,6 +2,7 @@ import * as React from "react"
 import styled from "@emotion/styled"
 
 import Sidebar from "./Sidebar"
+import Footer from "./Footer"
 
 const StyledPage = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const Page: React.FC<PageProps> = ({ children, step1Complete, step2Complete, ste
   <StyledPage>
     <Sidebar step1Complete={step1Complete} step2Complete={step2Complete} step3Complete={step3Complete} />
     {children}
+    <Footer />
   </StyledPage>
 )
 
