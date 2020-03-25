@@ -20,10 +20,11 @@
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
     "dev": "gatsby develop",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,md,css,json}\"",
+    "format-check": "prettier -c \"src/**/*.{js,jsx,ts,tsx,md,css,json}\"",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "start": "yarn run dev",
-    "test": "yarn run type-check && yarn run lint",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "test": "yarn run type-check && yarn run lint && yarn run format-check"
   },
   "engines": {
     "node": ">=8.0.0"
