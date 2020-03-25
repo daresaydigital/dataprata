@@ -8,6 +8,7 @@ import "../styles/normalize"
 import Header from "../components/Header"
 import LayoutRoot from "../components/LayoutRoot"
 import LayoutMain from "../components/LayoutMain"
+import Sidebar from "../components/Sidebar"
 
 interface StaticQueryProps {
   site: {
@@ -39,8 +40,10 @@ const IndexLayout: React.FC = ({ children }) => (
             { name: "description", content: data.site.siteMetadata.description },
             { name: "keywords", content: data.site.siteMetadata.keywords },
           ]}
-        />
-        <Header title={data.site.siteMetadata.title} />
+        >
+          <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet" />
+        </Helmet>
+        {/* <Header title={data.site.siteMetadata.title} /> */}
         <LayoutMain>{children}</LayoutMain>
       </LayoutRoot>
     )}
