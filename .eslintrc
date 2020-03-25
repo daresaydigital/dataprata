@@ -2,7 +2,6 @@
   "parser": "@typescript-eslint/parser",
   "extends": ["eslint-config-blvd/react", "prettier/@typescript-eslint", "prettier/react", "plugin:prettier/recommended"],
   "parserOptions": {
-    "project": "tsconfig.json",
     "ecmaVersion": 2018,
     "sourceType": "module",
     "ecmaFeatures": {
@@ -14,14 +13,6 @@
       "version": "detect"
     }
   },
-  "overrides": [
-    {
-      "files": ["*.json"],
-      "rules": {
-        "no-unused-expressions": "off"
-      }
-    }
-  ],
   "rules": {
     "max-len": ["error", { "code": 140, "ignoreUrls": true }],
     "import/prefer-default-export": "off",

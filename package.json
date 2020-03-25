@@ -20,7 +20,7 @@
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
     "dev": "gatsby develop",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,md,css,json}\"",
-    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,json}'",
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "start": "yarn run dev",
     "test": "yarn run type-check && yarn run lint",
     "type-check": "tsc"
@@ -33,6 +33,7 @@
     "@emotion/styled": "^10.0.12",
     "babel-plugin-styled-components": "^1.10.1",
     "classnames": "^2.2.6",
+    "dotenv": "^8.2.0",
     "gatsby": "^2.10.0",
     "gatsby-image": "^2.2.1",
     "gatsby-plugin-canonical-urls": "^2.1.0",
