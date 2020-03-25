@@ -9,10 +9,10 @@ const StyledPage = styled.div`
   padding: 40px 0;
 `
 
-const SidebarWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`
+// const SidebarWrapper = styled.div`
+//   display: flex;
+//   justify-content: center;
+// `
 
 interface PageProps {
   className?: string

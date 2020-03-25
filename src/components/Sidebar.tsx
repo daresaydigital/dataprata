@@ -21,11 +21,7 @@ const ItemWrapper = styled.div`
   }
 `
 
-interface HeaderProps {
-  title: string
-}
-
-const Sidebar: React.FC<HeaderProps> = ({ title }) => (
+const Sidebar: React.FC = () => (
   <StyledDiv>
     <div style={{ marginBottom: 48 }}>
       <div style={{ marginBottom: 6 }}>
