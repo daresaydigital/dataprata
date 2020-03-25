@@ -48,8 +48,6 @@ var sdkInstance="appInsightsSDK";window[sdkInstance]="appInsights";var aiName=wi
 );window[aiName]=aisdk,aisdk.queue&&0===aisdk.queue.length&&aisdk.trackPageView({});
         `}</script>
         </Helmet>
-        {/* <Header title={data.site.siteMetadata.title} /> */}
-
         <LayoutMain>{children}</LayoutMain>
       </LayoutRoot>
     )}
