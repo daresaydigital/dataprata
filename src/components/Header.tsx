@@ -9,7 +9,6 @@ import Container from "./Container"
 const StyledHeader = styled.header`
   height: ${heights.header}px;
   padding: 0 ${dimensions.containerPadding}rem;
-  background-color: ${colors.brand};
   color: ${transparentize(0.5, colors.white)};
 `
 

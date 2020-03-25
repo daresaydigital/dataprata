@@ -1,20 +1,29 @@
 import * as React from "react"
 import styled from "@emotion/styled"
 
-import { dimensions } from "../styles/variables"
+import Sidebar from "./Sidebar"
 
 const StyledPage = styled.div`
-  display: block;
-  flex: 1;
-  position: relative;
-  padding: ${dimensions.containerPadding}rem;
-  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: row;
+  padding: 40px 0;
 `
+
+// const SidebarWrapper = styled.div`
+//   display: flex;
+//   justify-content: center;
+// `
 
 interface PageProps {
   className?: string
 }
 
-const Page: React.FC<PageProps> = ({ children, className }) => <StyledPage className={className}>{children}</StyledPage>
+const Page: React.FC<PageProps> = ({ children, className }) => (
+  <StyledPage className={className}>
+    <Sidebar />
+
+    {children}
+  </StyledPage>
+)
 
 export default Page
