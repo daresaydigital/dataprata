@@ -4,7 +4,9 @@ import styled from "@emotion/styled"
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 40px;
+  align-items: flex-start;
+  padding-top: 32px;
+  padding-left: 32px;
 `
 
 interface ContainerProps {

@@ -1,15 +1,19 @@
-import { fonts, colors, breakpoints } from "./variables"
-import { getEmSize } from "./mixins"
+import { fonts, colors } from "./variables"
 
 export default `
   html {
     box-sizing: border-box;
+    font-feature-settings: "liga" 1, "calt" 1, "ss01" 1, "ss03" 1;
   }
 
   *,
   *::before,
   *::after {
     box-sizing: inherit;
+  }
+
+  h1, h2, h3, p {
+    margin: 0;
   }
 
   body {
@@ -21,11 +25,5 @@ export default `
     background-color: ${colors.white};
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
-  }
-
-    @media (min-width: ${getEmSize(breakpoints.md)}em) {
-      padding-right: 5rem;
-      padding-left: 1.25rem;
-    }
   }
 `
