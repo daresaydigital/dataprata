@@ -15,7 +15,6 @@
   },
   "rules": {
     "max-len": ["error", { "code": 140, "ignoreUrls": true }],
-    "import/no-default-export": "error",
     "import/prefer-default-export": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/no-unescaped-entities": [

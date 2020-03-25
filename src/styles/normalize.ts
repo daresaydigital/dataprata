@@ -1,4 +1,3 @@
-/* eslint-disable import/no-default-export */
 import { fonts, colors } from "./variables"
 
 export default `

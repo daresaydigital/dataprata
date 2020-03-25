@@ -1,4 +1,3 @@
-/* eslint-disable import/no-default-export */
 import * as React from "react"
 import { useIntl, Link } from "gatsby-plugin-intl"
 
