@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useIntl, Link } from "gatsby-plugin-intl"
+import { useIntl } from "gatsby-plugin-intl"
 
 import Page from "../components/Page"
 import Container from "../components/Container"
