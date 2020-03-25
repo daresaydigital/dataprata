@@ -47,33 +47,31 @@ const ItemWrapper = styled.div`
   }
 `
 
-const Sidebar: React.FC<SidebarProps> = ({ step1Complete, step2Complete, step3Complete }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ step1Complete, step2Complete, step3Complete }) => {
   const intl = useIntl()
   return (
     <StyledDiv>
       <div style={{ marginBottom: 48 }}>
         <div style={{ marginBottom: 6 }}>
-          <LogoText color={colors.yellow} text="Ringmera.se" />
+          <LogoText color={colors.yellow}>Ringmera.se</LogoText>
         </div>
-        <Header1 text="#vitecherupp" color={colors.white} />
+        <Header1 color={colors.white}>{intl.formatMessage({ id: "hashtag" })}</Header1>
       </div>
 
       <ItemWrapper>
         <div style={{ background: step1Complete ? colors.yellow : "none" }}>{step1Complete ? <Checkmark /> : <p>1</p>}</div>
-        <Header2 color={colors.white} text={intl.formatMessage({ id: "sidebar-step-1" })} />
+        <Header2 color={colors.white}>{intl.formatMessage({ id: "sidebar-step-1" })}</Header2>
       </ItemWrapper>
 
       <ItemWrapper>
         <div style={{ background: step2Complete ? colors.yellow : "none" }}>{step2Complete ? <Checkmark /> : <p>2</p>}</div>
-        <Header2 color={colors.white} text={intl.formatMessage({ id: "sidebar-step-2" })} />
+        <Header2 color={colors.white}>{intl.formatMessage({ id: "sidebar-step-2" })}</Header2>
       </ItemWrapper>
 
       <ItemWrapper>
         <div style={{ background: step3Complete ? colors.yellow : "none" }}>{step3Complete ? <Checkmark /> : <p>3</p>}</div>
-        <Header2 color={colors.white} text={intl.formatMessage({ id: "sidebar-step-3" })} />
+        <Header2 color={colors.white}>{intl.formatMessage({ id: "sidebar-step-3" })}</Header2>
       </ItemWrapper>
     </StyledDiv>
   )
 }
-
-export default Sidebar

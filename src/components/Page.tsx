@@ -1,8 +1,7 @@
 import * as React from "react"
 import styled from "@emotion/styled"
 
-import Sidebar from "./Sidebar"
-import Footer from "./Footer"
+import { Sidebar } from "./Sidebar"
 
 const StyledPage = styled.div`
   display: flex;
@@ -16,12 +15,9 @@ interface PageProps {
   step3Complete?: boolean
 }
 
-const Page: React.FC<PageProps> = ({ children, step1Complete, step2Complete, step3Complete }) => (
+export const Page: React.FC<PageProps> = ({ children, step1Complete, step2Complete, step3Complete }) => (
   <StyledPage>
     <Sidebar step1Complete={step1Complete} step2Complete={step2Complete} step3Complete={step3Complete} />
     {children}
-    <Footer />
   </StyledPage>
 )
-
-export default Page

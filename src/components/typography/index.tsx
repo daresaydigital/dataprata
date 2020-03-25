@@ -51,27 +51,26 @@ const StyledLogoText = styled.p`
 
 interface TypographyProps {
   color?: string
-  text: string
 }
 
-export const Display: React.FC<TypographyProps> = ({ color, text }) => (
-  <DisplayText style={{ color: color || colors.black }}>{text}</DisplayText>
+export const Display: React.FC<TypographyProps> = ({ color = colors.black, children }) => (
+  <DisplayText style={{ color }}>{children}</DisplayText>
 )
 
-export const Header1: React.FC<TypographyProps> = ({ color, text }) => (
-  <HeaderLrg style={{ color: color || colors.black }}>{text}</HeaderLrg>
+export const Header1: React.FC<TypographyProps> = ({ color = colors.black, children }) => (
+  <HeaderLrg style={{ color }}>{children}</HeaderLrg>
 )
 
-export const Header2: React.FC<TypographyProps> = ({ color, text }) => <HeaderSm style={{ color: color || colors.black }}>{text}</HeaderSm>
+export const Header2: React.FC<TypographyProps> = ({ color = colors.black, children }) => <HeaderSm style={{ color }}>{children}</HeaderSm>
 
-export const Paragraph: React.FC<TypographyProps> = ({ color, text }) => (
-  <StyledParagraph style={{ color: color || colors.black }}>{text}</StyledParagraph>
+export const Paragraph: React.FC<TypographyProps> = ({ color = colors.black, children }) => (
+  <StyledParagraph style={{ color }}>{children}</StyledParagraph>
 )
 
-export const Caption: React.FC<TypographyProps> = ({ color, text }) => (
-  <StyledCaption style={{ color: color || colors.black }}>{text}</StyledCaption>
+export const Caption: React.FC<TypographyProps> = ({ color = colors.black, children }) => (
+  <StyledCaption style={{ color }}>{children}</StyledCaption>
 )
 
-export const LogoText: React.FC<TypographyProps> = ({ color, text }) => (
-  <StyledLogoText style={{ color: color || colors.black }}>{text}</StyledLogoText>
+export const LogoText: React.FC<TypographyProps> = ({ color = colors.black, children }) => (
+  <StyledLogoText style={{ color }}>{children}</StyledLogoText>
 )

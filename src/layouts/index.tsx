@@ -5,8 +5,8 @@ import { StaticQuery, graphql } from "gatsby"
 import "modern-normalize"
 import "../styles/normalize"
 
-import LayoutRoot from "../components/LayoutRoot"
-import LayoutMain from "../components/LayoutMain"
+import { LayoutRoot } from "../components/LayoutRoot"
+import { LayoutMain } from "../components/LayoutMain"
 
 interface StaticQueryProps {
   site: {
@@ -18,7 +18,7 @@ interface StaticQueryProps {
   }
 }
 
-const IndexLayout: React.FC = ({ children }) => (
+export const IndexLayout: React.FC = ({ children }) => (
   <StaticQuery
     query={graphql`
       query IndexLayoutQuery {
@@ -53,5 +53,3 @@ var sdkInstance="appInsightsSDK";window[sdkInstance]="appInsights";var aiName=wi
     )}
   />
 )
-
-export default IndexLayout
