@@ -27,7 +27,12 @@
     "test": "yarn run type-check && yarn run lint && yarn run format-check"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn test"
+    }
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
@@ -78,6 +83,7 @@
     "eslint-plugin-prettier": "*",
     "eslint-plugin-react": "*",
     "gh-pages": "^2.0.1",
+    "husky": "^4.2.3",
     "prettier": "*",
     "rimraf": "^3.0.2"
   }
