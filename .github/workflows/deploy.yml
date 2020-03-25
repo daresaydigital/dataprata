@@ -14,8 +14,7 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v2
       - name: Extract branch name
-        env:
-          BRANCH_NAME: "$(echo ${{ github.ref }} | sed 's/\//_/g' | sed 's/head_ref_//g')"
+        run: echo "$(echo ${{ github.ref }} | sed 's/\//_/g' | sed 's/head_ref_//g')" > BRANCH_NAME
       - name: Branch name
         run: echo running on branch ${BRANCH_NAME} ${{ github.ref }}
       - name: Build the Docker image
