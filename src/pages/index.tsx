@@ -30,7 +30,7 @@ const IndexPage: React.FC = () => {
           <div style={{ marginBottom: 24 }}>
             <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "homepageParagraph2" })}</Paragraph>
           </div>
-          <StyledLink to="/devicePage/">
+          <StyledLink to="/device/">
             <Header2>{intl.formatMessage({ id: "homepageNavigate" })}</Header2>
           </StyledLink>
         </Container>

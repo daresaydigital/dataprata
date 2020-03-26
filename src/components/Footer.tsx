@@ -1,12 +1,13 @@
 import { faFileContract, faHandsHelping } from "@fortawesome/free-solid-svg-icons"
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useIntl } from "gatsby-plugin-intl"
+import { useIntl, Link } from "gatsby-plugin-intl"
 import React from "react"
 import styled from "@emotion/styled"
 
 import { colors } from "../styles/variables"
 import { InvisibleLinkStyle } from "./typography"
+import { GibonLogo } from "../icons/svgs"
 
 const StyledFooter = styled.div`
   background-color: ${colors.black};
@@ -17,7 +18,7 @@ const StyledFooter = styled.div`
 `
 
 const Container = styled.div`
-  color: ${colors.white};
+  color: ${colors.gray.light};
   max-width: 800px;
   padding: 30px 0px 20px;
   margin: 0 auto;
@@ -25,6 +26,9 @@ const Container = styled.div`
   justify-content: space-between;
   flex-flow: wrap;
   flex-direction: row;
+  a {
+    color: ${colors.gray.light};
+  }
 `
 
 const Col = styled.div`
@@ -42,12 +46,21 @@ const UL = styled.ul`
 `
 
 const LI = styled.li`
-  font-size: 75%;
+  font-size: 16px;
   margin-bottom: 10px;
 `
 
 const Strong = styled.strong`
+  font-size: 18px;
   font-size: 110%;
+  font-weight: normal;
+`
+
+const IconContainer = styled.span`
+  width: 32px;
+  display: inline-block;
+  text-align: right;
+  padding-right: 5px;
 `
 
 export const Footer: React.FC = () => {
@@ -60,7 +73,9 @@ export const Footer: React.FC = () => {
             <LI>
               <Strong>{intl.formatMessage({ id: "footer-sponsors" })}</Strong>
             </LI>
-            <LI>Gibon</LI>
+            <LI>
+              <GibonLogo />
+            </LI>
           </UL>
         </Col>
         <Col>
@@ -68,7 +83,9 @@ export const Footer: React.FC = () => {
             <LI>
               <Strong>{intl.formatMessage({ id: "footer-wantToKnowMore" })}</Strong>
             </LI>
-            <LI>{intl.formatMessage({ id: "footer-aboutUs" })}</LI>
+            <LI>
+              <Link to="/about">{intl.formatMessage({ id: "footer-aboutUs" })}</Link>
+            </LI>
             <LI>{intl.formatMessage({ id: "footer-support" })}</LI>
           </UL>
         </Col>
@@ -76,17 +93,26 @@ export const Footer: React.FC = () => {
           <UL>
             <LI>
               <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/blob/master/LICENSE" target="blank">
-                <FontAwesomeIcon icon={faFileContract} /> License
+                <IconContainer>
+                  <FontAwesomeIcon icon={faFileContract} />
+                </IconContainer>
+                License
               </a>
             </LI>
             <LI>
               <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/" target="blank">
-                <FontAwesomeIcon icon={faGithub} /> Source
+                <IconContainer>
+                  <FontAwesomeIcon icon={faGithub} />
+                </IconContainer>
+                Source
               </a>
             </LI>
             <LI>
               <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/issues" target="blank">
-                <FontAwesomeIcon icon={faHandsHelping} /> Contribute
+                <IconContainer>
+                  <FontAwesomeIcon icon={faHandsHelping} />
+                </IconContainer>
+                Contribute
               </a>
             </LI>
           </UL>
