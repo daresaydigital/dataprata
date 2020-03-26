@@ -18,8 +18,8 @@ jobs:
       - name: Branch name
         run: echo running on branch ${BRANCH_NAME}
       - name: Build the Docker image
-        run: docker build . -t ringmera.azurecr.io/ringmera:${BRANCH_NAME}
+        run: docker build . -t dataprata.azurecr.io/dataprata:${BRANCH_NAME}
       - name: Login to Registry
-        run: echo ${{ secrets.REGISTRY_PASSWORD }} | docker login --username ${{ secrets.REGISTRY_USERNAME }} --password-stdin ringmera.azurecr.io
+        run: echo ${{ secrets.REGISTRY_PASSWORD }} | docker login --username ${{ secrets.REGISTRY_USERNAME }} --password-stdin dataprata.azurecr.io
       - name: Publish to Registry
-        run: docker push ringmera.azurecr.io/ringmera:${BRANCH_NAME}
+        run: docker push dataprata.azurecr.io/dataprata:${BRANCH_NAME}

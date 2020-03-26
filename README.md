@@ -40,7 +40,7 @@ This is a starter kit for [Gatsby.js](https://www.gatsbyjs.org/) websites writte
 
 Deploys automatically to Azure using Github Actions:
 
-![Build and deploy](https://github.com/daresaydigital/ringmera/workflows/Build%20and%20deploy/badge.svg?branch=master)
+![Build and deploy](https://github.com/daresaydigital/dataprata/workflows/Build%20and%20deploy/badge.svg?branch=master)
 
-[Production (master branch)](http://ringmera.se)
-[Staging (develop branch)](http://next.ringmera.se)
+[Production (master branch)](http://dataprata.se)
+[Staging (develop branch)](http://next.dataprata.se)
