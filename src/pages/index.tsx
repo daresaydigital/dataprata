@@ -2,9 +2,9 @@ import * as React from "react"
 import { useIntl, Link } from "gatsby-plugin-intl"
 import styled from "@emotion/styled"
 
-import Page from "../components/Page"
-import Container from "../components/Container"
-import IndexLayout from "../layouts"
+import { Page } from "../components/Page"
+import { Container } from "../components/Container"
+import { IndexLayout } from "../layouts"
 import { Display, Paragraph, Header2 } from "../components/typography"
 import { colors } from "../styles/variables"
 
@@ -22,16 +22,16 @@ const IndexPage: React.FC = () => {
       <Page>
         <Container>
           <div style={{ marginBottom: 16 }}>
-            <Display text={intl.formatMessage({ id: "homepageTitle" })} />
+            <Display>{intl.formatMessage({ id: "homepageTitle" })}</Display>
           </div>
           <div style={{ marginBottom: 24 }}>
-            <Paragraph color={colors.gray.dark} text={intl.formatMessage({ id: "homepageParagraph1" })} />
+            <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "homepageParagraph1" })}</Paragraph>
           </div>
           <div style={{ marginBottom: 24 }}>
-            <Paragraph color={colors.gray.dark} text={intl.formatMessage({ id: "homepageParagraph2" })} />
+            <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "homepageParagraph2" })}</Paragraph>
           </div>
           <StyledLink to="/devicePage/">
-            <Header2 text={intl.formatMessage({ id: "homepageNavigate" })} />
+            <Header2>{intl.formatMessage({ id: "homepageNavigate" })}</Header2>
           </StyledLink>
         </Container>
       </Page>

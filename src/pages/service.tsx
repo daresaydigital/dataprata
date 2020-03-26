@@ -1,9 +1,10 @@
 import * as React from "react"
 import { useIntl } from "gatsby-plugin-intl"
 
-import Page from "../components/Page"
-import Container from "../components/Container"
-import IndexLayout from "../layouts"
+import { Page } from "../components/Page"
+import { Container } from "../components/Container"
+import { IndexLayout } from "../layouts"
+import { Header1 } from "../components/typography"
 
 const ServicePage: React.FC = () => {
   const intl = useIntl()
@@ -11,7 +12,7 @@ const ServicePage: React.FC = () => {
     <IndexLayout>
       <Page step1Complete step2Complete>
         <Container>
-          <h1>{intl.formatMessage({ id: "title" })}</h1>
+          <Header1>{intl.formatMessage({ id: "title" })}</Header1>
         </Container>
       </Page>
     </IndexLayout>

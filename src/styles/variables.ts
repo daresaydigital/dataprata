@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export const colors = {
   gray: {
     dark: "#515151",
@@ -11,8 +9,7 @@ export const colors = {
 }
 
 export const fonts = {
-  sansSerif:
-    '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif',
+  sansSerif: '"Inter", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
 }
 
 export const breakpoints = {
