@@ -106,11 +106,11 @@ const ServicePage: React.FC = () => {
                   </div>
                   <div style={{ marginBottom: 16 }}>
                     <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                      Starta teams -->
+                      Starta teams --&gt;
                     </a>
                   </div>
                   <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                    Läs mer -->
+                    Läs mer --&gt;
                   </a>
                 </ServiceCard>
                 {OS === "apple" && (
@@ -128,11 +128,11 @@ const ServicePage: React.FC = () => {
                     </div>
                     <div style={{ marginBottom: 16 }}>
                       <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                        Starta FaceTime -->
+                        Starta FaceTime --&gt;
                       </a>
                     </div>
                     <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                      Läs mer -->
+                      Läs mer --&gt;
                     </a>
                   </ServiceCard>
                 )}
@@ -151,11 +151,11 @@ const ServicePage: React.FC = () => {
                   </div>
                   <div style={{ marginBottom: 16 }}>
                     <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                      Starta Messenger -->
+                      Starta Messenger --&gt;
                     </a>
                   </div>
                   <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                    Läs mer -->
+                    Läs mer --&gt;
                   </a>
                 </ServiceCard>
               </div>
