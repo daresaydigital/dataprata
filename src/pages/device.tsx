@@ -113,32 +113,35 @@ const Device: React.FC = () => {
   })
 
   const renderIcon = () => {
-    let icon
     if (OS === "android") {
-      icon = <AndroidIcon />
-    } else if (OS === "mac") {
-      icon = <MacIcon />
-    } else if (OS === "ios") {
-      icon = <IosIcon />
-    } else {
-      icon = <WindowsIcon />
+      return <AndroidIcon />
     }
-    return icon
+
+    if (OS === "mac") {
+      return <MacIcon />
+    }
+
+    if (OS === "ios") {
+      return <IosIcon />
+    }
+
+    return <WindowsIcon />
   }
 
   const renderDeviceOS = () => {
-    let deviceOS
-
     if (OS === "android") {
-      deviceOS = "Android"
-    } else if (OS === "mac") {
-      deviceOS = "Mac"
-    } else if (OS === "ios") {
-      deviceOS = "iPhone / iPad"
-    } else {
-      deviceOS = "Windows"
+      return "Android"
     }
-    return deviceOS
+
+    if (OS === "mac") {
+      return "Mac"
+    }
+
+    if (OS === "ios") {
+      return "iPhone / iPad"
+    }
+
+    return "Windows"
   }
 
   return (
