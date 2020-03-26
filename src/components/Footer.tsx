@@ -12,17 +12,21 @@ const StyledFooter = styled.div`
 
 const Container = styled.div`
   color: ${colors.white};
-  width: 800px;
-  padding: 30px 0px 20px 20px;
+  max-width: 800px;
+  padding: 30px 0px 20px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  flex-flow: wrap;
+  flex-direction: row;
 `
 
 const Col = styled.div`
   flex: 1;
-  align-self: center;
-  max-width: 200px;
+  align-self: top;
+  min-width: 180px;
+  max-width: 180px;
+  margin: 20px;
 `
 
 const UL = styled.ul`
@@ -44,7 +48,14 @@ export const Footer: React.FC = () => {
   return (
     <StyledFooter>
       <Container>
-        <Col>Gibon</Col>
+        <Col>
+          <UL>
+            <LI>
+              <Strong>Ett initiativ av</Strong>
+            </LI>
+            <LI>Gibon</LI>
+          </UL>
+        </Col>
         <Col>
           <UL>
             <LI>

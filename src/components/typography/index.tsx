@@ -1,6 +1,7 @@
 import * as React from "react"
 import styled from "@emotion/styled"
 
+import { css } from "@emotion/core"
 import { colors } from "../../styles/variables"
 
 const DisplayText = styled.h1`
@@ -74,3 +75,8 @@ export const Caption: React.FC<TypographyProps> = ({ color = colors.black, child
 export const LogoText: React.FC<TypographyProps> = ({ color = colors.black, children }) => (
   <StyledLogoText style={{ color }}>{children}</StyledLogoText>
 )
+
+export const InvisibleLinkStyle = css`
+  text-decoration: none;
+  color: inherit;
+`
