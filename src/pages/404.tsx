@@ -7,7 +7,7 @@ import { IndexLayout } from "../layouts"
 
 const NotFoundPage = () => (
   <IndexLayout>
-    <Page>
+    <Page showSidebarSteps={false}>
       <Container>
         <h1>404: Page not found.</h1>
         <p>
