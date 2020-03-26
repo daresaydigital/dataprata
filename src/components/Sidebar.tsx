@@ -13,10 +13,12 @@ interface SidebarProps {
 }
 
 const StyledDiv = styled.div`
+  position: fixed;
   width: 296px;
   min-width: 296px;
   background: ${colors.black};
-  height: calc(100vh - 80px);
+  /* make sure footer doesn't overflow */
+  height: calc(100vh - 240px);
   border-radius: 8px;
   padding: 32px;
 `
