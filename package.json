@@ -1,19 +1,37 @@
 {
-  "name": "ringmera",
-  "description": "Information about how to communicate with family and friends during the covid-19 crisis.",
+  "name": "dataprata",
+  "description": "Information about how to communicate with family and friends during the COVID-19 crisis.",
   "version": "1.0.0",
-  "author": "Daresay AB <https://daresay.co>",
+  "license": "MIT",
+  "author": "Daresay AB (https://daresay.co)",
+  "contributors": [
+    "Mikael Weidenhielm <mikael.weidenhielm@daresay.co>",
+    "Sebastian Söderback <sebastian.soderback@daresay.co>",
+    "Martin Kurtsson <martin.kurtsson@daresay.co>"
+  ],
   "keywords": [
     "daresay",
     "daresaydigital",
     "gibon",
+    "dataprata",
     "ringmera",
     "gatsby",
     "covid19",
     "vitecherupp"
   ],
-  "license": "MIT",
-  "main": "n/a",
+  "homepage": "https://dataprata.se",
+  "bugs": "https://github.com/daresaydigital/dataprata/issues",
+  "repository": "github:daresaydigital/dataprata",
+  "main": "pages/index.tsx",
+  "engines": {
+    "node": ">=10.0.0",
+    "yarn": "1.22.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "scripts": {
     "build": "gatsby build",
     "clean": "rimraf public",
@@ -25,9 +43,6 @@
     "start": "yarn run dev",
     "type-check": "tsc",
     "test": "yarn run type-check && yarn run lint && yarn run format-check"
-  },
-  "engines": {
-    "node": ">=10.0.0"
   },
   "husky": {
     "hooks": {
