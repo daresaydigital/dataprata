@@ -12,5 +12,10 @@
   "devicepageTitle": "Välj den enhet du vill använda i samtalet.",
   "currentDeviceTitle": "Detta är enheten som du använder nu.",
   "otherDeviceTitle": "Vill du använda en annan enhet?",
-  "otherDeviceParagraph": "Klicka nedan på den enheten du vill ha samtalet på."
+  "otherDeviceParagraph": "Klicka nedan på den enheten du vill ha samtalet på.",
+
+  "footer-sponsors": "Ett initiativ av",
+  "footer-wantToKnowMore": "Vill du veta mer?",
+  "footer-aboutUs": "Om oss",
+  "footer-support": "Support"
 }
