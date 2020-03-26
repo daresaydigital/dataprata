@@ -1,6 +1,5 @@
 import * as React from "react"
 import { useEffect, useState } from "react"
-import { useIntl, Link } from "gatsby-plugin-intl"
 
 import styled from "@emotion/styled"
 import { Page } from "../components/Page"
