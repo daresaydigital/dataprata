@@ -55,9 +55,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ step1Complete, step2Complete, 
     <StyledDiv>
       <div style={{ marginBottom: 48 }}>
         <div style={{ marginBottom: 6 }}>
-          <LogoText color={colors.yellow}>Ringmera.se</LogoText>
+          <LogoText color={colors.yellow}>Data Prata</LogoText>
         </div>
-        <Header1 color={colors.white}>{intl.formatMessage({ id: "hashtag" })}</Header1>
       </div>
 
       <ItemWrapper>
@@ -86,6 +85,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ step1Complete, step2Complete, 
           </Link>
         </Header2>
       </ItemWrapper>
+
+      <Header1 color={colors.white}>{intl.formatMessage({ id: "hashtag" })}</Header1>
     </StyledDiv>
   )
 }
