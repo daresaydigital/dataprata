@@ -7,5 +7,10 @@
 
   "sidebar-step-1": "Introduktion",
   "sidebar-step-2": "Välj enhet",
-  "sidebar-step-3": "Kontaktsätt"
+  "sidebar-step-3": "Kontaktsätt",
+
+  "footer-sponsors": "Ett initiativ av",
+  "footer-wantToKnowMore": "Vill du veta mer?",
+  "footer-aboutUs": "Om oss",
+  "footer-support": "Support"
 }
