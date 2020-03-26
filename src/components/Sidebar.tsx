@@ -18,7 +18,7 @@ const StyledDiv = styled.div`
   min-width: 296px;
   background: ${colors.black};
   /* make sure footer doesn't overflow */
-  height: calc(100vh - 240px);
+  height: calc(100vh - 244px);
   border-radius: 8px;
   padding: 32px;
 `

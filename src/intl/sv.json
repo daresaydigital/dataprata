@@ -7,5 +7,10 @@
 
   "sidebar-step-1": "Introduktion",
   "sidebar-step-2": "Välj enhet",
-  "sidebar-step-3": "Kontaktsätt"
+  "sidebar-step-3": "Kontaktsätt",
+
+  "devicepageTitle": "Välj den enhet du vill använda i samtalet.",
+  "currentDeviceTitle": "Detta är enheten som du använder nu.",
+  "otherDeviceTitle": "Vill du använda en annan enhet?",
+  "otherDeviceParagraph": "Klicka nedan på den enheten du vill ha samtalet på."
 }
