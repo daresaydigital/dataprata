@@ -7,6 +7,8 @@ const StyledContainer = styled.div`
   align-items: flex-start;
   padding-top: 32px;
   padding-left: 32px;
+  /* In order to position container content correctly from fixed sidebar */
+  margin-left: 296px;
 `
 
 interface ContainerProps {
