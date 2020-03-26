@@ -1,6 +1,12 @@
+import { faFileContract, faHandsHelping } from "@fortawesome/free-solid-svg-icons"
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useIntl } from "gatsby-plugin-intl"
 import React from "react"
 import styled from "@emotion/styled"
+
 import { colors } from "../styles/variables"
+import { InvisibleLinkStyle } from "./typography"
 
 const StyledFooter = styled.div`
   background-color: ${colors.black};
@@ -45,13 +51,14 @@ const Strong = styled.strong`
 `
 
 export const Footer: React.FC = () => {
+  const intl = useIntl()
   return (
     <StyledFooter>
       <Container>
         <Col>
           <UL>
             <LI>
-              <Strong>Ett initiativ av</Strong>
+              <Strong>{intl.formatMessage({ id: "footer-sponsors" })}</Strong>
             </LI>
             <LI>Gibon</LI>
           </UL>
@@ -59,17 +66,29 @@ export const Footer: React.FC = () => {
         <Col>
           <UL>
             <LI>
-              <Strong>Vill du veta mer?</Strong>
+              <Strong>{intl.formatMessage({ id: "footer-wantToKnowMore" })}</Strong>
             </LI>
-            <LI>Om oss</LI>
-            <LI>Support</LI>
+            <LI>{intl.formatMessage({ id: "footer-aboutUs" })}</LI>
+            <LI>{intl.formatMessage({ id: "footer-support" })}</LI>
           </UL>
         </Col>
         <Col>
           <UL>
-            <LI>License</LI>
-            <LI>GitHub</LI>
-            <LI>Contribute</LI>
+            <LI>
+              <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/blob/master/LICENSE" target="blank">
+                <FontAwesomeIcon icon={faFileContract} /> License
+              </a>
+            </LI>
+            <LI>
+              <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/" target="blank">
+                <FontAwesomeIcon icon={faGithub} /> Source
+              </a>
+            </LI>
+            <LI>
+              <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/issues" target="blank">
+                <FontAwesomeIcon icon={faHandsHelping} /> Contribute
+              </a>
+            </LI>
           </UL>
         </Col>
       </Container>
