@@ -7,8 +7,9 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: "Data Prata",
-    description: "Information about how to communicate with family and friends during the covid-19 crisis.",
+    title: "Dataprata",
+    description:
+      "Information about how to communicate with family and friends over the Internet, started as a reaction on people being isolated during the COVID-19 crisis.",
     keywords: "daresay, daresaydigital, gibon, dataprata, ringmera, gatsby, covid19, vitecherupp",
     siteUrl: "https://dataprata.se",
     author: {
