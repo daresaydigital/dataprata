@@ -67,10 +67,11 @@ export const IndexLayout: React.FC<Props> = ({ children, pageTitle }) => (
             { name: "keywords", content: data.site.siteMetadata.keywords },
             { name: "image", content: img },
             { property: "og:type", content: "website" },
+            { property: "og:site_name", content: data.site.siteMetadata.title },
             { property: "og:url", content: data.site.siteMetadata.siteUrl },
             { property: "og:title", content: data.site.siteMetadata.seo.title },
             { property: "og:description", content: data.site.siteMetadata.seo.description },
-            { property: "og:image", content: "" },
+            { property: "og:image", content: `${data.site.siteMetadata.siteUrl}/${img}` },
             { property: "twitter:card", content: "summary_large_image" },
             { property: "twitter:url", content: data.site.siteMetadata.siteUrl },
             {
@@ -82,7 +83,7 @@ export const IndexLayout: React.FC<Props> = ({ children, pageTitle }) => (
               property: "twitter:description",
               content: data.site.siteMetadata.seo.description,
             },
-            { property: "twitter:image", content: img },
+            { property: "twitter:image", content: `${data.site.siteMetadata.siteUrl}/${img}` },
           ]}
         >
           <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet" />
