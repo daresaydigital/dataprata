@@ -1,9 +1,11 @@
 import * as React from "react"
 import { graphql } from "gatsby"
 
-import Page from "../components/Page"
-import Container from "../components/Container"
-import IndexLayout from "../layouts"
+import styled from "@emotion/styled"
+import { Page } from "../components/Page"
+import { Container } from "../components/Container"
+import { IndexLayout } from "../layouts"
+import { Display } from "../components/typography"
 
 interface PageTemplateProps {
   data: {
@@ -27,19 +29,36 @@ interface PageTemplateProps {
   }
 }
 
-const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
-  <IndexLayout>
-    <Page>
+const BodyDiv = styled.div`
+  margin-top: 32px;
+  p {
+    margin-bottom: 32px;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+  blockquote {
+    margin-top: -20px;
+    p {
+      margin: 0;
+      font-size: 90%;
+    }
+  }
+  h2 {
+    margin: 42px 0 16px 0;
+  }
+`
+
+export const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
+  <IndexLayout pageTitle={data.markdownRemark.frontmatter.title}>
+    <Page showSidebarSteps={false}>
       <Container>
-        <h1>{data.markdownRemark.frontmatter.title}</h1>
+        <Display>{data.markdownRemark.frontmatter.title}</Display>
         {/* eslint-disable-next-line react/no-danger */}
-        <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
+        <BodyDiv dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
       </Container>
     </Page>
   </IndexLayout>
 )
-
-export default PageTemplate
 
 export const query = graphql`
   query PageTemplateQuery($slug: String!) {
@@ -62,3 +81,5 @@ export const query = graphql`
     }
   }
 `
+
+export default PageTemplate

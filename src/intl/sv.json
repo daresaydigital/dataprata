@@ -1,4 +1,38 @@
 {
-  "title": "Ring Mera!",
-  "goto-page": "Till sida "
+  "hashtag": "#vitecherupp",
+  "homepageMetaTitle": "Lär dig kommunicera över internet med vänner och anhöriga",
+  "homepageTitle": "Vi vill att du ska kunna hålla kontakten med den du vill",
+  "homepageParagraph1": "Att kontakta någon med video-, eller röstsamtal behöver inte vara så krångligt. Den här tjänsten är för alla, men framförallt för dig som känner dig lite osäker på digitala tjänster.",
+  "homepageParagraph2": "Därför vill vi hjälpa dig att bli mer självständig digitalt. Vi har samlat enkla instruktioner så att du kan kontakta vem du vill.",
+  "homepageNavigate": "Kom igång -->",
+
+  "sidebar-step-1": "Introduktion",
+  "sidebar-step-2": "Välj enhet",
+  "sidebar-step-3": "Kontaktsätt",
+
+  "devicepageTitle": "Välj den enhet du vill använda i samtalet",
+  "currentDeviceTitle": "Detta är enheten som du använder nu.",
+  "otherDeviceTitle": "Vill du använda en annan enhet?",
+  "otherDeviceParagraph": "Klicka nedan på den enheten du vill ha samtalet på.",
+
+  "servicepageTitle": "Välj vilken tjänst du vill använda för samtalet",
+  "servicepageParagraph": "Klicka på den tjänst du vill använda dig av nedan för att få vidare instruktioner om hur du kommer igång.",
+  "readMoreLink": "Läs mer -->",
+
+  "skypeDescription": "Skype är en av de mest populära tjänsterna där du enkelt kan ringa videosamtal.",
+  "skypeCTA": "Starta Skype -->",
+
+  "teamsDescription": "Med Teams kan du tillsammans med din anhöriga skapa en grupp som ni kan ringa videosamtal genom.",
+  "teamsCTA": "Starta Teams -->",
+
+  "facetimeDescription": "Om den du vill kontakta också använder en iPhone eller iPad kan du snabbt och enkelt ringa upp dem med FaceTime.",
+  "facetimeCTA": "Starta FaceTime -->",
+
+  "messengerDescription": "Om du redan använder Facebook kan du enkelt starta videosamtal via Messenger.",
+  "messengerCTA": "Starta Messenger -->",
+
+  "footer-sponsors": "Ett initiativ av",
+  "footer-wantToKnowMore": "Vill du veta mer?",
+  "footer-aboutUs": "Om oss",
+  "footer-support": "Support"
 }

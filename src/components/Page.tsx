@@ -1,20 +1,28 @@
 import * as React from "react"
 import styled from "@emotion/styled"
 
-import { dimensions } from "../styles/variables"
+import { Sidebar } from "./Sidebar"
+import { widths } from "../styles/variables"
 
 const StyledPage = styled.div`
-  display: block;
-  flex: 1;
-  position: relative;
-  padding: ${dimensions.containerPadding}rem;
-  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: ${widths.md}px) {
+    flex-direction: row;
+    padding: 40px 0;
+  }
 `
 
 interface PageProps {
-  className?: string
+  step1Complete?: boolean
+  step2Complete?: boolean
+  step3Complete?: boolean
+  showSidebarSteps?: boolean
 }
 
-const Page: React.FC<PageProps> = ({ children, className }) => <StyledPage className={className}>{children}</StyledPage>
-
-export default Page
+export const Page: React.FC<PageProps> = ({ children, step1Complete, step2Complete, step3Complete, showSidebarSteps = true }) => (
+  <StyledPage>
+    <Sidebar step1Complete={step1Complete} step2Complete={step2Complete} step3Complete={step3Complete} showSteps={showSidebarSteps} />
+    {children}
+  </StyledPage>
+)
