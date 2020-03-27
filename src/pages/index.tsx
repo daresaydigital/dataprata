@@ -18,7 +18,7 @@ const StyledLink = styled(Link)`
 const IndexPage: React.FC = () => {
   const intl = useIntl()
   return (
-    <IndexLayout>
+    <IndexLayout pageTitle={intl.formatMessage({ id: "homepageTitle" })}>
       <Page>
         <Container>
           <div style={{ marginBottom: 16 }}>

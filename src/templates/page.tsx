@@ -49,7 +49,7 @@ const BodyDiv = styled.div`
 `
 
 export const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
-  <IndexLayout>
+  <IndexLayout pageTitle={data.markdownRemark.frontmatter.title}>
     <Page showSidebarSteps={false}>
       <Container>
         <Display>{data.markdownRemark.frontmatter.title}</Display>
