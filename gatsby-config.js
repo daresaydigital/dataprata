@@ -96,7 +96,7 @@ module.exports = {
         theme_color: "#FFF543",
         display: "standalone",
         orientation: "any",
-        start_url: "/?homescreen=1",
+        start_url: "/sv",
         version: "1.0",
 
         icons: {
