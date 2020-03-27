@@ -158,7 +158,7 @@ const Device: React.FC = () => {
               <div style={{ marginBottom: 16 }}>
                 <Header2>{intl.formatMessage({ id: "currentDeviceTitle" })}</Header2>
               </div>
-              <PrimaryLink to={`/${OS}/`}>
+              <PrimaryLink to={`/service#${OS}/`}>
                 <div className="innerWrapper">
                   <div className="row">
                     <div style={{ paddingRight: 24 }}>{renderIcon()}</div>
@@ -173,11 +173,11 @@ const Device: React.FC = () => {
                 <Header2>{intl.formatMessage({ id: "otherDeviceTitle" })}</Header2>
               </div>
               <div style={{ marginBottom: 16 }}>
-                <Paragraph>{intl.formatMessage({ id: "otherDeviceParagraph" })}</Paragraph>
+                <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "otherDeviceParagraph" })}</Paragraph>
               </div>
               <LinkWrapper>
                 {OS === "windows" ? null : (
-                  <SecondaryLink to="/windows/">
+                  <SecondaryLink to="/service#windows/">
                     <div className="innerWrapper">
                       <div style={{ marginBottom: 8 }}>
                         <WindowsIcon />
@@ -187,7 +187,7 @@ const Device: React.FC = () => {
                   </SecondaryLink>
                 )}
                 {OS === "mac" ? null : (
-                  <SecondaryLink to="/mac/">
+                  <SecondaryLink to="/service#mac/">
                     <div className="innerWrapper">
                       <div style={{ marginBottom: 8 }}>
                         <MacIcon />
@@ -197,7 +197,7 @@ const Device: React.FC = () => {
                   </SecondaryLink>
                 )}
                 {OS === "ios" ? null : (
-                  <SecondaryLink to="/ios/">
+                  <SecondaryLink to="/service#ios/">
                     <div className="innerWrapper">
                       <div style={{ marginBottom: 8 }}>
                         <IosIcon />
@@ -207,7 +207,7 @@ const Device: React.FC = () => {
                   </SecondaryLink>
                 )}
                 {OS === "android" ? null : (
-                  <SecondaryLink to="/android/">
+                  <SecondaryLink to="/service#android/">
                     <div className="innerWrapper">
                       <div style={{ marginBottom: 8 }}>
                         <AndroidIcon />

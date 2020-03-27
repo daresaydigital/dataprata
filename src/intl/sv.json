@@ -14,6 +14,22 @@
   "otherDeviceTitle": "Vill du använda en annan enhet?",
   "otherDeviceParagraph": "Klicka nedan på den enheten du vill ha samtalet på.",
 
+  "servicepageTitle": "Välj vilken tjänst du vill använda för samtalet.",
+  "servicepageParagraph": "Klicka på den tjänst du vill använda dig av nedan för att få vidare instruktioner om hur du kommer igång.",
+  "readMoreLink": "Läs mer -->",
+
+  "skypeDescription": "Skype är en av de mest populära tjänsterna där du enkelt kan ringa videosamtal.",
+  "skypeCTA": "Starta Skype -->",
+
+  "teamsDescription": "Med Teams kan du tillsammans med din anhöriga skapa en grupp som ni kan ringa videosamtal genom.",
+  "teamsCTA": "Starta Teams -->",
+
+  "facetimeDescription": "Om den du vill kontakta också använder en iPhone eller iPad kan du snabbt och enkelt ringa upp dem med FaceTime.",
+  "facetimeCTA": "Starta FaceTime -->",
+
+  "messengerDescription": "Om du redan använder Facebook kan du enkelt starta videosamtal via Messenger.",
+  "messengerCTA": "Starta Messenger -->",
+
   "footer-sponsors": "Ett initiativ av",
   "footer-wantToKnowMore": "Vill du veta mer?",
   "footer-aboutUs": "Om oss",
