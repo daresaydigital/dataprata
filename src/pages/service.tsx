@@ -1,5 +1,6 @@
 import * as React from "react"
 import { useEffect, useState } from "react"
+import { useIntl } from "gatsby-plugin-intl"
 
 import styled from "@emotion/styled"
 import { Page } from "../components/Page"
@@ -9,18 +10,14 @@ import { Display, Paragraph, Header2 } from "../components/typography"
 import { colors } from "../styles/variables"
 
 const ServicePage: React.FC = () => {
+  const intl = useIntl()
   const [OS, setOS] = useState("")
   const [loading, toggleLoading] = useState(true)
 
   useEffect(() => {
     const device = window.location.hash.toLocaleLowerCase()
 
-    if (device.includes("mac")) {
-      setOS("apple")
-      toggleLoading(false)
-    }
-
-    if (device.includes("ios")) {
+    if (device.includes("mac") || device.includes("ios")) {
       setOS("apple")
       toggleLoading(false)
     }
@@ -83,56 +80,31 @@ const ServicePage: React.FC = () => {
           ) : (
             <>
               <div style={{ marginBottom: 24 }}>
-                <Display>Välj vilken tjänst du vill använda för samtalet.</Display>
+                <Display>{intl.formatMessage({ id: "servicepageTitle" })}</Display>
               </div>
               <div style={{ marginBottom: 16 }}>
-                <Paragraph color={colors.gray.dark}>
-                  Klicka på den tjänst du vill använda dig av nedan för att få vidare instruktioner om hur du kommer igång.
-                </Paragraph>
+                <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "servicepageParagraph" })}</Paragraph>
               </div>
 
               <div style={{ paddingBottom: 48 }}>
-                <ServiceCard>
-                  <div className="serviceHeader">
-                    <div style={{ marginRight: 16 }}>
-                      <img src="../../teamsIcon.png" alt="messenger icon" />
-                    </div>
-                    <Header2>Microsoft Teams</Header2>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <Paragraph color={colors.gray.dark}>
-                      Med Teams kan du tillsammans med din anhöriga skapa en grupp som ni kan ringa videosamtal genom.
-                    </Paragraph>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                      Starta teams --&gt;
-                    </a>
-                  </div>
-                  <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                    Läs mer --&gt;
-                  </a>
-                </ServiceCard>
                 {OS === "apple" && (
                   <ServiceCard>
                     <div className="serviceHeader">
                       <div style={{ marginRight: 16 }}>
-                        <img src="../../facetimeIcon.png" alt="messenger icon" />
+                        <img src="../../facetimeIcon.png" alt="Facetime logo" />
                       </div>
                       <Header2>FaceTime</Header2>
                     </div>
                     <div style={{ marginBottom: 16 }}>
-                      <Paragraph color={colors.gray.dark}>
-                        Om den du vill kontakta också använder en iPhone eller iPad kan du snabbt och enkelt ringa upp dem med FaceTime.
-                      </Paragraph>
+                      <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimeDescription" })}</Paragraph>
                     </div>
                     <div style={{ marginBottom: 16 }}>
-                      <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                        Starta FaceTime --&gt;
+                      <a href="facetime:14085551234" className="link">
+                        {intl.formatMessage({ id: "facetimeCTA" })}
                       </a>
                     </div>
-                    <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                      Läs mer --&gt;
+                    <a target="_blank" rel="noopener noreferrer" href="https://support.apple.com/sv-se/HT204380" className="link">
+                      {intl.formatMessage({ id: "readMoreLink" })}
                     </a>
                   </ServiceCard>
                 )}
@@ -140,22 +112,75 @@ const ServicePage: React.FC = () => {
                 <ServiceCard>
                   <div className="serviceHeader">
                     <div style={{ marginRight: 16 }}>
-                      <img src="../../messengerIcon.png" alt="messenger icon" />
+                      <img src="../../skypeIcon.png" alt="Skype logo" />
+                    </div>
+                    <Header2>Skype</Header2>
+                  </div>
+                  <div style={{ marginBottom: 16 }}>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "skypeDescription" })}</Paragraph>
+                  </div>
+                  <div style={{ marginBottom: 16 }}>
+                    <a target="_blank" rel="noopener noreferrer" href="https://web.skype.com/" className="link">
+                      {intl.formatMessage({ id: "skypeCTA" })}
+                    </a>
+                  </div>
+                  <a target="_blank" rel="noopener noreferrer" href="https://www.skype.com/sv/features/" className="link">
+                    {intl.formatMessage({ id: "readMoreLink" })}
+                  </a>
+                </ServiceCard>
+
+                <ServiceCard>
+                  <div className="serviceHeader">
+                    <div style={{ marginRight: 16 }}>
+                      <img src="../../teamsIcon.png" alt="Teams logo" />
+                    </div>
+                    <Header2>Microsoft Teams</Header2>
+                  </div>
+                  <div style={{ marginBottom: 16 }}>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "teamsDescription" })}</Paragraph>
+                  </div>
+                  <div style={{ marginBottom: 16 }}>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://teams.microsoft.com/dl/launcher/launcher.html?url=%2f_%23%2fl%2fmeetup-join%2f&type=meetup-join&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true"
+                      className="link"
+                    >
+                      {intl.formatMessage({ id: "teamsCTA" })}
+                    </a>
+                  </div>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://support.office.com/sv-se/article/video-kom-ig%C3%A5ng-med-ditt-team-702a2977-e662-4038-bef5-bdf8ee47b17b"
+                    className="link"
+                  >
+                    {intl.formatMessage({ id: "readMoreLink" })}
+                  </a>
+                </ServiceCard>
+
+                <ServiceCard>
+                  <div className="serviceHeader">
+                    <div style={{ marginRight: 16 }}>
+                      <img src="../../messengerIcon.png" alt="messenger logo" />
                     </div>
                     <Header2>Facebook Messenger</Header2>
                   </div>
                   <div style={{ marginBottom: 16 }}>
-                    <Paragraph color={colors.gray.dark}>
-                      Om du redan använder Facebook kan du enkelt starta videosamtal via Messenger.
-                    </Paragraph>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "messengerDescription" })}</Paragraph>
                   </div>
                   <div style={{ marginBottom: 16 }}>
-                    <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                      Starta Messenger --&gt;
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.messenger.com/" className="link">
+                      {intl.formatMessage({ id: "messengerCTA" })}
                     </a>
                   </div>
-                  <a target="_blank" rel="noopener noreferrer" href="https://google.com" className="link">
-                    Läs mer --&gt;
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.facebook.com/help/messenger-app/1414800065460231?helpref=topq"
+                    className="link"
+                  >
+                    {intl.formatMessage({ id: "readMoreLink" })}
                   </a>
                 </ServiceCard>
               </div>
