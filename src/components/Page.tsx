@@ -13,11 +13,12 @@ interface PageProps {
   step1Complete?: boolean
   step2Complete?: boolean
   step3Complete?: boolean
+  showSidebarSteps?: boolean
 }
 
-export const Page: React.FC<PageProps> = ({ children, step1Complete, step2Complete, step3Complete }) => (
+export const Page: React.FC<PageProps> = ({ children, step1Complete, step2Complete, step3Complete, showSidebarSteps = true }) => (
   <StyledPage>
-    <Sidebar step1Complete={step1Complete} step2Complete={step2Complete} step3Complete={step3Complete} />
+    <Sidebar step1Complete={step1Complete} step2Complete={step2Complete} step3Complete={step3Complete} showSteps={showSidebarSteps} />
     {children}
   </StyledPage>
 )
