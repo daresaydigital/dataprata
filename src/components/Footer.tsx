@@ -5,7 +5,7 @@ import { useIntl, Link } from "gatsby-plugin-intl"
 import React from "react"
 import styled from "@emotion/styled"
 
-import { colors } from "../styles/variables"
+import { colors, widths } from "../styles/variables"
 import { InvisibleLinkStyle } from "./typography"
 import { GibonLogo } from "../icons/logos"
 
@@ -18,7 +18,7 @@ const StyledFooter = styled.div`
 const Container = styled.div`
   color: ${colors.gray.light};
   max-width: 800px;
-  padding: 30px 0px 20px;
+  padding: 15px 0px 15px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -27,6 +27,10 @@ const Container = styled.div`
   a {
     color: ${colors.gray.light};
   }
+
+  @media (min-width: ${widths.md}px) {
+    padding: 30px 0px 20px;
+  }
 `
 
 const Col = styled.div`
@@ -34,7 +38,11 @@ const Col = styled.div`
   align-self: top;
   min-width: 180px;
   max-width: 180px;
-  margin: 20px;
+  margin: 15px;
+
+  @media (min-width: ${widths.md}px) {
+    margin: 20px;
+  }
 `
 
 const UL = styled.ul`
