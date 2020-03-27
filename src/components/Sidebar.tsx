@@ -3,8 +3,9 @@ import styled from "@emotion/styled"
 import { useIntl, Link } from "gatsby-plugin-intl"
 
 import { colors } from "../styles/variables"
-import { LogoText, Header1, Header2, InvisibleLinkStyle } from "./typography"
+import { Header1, Header2, InvisibleLinkStyle } from "./typography"
 import { Checkmark } from "../icons/svgs"
+import { Logo } from "../icons/logos"
 
 interface SidebarProps {
   step1Complete?: boolean
@@ -14,12 +15,9 @@ interface SidebarProps {
 }
 
 const StyledDiv = styled.div`
-  position: fixed;
-  width: 296px;
   min-width: 296px;
+  min-height: calc(70vh);
   background: ${colors.black};
-  /* make sure footer doesn't overflow */
-  height: calc(100vh - 260px);
   border-radius: 8px;
   padding: 32px;
 `
@@ -55,9 +53,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ step1Complete, step2Complete, 
   return (
     <StyledDiv>
       <div style={{ marginBottom: 48 }}>
-        <div style={{ marginBottom: 6 }}>
-          <LogoText color={colors.yellow}>Dataprata</LogoText>
-        </div>
+        <Logo width={179} height={72} />
       </div>
       {showSteps && (
         <>

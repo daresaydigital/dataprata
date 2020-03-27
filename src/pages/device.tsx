@@ -145,7 +145,7 @@ const Device: React.FC = () => {
   }
 
   return (
-    <IndexLayout>
+    <IndexLayout pageTitle={intl.formatMessage({ id: "devicepageTitle" })}>
       <Page step1Complete>
         <Container>
           {loading ? (

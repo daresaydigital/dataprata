@@ -72,7 +72,7 @@ const ServicePage: React.FC = () => {
   `
 
   return (
-    <IndexLayout>
+    <IndexLayout pageTitle={intl.formatMessage({ id: "servicepageTitle" })}>
       <Page step1Complete step2Complete>
         <Container>
           {loading ? (

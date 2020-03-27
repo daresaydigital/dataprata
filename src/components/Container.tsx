@@ -5,10 +5,7 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-top: 32px;
-  padding-left: 32px;
-  /* In order to position container content correctly from fixed sidebar */
-  margin-left: 296px;
+  padding: 32px;
 `
 
 interface ContainerProps {

@@ -9,8 +9,8 @@ const StyledLayoutRoot = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding-bottom: 100px;
-  margin-bottom: -100px;
+  padding-bottom: 250px;
+  margin-bottom: -250px;
 `
 
 interface LayoutRootProps {
