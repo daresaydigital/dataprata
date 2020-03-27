@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "@emotion/styled"
 import { useIntl, Link } from "gatsby-plugin-intl"
 
-import { colors } from "../styles/variables"
+import { colors, widths } from "../styles/variables"
 import { Header1, Header2, InvisibleLinkStyle } from "./typography"
 import { Checkmark } from "../icons/svgs"
 import { Logo } from "../icons/logos"
@@ -15,36 +15,49 @@ interface SidebarProps {
 }
 
 const StyledDiv = styled.div`
-  min-width: 296px;
-  min-height: calc(70vh);
   background: ${colors.black};
-  border-radius: 8px;
-  padding: 32px;
+  padding: 16px;
+  @media (min-width: ${widths.md}px) {
+    padding: 32px;
+    border-radius: 8px;
+    min-width: 296px;
+    min-height: calc(70vh);
+  }
 `
 
 const ItemWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 32px;
-
-  div {
+  display: none;
+  @media (min-width: ${widths.md}px) {
     display: flex;
-    justify-content: center;
     align-items: center;
+    margin-bottom: 32px;
 
-    width: 26px;
-    height: 26px;
-    border: 2px solid ${colors.yellow};
-    border-radius: 100%;
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-    margin-right: 16px;
+      width: 26px;
+      height: 26px;
+      border: 2px solid ${colors.yellow};
+      border-radius: 100%;
+
+      margin-right: 16px;
+    }
+
+    div > p {
+      color: ${colors.white};
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 600;
+    }
   }
+`
 
-  div > p {
-    color: ${colors.white};
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 600;
+const LogoWrapper = styled.div`
+  margin-bottom: 10px;
+  @media (min-width: ${widths.md}px) {
+    margin-bottom: 48px;
   }
 `
 
@@ -52,9 +65,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ step1Complete, step2Complete, 
   const intl = useIntl()
   return (
     <StyledDiv>
-      <div style={{ marginBottom: 48 }}>
+      <LogoWrapper>
         <Logo width={179} height={72} />
-      </div>
+      </LogoWrapper>
       {showSteps && (
         <>
           <ItemWrapper>

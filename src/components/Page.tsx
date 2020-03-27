@@ -2,11 +2,15 @@ import * as React from "react"
 import styled from "@emotion/styled"
 
 import { Sidebar } from "./Sidebar"
+import { widths } from "../styles/variables"
 
 const StyledPage = styled.div`
   display: flex;
-  flex-direction: row;
-  padding: 40px 0;
+  flex-direction: column;
+  @media (min-width: ${widths.md}px) {
+    flex-direction: row;
+    padding: 40px 0;
+  }
 `
 
 interface PageProps {

@@ -21,7 +21,7 @@ export const breakpoints = {
 }
 
 export const widths = {
-  md: 720,
+  md: 800,
   lg: 960,
   xl: 1140,
 }

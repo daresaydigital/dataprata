@@ -65,7 +65,7 @@ module.exports = {
         // language file path
         defaultLanguage: `sv`,
         // option to redirect to `/sv` when connecting `/`
-        redirect: true,
+        redirect: false,
       },
     },
     "gatsby-transformer-json",
@@ -96,7 +96,7 @@ module.exports = {
         theme_color: "#FFF543",
         display: "standalone",
         orientation: "any",
-        start_url: "/sv",
+        start_url: "/",
         version: "1.0",
 
         icons: {
