@@ -14,7 +14,7 @@ och kräver ofta en hjälpande hand för att komma igång.
 På Dataprata har vi samlat de bästa instruktionerna för man kommer igång med videosamtal så att alla
 ska kunna få se ansiktet på sina nära och kära under en tid då man inte kan träffas fysiskt.
 
-![Mia på Gibon](mia.png "Mia på Gibon")
+![Mia på Gibon](mia.jpg "Mia CEO på Gibon")
 
 > Mia på Gibon är en av initiativtagarna till dataprata
 

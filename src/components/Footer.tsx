@@ -7,7 +7,7 @@ import styled from "@emotion/styled"
 
 import { colors } from "../styles/variables"
 import { InvisibleLinkStyle } from "./typography"
-import { GibonLogo } from "../icons/svgs"
+import { GibonLogo } from "../icons/logos"
 
 const StyledFooter = styled.div`
   background-color: ${colors.black};

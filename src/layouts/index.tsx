@@ -1,9 +1,10 @@
 import * as React from "react"
 import Helmet from "react-helmet"
 import { StaticQuery, graphql } from "gatsby"
-
 import "modern-normalize"
+
 import "../styles/normalize"
+import img from "../content/dataprata.png"
 
 import { LayoutRoot } from "../components/LayoutRoot"
 import { LayoutMain } from "../components/LayoutMain"
@@ -14,11 +15,26 @@ interface StaticQueryProps {
       title: string
       description: string
       keywords: string
+      siteUrl: string
+      author: {
+        name: string
+        url: string
+        email: string
+        twitter: string
+      }
+      seo: {
+        title: string
+        description: string
+      }
     }
   }
 }
 
-export const IndexLayout: React.FC = ({ children }) => (
+interface Props {
+  pageTitle: string
+}
+
+export const IndexLayout: React.FC<Props> = ({ children, pageTitle }) => (
   <StaticQuery
     query={graphql`
       query IndexLayoutQuery {
@@ -26,6 +42,17 @@ export const IndexLayout: React.FC = ({ children }) => (
           siteMetadata {
             title
             description
+            siteUrl
+            author {
+              name
+              url
+              email
+              twitter
+            }
+            seo {
+              title
+              description
+            }
           }
         }
       }
@@ -33,10 +60,29 @@ export const IndexLayout: React.FC = ({ children }) => (
     render={(data: StaticQueryProps) => (
       <LayoutRoot>
         <Helmet
-          title={data.site.siteMetadata.title}
+          title={`${data.site.siteMetadata.title} - ${pageTitle} - ${data.site.siteMetadata.seo.title}`}
           meta={[
-            { name: "description", content: data.site.siteMetadata.description },
+            { name: "title", content: data.site.siteMetadata.seo.title },
+            { name: "description", content: data.site.siteMetadata.seo.description },
             { name: "keywords", content: data.site.siteMetadata.keywords },
+            { name: "image", content: img },
+            { property: "og:type", content: "website" },
+            { property: "og:url", content: data.site.siteMetadata.siteUrl },
+            { property: "og:title", content: data.site.siteMetadata.seo.title },
+            { property: "og:description", content: data.site.siteMetadata.seo.description },
+            { property: "og:image", content: "" },
+            { property: "twitter:card", content: "summary_large_image" },
+            { property: "twitter:url", content: data.site.siteMetadata.siteUrl },
+            {
+              name: `twitter:creator`,
+              content: data.site.siteMetadata.author.twitter,
+            },
+            { property: "twitter:title", content: data.site.siteMetadata.seo.title },
+            {
+              property: "twitter:description",
+              content: data.site.siteMetadata.seo.description,
+            },
+            { property: "twitter:image", content: img },
           ]}
         >
           <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet" />
