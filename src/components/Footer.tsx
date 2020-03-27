@@ -11,10 +11,8 @@ import { GibonLogo } from "../icons/logos"
 
 const StyledFooter = styled.div`
   background-color: ${colors.black};
-  position: fixed;
+  min-height: 250px;
   width: 100%;
-  bottom: 0;
-  left: 0;
 `
 
 const Container = styled.div`
