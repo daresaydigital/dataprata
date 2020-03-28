@@ -8,7 +8,9 @@ const StyledContainer = styled.div`
   align-items: flex-start;
   padding: 16px;
   @media (min-width: ${widths.md}px) {
-    padding: 32px;
+    padding: 0;
+    padding-left: 32px;
+    padding-top: 32px;
   }
 `
 

@@ -31,6 +31,11 @@ const ServicePage: React.FC = () => {
       setOS("windows")
       toggleLoading(false)
     }
+
+    if (!device) {
+      setOS("not-selected")
+      toggleLoading(false)
+    }
   })
 
   const ServiceCard = styled.div`
@@ -99,7 +104,7 @@ const ServicePage: React.FC = () => {
                       <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimeDescription" })}</Paragraph>
                     </div>
                     <div style={{ marginBottom: 16 }}>
-                      <a href="facetime:14085551234" className="link">
+                      <a href="facetime:" className="link">
                         {intl.formatMessage({ id: "facetimeCTA" })}
                       </a>
                     </div>
