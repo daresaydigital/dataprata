@@ -43,6 +43,7 @@ export const MacIcon: React.FC<IconProps> = ({ color = "#333", width = "80", hei
 
 export const IosIcon: React.FC<IconProps> = ({ color = "#333", width = "80", height = "48" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} fill="none" viewBox="0 0 80 48">
+    <title>iOS</title>
     <path
       fill={color}
       fillRule="evenodd"
@@ -72,6 +73,7 @@ export const IosIcon: React.FC<IconProps> = ({ color = "#333", width = "80", hei
 
 export const AndroidIcon: React.FC<IconProps> = ({ color = "#333", width = "80", height = "48" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} fill="none" viewBox="0 0 80 48">
+    <title>Android</title>
     <path
       fill={color}
       fillRule="evenodd"

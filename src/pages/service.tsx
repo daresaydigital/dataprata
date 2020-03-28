@@ -31,6 +31,11 @@ const ServicePage: React.FC = () => {
       setOS("windows")
       toggleLoading(false)
     }
+
+    if (!device) {
+      setOS("not-selected")
+      toggleLoading(false)
+    }
   })
 
   const ServiceCard = styled.div`
