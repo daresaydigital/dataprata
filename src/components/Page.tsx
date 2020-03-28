@@ -7,9 +7,9 @@ import { widths } from "../styles/variables"
 const StyledPage = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   @media (min-width: ${widths.md}px) {
-    flex-direction: row;
-    padding: 40px 0;
+    padding-top: 125px;
   }
 `
 

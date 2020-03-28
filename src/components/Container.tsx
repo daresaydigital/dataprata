@@ -9,6 +9,8 @@ const StyledContainer = styled.div`
   padding: 16px;
   @media (min-width: ${widths.md}px) {
     padding: 32px;
+    max-width: 656px;
+    margin: 0 auto;
   }
 `
 
