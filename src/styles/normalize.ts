@@ -12,6 +12,11 @@ export default `
     box-sizing: inherit;
   }
 
+  *:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(21, 156, 228, 0.8);
+  }
+
   h1, h2, h3, p {
     margin: 0;
   }

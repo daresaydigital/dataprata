@@ -267,7 +267,7 @@ const Device: React.FC = () => {
                     <div className="innerWrapper">
                       <div className="row">
                         <div className="iconMargin">
-                          <MacIcon />
+                          <AndroidIcon />
                         </div>
                         <Header1>Android</Header1>
                       </div>
