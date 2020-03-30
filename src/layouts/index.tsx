@@ -78,21 +78,25 @@ if (useAnalytics()) {
       instrumentationKey: process.env.INSTRUMENTATION_KEY,
     },
   })
-  appInsights.loadAppInsights()
-  appInsights.trackPageView()
-  analytics = {
-    trackEvent: (name) => {
-      try {
-        appInsights.trackEvent({ name })
-      } catch (error) {
-        // To bad :/
-      }
-      try {
-        gtag("event", name)
-      } catch (error) {
-        // To bad :/
-      }
-    },
+  try {
+    appInsights.loadAppInsights()
+    appInsights.trackPageView()
+    analytics = {
+      trackEvent: (name) => {
+        try {
+          appInsights.trackEvent({ name })
+        } catch (error) {
+          // To bad :/
+        }
+        try {
+          gtag("event", name)
+        } catch (error) {
+          // To bad :/
+        }
+      },
+    }
+  } catch (error) {
+    // To bad :/
   }
 }
 
