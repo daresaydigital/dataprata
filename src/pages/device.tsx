@@ -8,7 +8,7 @@ import { Container } from "../components/Container"
 import { IndexLayout } from "../layouts"
 import { Display, Header2, Header1, Paragraph } from "../components/typography"
 import { WindowsIcon, MacIcon, ArrowIcon, IosIcon, AndroidIcon } from "../icons/svgs"
-import { colors } from "../styles/variables"
+import { colors, widths } from "../styles/variables"
 
 const PrimaryLink = styled(Link)`
   align-self: stretch;
@@ -23,11 +23,13 @@ const PrimaryLink = styled(Link)`
 
   &:hover {
     transition: all 0.2s ease;
+    transform: translateY(-2px);
     background: rgba(255, 224, 0, 0);
   }
 
   &:focus {
     transition: all 0.2s ease;
+    transform: translateY(-2px);
     background: rgba(255, 224, 0, 0);
   }
 
@@ -56,18 +58,24 @@ const LinkWrapper = styled.div`
 `
 
 const SecondaryLink = styled(Link)`
-  text-decoration: none;
-  background: ${colors.gray.light};
-  border: 3px solid #eee;
-  width: 150px;
-  padding-top: 50px;
-  padding-bottom: 40px;
-  margin-bottom: 12px;
-  border-radius: 8px;
   display: flex;
   justify-content: center;
 
+  text-decoration: none;
+  background: ${colors.gray.light};
+  border: 3px solid #eee;
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 32px;
+  border-radius: 8px;
+
   transition: all 0.2s ease;
+
+  @media (min-width: ${widths.md}px) {
+    padding: 0;
+    max-width: 210px;
+    height: 240px;
+  }
 
   &:hover {
     transform: translateY(-2px);
@@ -83,8 +91,41 @@ const SecondaryLink = styled(Link)`
 
   .innerWrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    width: 100%;
+    justify-content: space-between;
+
+    @media (min-width: ${widths.md}px) {
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      @media (min-width: ${widths.md}px) {
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+
+    .iconMargin {
+      margin-right: 24px;
+      margin-bottom: 0;
+      @media (min-width: ${widths.md}px) {
+        margin-right: 0;
+        margin-bottom: 16px;
+      }
+    }
+
+    .arrow {
+      display: block;
+      @media (min-width: ${widths.md}px) {
+        display: none;
+      }
+    }
   }
 `
 
@@ -146,7 +187,7 @@ const Device: React.FC = () => {
 
   return (
     <IndexLayout pageTitle={intl.formatMessage({ id: "devicepageTitle" })}>
-      <Page step1Complete>
+      <Page showCTA={false}>
         <Container>
           {loading ? (
             <Display>Loading...</Display>
@@ -179,40 +220,60 @@ const Device: React.FC = () => {
                 {OS === "windows" ? null : (
                   <SecondaryLink to="/service#windows/">
                     <div className="innerWrapper">
-                      <div style={{ marginBottom: 8 }}>
-                        <WindowsIcon />
+                      <div className="row">
+                        <div className="iconMargin">
+                          <WindowsIcon />
+                        </div>
+                        <Header1>Windows</Header1>
                       </div>
-                      <Header2>Windows</Header2>
+                      <div className="arrow">
+                        <ArrowIcon />
+                      </div>
                     </div>
                   </SecondaryLink>
                 )}
                 {OS === "mac" ? null : (
                   <SecondaryLink to="/service#mac/">
                     <div className="innerWrapper">
-                      <div style={{ marginBottom: 8 }}>
-                        <MacIcon />
+                      <div className="row">
+                        <div className="iconMargin">
+                          <MacIcon />
+                        </div>
+                        <Header1>Mac</Header1>
                       </div>
-                      <Header2>Mac</Header2>
+                      <div className="arrow">
+                        <ArrowIcon />
+                      </div>
                     </div>
                   </SecondaryLink>
                 )}
                 {OS === "ios" ? null : (
                   <SecondaryLink to="/service#ios/">
                     <div className="innerWrapper">
-                      <div style={{ marginBottom: 8 }}>
-                        <IosIcon />
+                      <div className="row">
+                        <div className="iconMargin">
+                          <IosIcon />
+                        </div>
+                        <Header1>iPhone / iPad</Header1>
                       </div>
-                      <Header2>iPhone / iPad</Header2>
+                      <div className="arrow">
+                        <ArrowIcon />
+                      </div>
                     </div>
                   </SecondaryLink>
                 )}
                 {OS === "android" ? null : (
                   <SecondaryLink to="/service#android/">
                     <div className="innerWrapper">
-                      <div style={{ marginBottom: 8 }}>
-                        <AndroidIcon />
+                      <div className="row">
+                        <div className="iconMargin">
+                          <MacIcon />
+                        </div>
+                        <Header1>Android</Header1>
                       </div>
-                      <Header2>Android</Header2>
+                      <div className="arrow">
+                        <ArrowIcon />
+                      </div>
                     </div>
                   </SecondaryLink>
                 )}

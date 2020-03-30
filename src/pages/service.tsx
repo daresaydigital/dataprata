@@ -78,7 +78,7 @@ const ServicePage: React.FC = () => {
 
   return (
     <IndexLayout pageTitle={intl.formatMessage({ id: "servicepageTitle" })}>
-      <Page step1Complete step2Complete>
+      <Page showCTA={false}>
         <Container>
           {loading ? (
             <Display>Loading...</Display>

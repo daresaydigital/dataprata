@@ -11,9 +11,9 @@ const DisplayText = styled.h1`
   font-weight: 700;
   margin: 0;
   @media (min-width: ${widths.md}px) {
-    font-size: 48px;
-    line-height: 56px;
-    letter-spacing: -4px;
+    font-size: 64px;
+    line-height: 72px;
+    letter-spacing: -3px;
   }
 `
 
@@ -43,15 +43,15 @@ const HeaderSm = styled.h3`
 `
 
 const StyledParagraph = styled.p`
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 150%;
   font-weight: 400;
   margin: 0;
 `
 
 const StyledCaption = styled.p`
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 21px;
   font-weight: 400;
   margin: 0;
 `

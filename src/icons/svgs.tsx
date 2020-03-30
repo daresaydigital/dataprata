@@ -104,3 +104,14 @@ export const ArrowIcon: React.FC<IconProps> = ({ color = "#333", width = "24", h
     />
   </svg>
 )
+
+export const FeedbackIcon: React.FC<IconProps> = ({ width = "120", height = "120" }) => (
+  <svg width={width} height={height} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <title>Feedback icon</title>
+    <path
+      d="M112.592 0V7.40736H120V53.3333H112.592V68.1481H105.185V82.963H97.7777V90.3704H90.3705V97.7778H82.9629V105.185H68.1481V112.593H53.3333V120H7.40723V112.593H0V81.4815H14.8148V74.0741H38.5185V88.8889H59.2592V81.4815H74.074V74.0741H81.4816V59.2593H88.8888V38.5185H74.074V14.8148H81.4816V0H112.592Z"
+      fill="#FFB800"
+    />
+    <path d="M0 0V34.0243H26.0864V39.5118H31.3042V44.9999H37.565V34.0243H48.0001V0H0Z" fill="#FFB800" />
+  </svg>
+)
