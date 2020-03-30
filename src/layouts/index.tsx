@@ -35,9 +35,9 @@ interface Props {
   pageTitle: string
 }
 
-const analytics = (): boolean => process.env.ANALYTICS === "true"
+const useAnalytics = (): boolean => process.env.ANALYTICS === "true"
 
-const hotJar = (): JSX.Element => (
+const hotJarScript = (): JSX.Element => (
   <script>{`
 (function(h,o,t,j,a,r){
     h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
@@ -50,9 +50,9 @@ const hotJar = (): JSX.Element => (
   `}</script>
 )
 
-const tagManager = (): JSX.Element => <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GTAG}`} />
+const tagManagerScript = (): JSX.Element => <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GTAG}`} />
 
-const gtag = (): JSX.Element => (
+const gtagScript = (): JSX.Element => (
   <script>{`
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -62,27 +62,44 @@ gtag('config', '${process.env.GTAG}');
   `}</script>
 )
 
-interface Context {
-  analytics?: ApplicationInsights
+interface AnalyticsContext {
+  trackEvent: (name: string) => void
 }
 
-export const AppContext = React.createContext<Context>({
-  analytics: undefined,
-})
-
-export const IndexLayout: React.FC<Props> = ({ children, pageTitle }) => {
-  let appInsights
-  if (analytics()) {
-    appInsights = new ApplicationInsights({
-      config: {
-        instrumentationKey: process.env.INSTRUMENTATION_KEY,
-      },
-    })
-    appInsights.loadAppInsights()
-    appInsights.trackPageView()
+let analytics: AnalyticsContext = {
+  trackEvent: (name: string) => {
+    // eslint-disable-next-line no-console
+    console.log(`Should be tracking event in production: ${name}`)
+  },
+}
+if (useAnalytics()) {
+  const appInsights = new ApplicationInsights({
+    config: {
+      instrumentationKey: process.env.INSTRUMENTATION_KEY,
+    },
+  })
+  appInsights.loadAppInsights()
+  appInsights.trackPageView()
+  analytics = {
+    trackEvent: (name) => {
+      try {
+        appInsights.trackEvent({ name })
+      } catch (error) {
+        // To bad :/
+      }
+      try {
+        gtag("event", name)
+      } catch (error) {
+        // To bad :/
+      }
+    },
   }
+}
+
+export const AppContext = React.createContext<AnalyticsContext>(analytics)
+export const IndexLayout: React.FC<Props> = ({ children, pageTitle }) => {
   return (
-    <AppContext.Provider value={{ analytics: appInsights }}>
+    <AppContext.Provider value={analytics}>
       <StaticQuery
         query={graphql`
           query IndexLayoutQuery {
@@ -137,9 +154,9 @@ export const IndexLayout: React.FC<Props> = ({ children, pageTitle }) => {
               ]}
             >
               <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet" />
-              {analytics() && hotJar()}
-              {analytics() && tagManager()}
-              {analytics() && gtag()}
+              {useAnalytics() && tagManagerScript()}
+              {useAnalytics() && gtagScript()}
+              {useAnalytics() && hotJarScript()}
             </Helmet>
             <LayoutMain>{children}</LayoutMain>
           </LayoutRoot>

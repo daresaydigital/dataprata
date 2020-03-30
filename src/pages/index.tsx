@@ -4,7 +4,7 @@ import styled from "@emotion/styled"
 
 import { Page } from "../components/Page"
 import { Container } from "../components/Container"
-import { IndexLayout } from "../layouts"
+import { IndexLayout, AppContext } from "../layouts"
 import { Display, Paragraph, Header2 } from "../components/typography"
 import { colors } from "../styles/variables"
 
@@ -30,9 +30,18 @@ const IndexPage: React.FC = () => {
           <div style={{ marginBottom: 24 }}>
             <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "homepageParagraph2" })}</Paragraph>
           </div>
-          <StyledLink to="/device/">
-            <Header2>{intl.formatMessage({ id: "homepageNavigate" })}</Header2>
-          </StyledLink>
+          <AppContext.Consumer>
+            {({ trackEvent }) => (
+              <StyledLink
+                to="/device/"
+                onClick={() => {
+                  trackEvent("GetStartedClick")
+                }}
+              >
+                <Header2>{intl.formatMessage({ id: "homepageNavigate" })}</Header2>
+              </StyledLink>
+            )}
+          </AppContext.Consumer>
         </Container>
       </Page>
     </IndexLayout>

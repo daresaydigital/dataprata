@@ -5,7 +5,7 @@ import { useIntl } from "gatsby-plugin-intl"
 import styled from "@emotion/styled"
 import { Page } from "../components/Page"
 import { Container } from "../components/Container"
-import { IndexLayout } from "../layouts"
+import { IndexLayout, AppContext } from "../layouts"
 import { Display, Paragraph, Header2 } from "../components/typography"
 import { colors } from "../styles/variables"
 
@@ -78,121 +78,152 @@ const ServicePage: React.FC = () => {
 
   return (
     <IndexLayout pageTitle={intl.formatMessage({ id: "servicepageTitle" })}>
-      <Page step1Complete step2Complete>
-        <Container>
-          {loading ? (
-            <Display>Loading...</Display>
-          ) : (
-            <>
-              <div style={{ marginBottom: 24 }}>
-                <Display>{intl.formatMessage({ id: "servicepageTitle" })}</Display>
-              </div>
-              <div style={{ marginBottom: 16 }}>
-                <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "servicepageParagraph" })}</Paragraph>
-              </div>
+      <AppContext.Consumer>
+        {({ trackEvent }) => (
+          <Page step1Complete step2Complete>
+            <Container>
+              {loading ? (
+                <Display>Loading...</Display>
+              ) : (
+                <>
+                  <div style={{ marginBottom: 24 }}>
+                    <Display>{intl.formatMessage({ id: "servicepageTitle" })}</Display>
+                  </div>
+                  <div style={{ marginBottom: 16 }}>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "servicepageParagraph" })}</Paragraph>
+                  </div>
 
-              <div style={{ paddingBottom: 48 }}>
-                {OS === "apple" && (
-                  <ServiceCard>
-                    <div className="serviceHeader">
-                      <div style={{ marginRight: 16 }}>
-                        <img src="../../facetimeIcon.png" alt="Facetime logo" />
+                  <div style={{ paddingBottom: 48 }}>
+                    {OS === "apple" && (
+                      <ServiceCard>
+                        <div className="serviceHeader">
+                          <div style={{ marginRight: 16 }}>
+                            <img src="../../facetimeIcon.png" alt="Facetime logo" />
+                          </div>
+                          <Header2>FaceTime</Header2>
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimeDescription" })}</Paragraph>
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <a href="facetime:" className="link" onClick={() => trackEvent("CallFacetime")}>
+                            {intl.formatMessage({ id: "facetimeCTA" })}
+                          </a>
+                        </div>
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://support.apple.com/sv-se/HT204380"
+                          className="link"
+                          onClick={() => trackEvent("ReadMoreFacetimeClick")}
+                        >
+                          {intl.formatMessage({ id: "readMoreLink" })}
+                        </a>
+                      </ServiceCard>
+                    )}
+
+                    <ServiceCard>
+                      <div className="serviceHeader">
+                        <div style={{ marginRight: 16 }}>
+                          <img src="../../skypeIcon.png" alt="Skype logo" />
+                        </div>
+                        <Header2>Skype</Header2>
                       </div>
-                      <Header2>FaceTime</Header2>
-                    </div>
-                    <div style={{ marginBottom: 16 }}>
-                      <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimeDescription" })}</Paragraph>
-                    </div>
-                    <div style={{ marginBottom: 16 }}>
-                      <a href="facetime:" className="link">
-                        {intl.formatMessage({ id: "facetimeCTA" })}
+                      <div style={{ marginBottom: 16 }}>
+                        <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "skypeDescription" })}</Paragraph>
+                      </div>
+                      <div style={{ marginBottom: 16 }}>
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://web.skype.com/"
+                          className="link"
+                          onClick={() => trackEvent("CallSkype")}
+                        >
+                          {intl.formatMessage({ id: "skypeCTA" })}
+                        </a>
+                      </div>
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://www.skype.com/sv/features/"
+                        className="link"
+                        onClick={() => trackEvent("ReadMoreSkypeClick")}
+                      >
+                        {intl.formatMessage({ id: "readMoreLink" })}
                       </a>
-                    </div>
-                    <a target="_blank" rel="noopener noreferrer" href="https://support.apple.com/sv-se/HT204380" className="link">
-                      {intl.formatMessage({ id: "readMoreLink" })}
-                    </a>
-                  </ServiceCard>
-                )}
+                    </ServiceCard>
 
-                <ServiceCard>
-                  <div className="serviceHeader">
-                    <div style={{ marginRight: 16 }}>
-                      <img src="../../skypeIcon.png" alt="Skype logo" />
-                    </div>
-                    <Header2>Skype</Header2>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "skypeDescription" })}</Paragraph>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <a target="_blank" rel="noopener noreferrer" href="https://web.skype.com/" className="link">
-                      {intl.formatMessage({ id: "skypeCTA" })}
-                    </a>
-                  </div>
-                  <a target="_blank" rel="noopener noreferrer" href="https://www.skype.com/sv/features/" className="link">
-                    {intl.formatMessage({ id: "readMoreLink" })}
-                  </a>
-                </ServiceCard>
+                    <ServiceCard>
+                      <div className="serviceHeader">
+                        <div style={{ marginRight: 16 }}>
+                          <img src="../../teamsIcon.png" alt="Teams logo" />
+                        </div>
+                        <Header2>Microsoft Teams</Header2>
+                      </div>
+                      <div style={{ marginBottom: 16 }}>
+                        <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "teamsDescription" })}</Paragraph>
+                      </div>
+                      <div style={{ marginBottom: 16 }}>
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://teams.microsoft.com/dl/launcher/launcher.html?url=%2f_%23%2fl%2fmeetup-join%2f&type=meetup-join&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true"
+                          className="link"
+                          onClick={() => trackEvent("CallTeams")}
+                        >
+                          {intl.formatMessage({ id: "teamsCTA" })}
+                        </a>
+                      </div>
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://support.office.com/sv-se/article/video-kom-ig%C3%A5ng-med-ditt-team-702a2977-e662-4038-bef5-bdf8ee47b17b"
+                        className="link"
+                        onClick={() => trackEvent("ReadMoreTeamsClick")}
+                      >
+                        {intl.formatMessage({ id: "readMoreLink" })}
+                      </a>
+                    </ServiceCard>
 
-                <ServiceCard>
-                  <div className="serviceHeader">
-                    <div style={{ marginRight: 16 }}>
-                      <img src="../../teamsIcon.png" alt="Teams logo" />
-                    </div>
-                    <Header2>Microsoft Teams</Header2>
+                    <ServiceCard>
+                      <div className="serviceHeader">
+                        <div style={{ marginRight: 16 }}>
+                          <img src="../../messengerIcon.png" alt="messenger logo" />
+                        </div>
+                        <Header2>Facebook Messenger</Header2>
+                      </div>
+                      <div style={{ marginBottom: 16 }}>
+                        <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "messengerDescription" })}</Paragraph>
+                      </div>
+                      <div style={{ marginBottom: 16 }}>
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://www.messenger.com/"
+                          className="link"
+                          onClick={() => trackEvent("CallMessenger")}
+                        >
+                          {intl.formatMessage({ id: "messengerCTA" })}
+                        </a>
+                      </div>
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://www.facebook.com/help/messenger-app/1414800065460231?helpref=topq"
+                        className="link"
+                        onClick={() => trackEvent("ReadMoreMessengerClick")}
+                      >
+                        {intl.formatMessage({ id: "readMoreLink" })}
+                      </a>
+                    </ServiceCard>
                   </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "teamsDescription" })}</Paragraph>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://teams.microsoft.com/dl/launcher/launcher.html?url=%2f_%23%2fl%2fmeetup-join%2f&type=meetup-join&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true"
-                      className="link"
-                    >
-                      {intl.formatMessage({ id: "teamsCTA" })}
-                    </a>
-                  </div>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://support.office.com/sv-se/article/video-kom-ig%C3%A5ng-med-ditt-team-702a2977-e662-4038-bef5-bdf8ee47b17b"
-                    className="link"
-                  >
-                    {intl.formatMessage({ id: "readMoreLink" })}
-                  </a>
-                </ServiceCard>
-
-                <ServiceCard>
-                  <div className="serviceHeader">
-                    <div style={{ marginRight: 16 }}>
-                      <img src="../../messengerIcon.png" alt="messenger logo" />
-                    </div>
-                    <Header2>Facebook Messenger</Header2>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "messengerDescription" })}</Paragraph>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.messenger.com/" className="link">
-                      {intl.formatMessage({ id: "messengerCTA" })}
-                    </a>
-                  </div>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://www.facebook.com/help/messenger-app/1414800065460231?helpref=topq"
-                    className="link"
-                  >
-                    {intl.formatMessage({ id: "readMoreLink" })}
-                  </a>
-                </ServiceCard>
-              </div>
-            </>
-          )}
-        </Container>
-      </Page>
+                </>
+              )}
+            </Container>
+          </Page>
+        )}
+      </AppContext.Consumer>
     </IndexLayout>
   )
 }
