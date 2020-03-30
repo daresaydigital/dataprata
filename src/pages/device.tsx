@@ -5,7 +5,7 @@ import styled from "@emotion/styled"
 
 import { Page } from "../components/Page"
 import { Container } from "../components/Container"
-import { IndexLayout } from "../layouts"
+import { IndexLayout, AppContext } from "../layouts"
 import { Display, Header2, Header1, Paragraph } from "../components/typography"
 import { WindowsIcon, MacIcon, ArrowIcon, IosIcon, AndroidIcon } from "../icons/svgs"
 import { colors } from "../styles/variables"
@@ -146,81 +146,85 @@ const Device: React.FC = () => {
 
   return (
     <IndexLayout pageTitle={intl.formatMessage({ id: "devicepageTitle" })}>
-      <Page step1Complete>
-        <Container>
-          {loading ? (
-            <Display>Loading...</Display>
-          ) : (
-            <>
-              <div style={{ marginBottom: 40 }}>
-                <Display>{intl.formatMessage({ id: "devicepageTitle" })}</Display>
-              </div>
-              <div style={{ marginBottom: 16 }}>
-                <Header2>{intl.formatMessage({ id: "currentDeviceTitle" })}</Header2>
-              </div>
-              <PrimaryLink to={`/service#${OS}/`}>
-                <div className="innerWrapper">
-                  <div className="row">
-                    <div style={{ paddingRight: 24 }}>{renderIcon()}</div>
-                    <Header1>{renderDeviceOS()}</Header1>
+      <AppContext.Consumer>
+        {({ trackEvent }) => (
+          <Page step1Complete>
+            <Container>
+              {loading ? (
+                <Display>Loading...</Display>
+              ) : (
+                <>
+                  <div style={{ marginBottom: 40 }}>
+                    <Display>{intl.formatMessage({ id: "devicepageTitle" })}</Display>
                   </div>
-                  <div className="row">
-                    <ArrowIcon />
+                  <div style={{ marginBottom: 16 }}>
+                    <Header2>{intl.formatMessage({ id: "currentDeviceTitle" })}</Header2>
                   </div>
-                </div>
-              </PrimaryLink>
-              <div style={{ marginBottom: 8 }}>
-                <Header2>{intl.formatMessage({ id: "otherDeviceTitle" })}</Header2>
-              </div>
-              <div style={{ marginBottom: 16 }}>
-                <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "otherDeviceParagraph" })}</Paragraph>
-              </div>
-              <LinkWrapper>
-                {OS === "windows" ? null : (
-                  <SecondaryLink to="/service#windows/">
+                  <PrimaryLink to={`/service#${OS}/`} onClick={() => trackEvent(`Service${OS}Click`)}>
                     <div className="innerWrapper">
-                      <div style={{ marginBottom: 8 }}>
-                        <WindowsIcon />
+                      <div className="row">
+                        <div style={{ paddingRight: 24 }}>{renderIcon()}</div>
+                        <Header1>{renderDeviceOS()}</Header1>
                       </div>
-                      <Header2>Windows</Header2>
-                    </div>
-                  </SecondaryLink>
-                )}
-                {OS === "mac" ? null : (
-                  <SecondaryLink to="/service#mac/">
-                    <div className="innerWrapper">
-                      <div style={{ marginBottom: 8 }}>
-                        <MacIcon />
+                      <div className="row">
+                        <ArrowIcon />
                       </div>
-                      <Header2>Mac</Header2>
                     </div>
-                  </SecondaryLink>
-                )}
-                {OS === "ios" ? null : (
-                  <SecondaryLink to="/service#ios/">
-                    <div className="innerWrapper">
-                      <div style={{ marginBottom: 8 }}>
-                        <IosIcon />
-                      </div>
-                      <Header2>iPhone / iPad</Header2>
-                    </div>
-                  </SecondaryLink>
-                )}
-                {OS === "android" ? null : (
-                  <SecondaryLink to="/service#android/">
-                    <div className="innerWrapper">
-                      <div style={{ marginBottom: 8 }}>
-                        <AndroidIcon />
-                      </div>
-                      <Header2>Android</Header2>
-                    </div>
-                  </SecondaryLink>
-                )}
-              </LinkWrapper>
-            </>
-          )}
-        </Container>
-      </Page>
+                  </PrimaryLink>
+                  <div style={{ marginBottom: 8 }}>
+                    <Header2>{intl.formatMessage({ id: "otherDeviceTitle" })}</Header2>
+                  </div>
+                  <div style={{ marginBottom: 16 }}>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "otherDeviceParagraph" })}</Paragraph>
+                  </div>
+                  <LinkWrapper>
+                    {OS === "windows" ? null : (
+                      <SecondaryLink to="/service#windows/" onClick={() => trackEvent(`ServiceWindowsClick`)}>
+                        <div className="innerWrapper">
+                          <div style={{ marginBottom: 8 }}>
+                            <WindowsIcon />
+                          </div>
+                          <Header2>Windows</Header2>
+                        </div>
+                      </SecondaryLink>
+                    )}
+                    {OS === "mac" ? null : (
+                      <SecondaryLink to="/service#mac/" onClick={() => trackEvent(`ServiceMacClick`)}>
+                        <div className="innerWrapper">
+                          <div style={{ marginBottom: 8 }}>
+                            <MacIcon />
+                          </div>
+                          <Header2>Mac</Header2>
+                        </div>
+                      </SecondaryLink>
+                    )}
+                    {OS === "ios" ? null : (
+                      <SecondaryLink to="/service#ios/" onClick={() => trackEvent(`ServiceIOSClick`)}>
+                        <div className="innerWrapper">
+                          <div style={{ marginBottom: 8 }}>
+                            <IosIcon />
+                          </div>
+                          <Header2>iPhone / iPad</Header2>
+                        </div>
+                      </SecondaryLink>
+                    )}
+                    {OS === "android" ? null : (
+                      <SecondaryLink to="/service#android/" onClick={() => trackEvent(`ServiceAndroidClick`)}>
+                        <div className="innerWrapper">
+                          <div style={{ marginBottom: 8 }}>
+                            <AndroidIcon />
+                          </div>
+                          <Header2>Android</Header2>
+                        </div>
+                      </SecondaryLink>
+                    )}
+                  </LinkWrapper>
+                </>
+              )}
+            </Container>
+          </Page>
+        )}
+      </AppContext.Consumer>
     </IndexLayout>
   )
 }
