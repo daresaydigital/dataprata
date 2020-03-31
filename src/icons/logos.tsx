@@ -428,6 +428,7 @@ export const LogoYellowBg: React.FC<PictogramProps> = ({ width = "537", height =
 
 export const LogoSmall: React.FC<PictogramProps> = ({ width = "144", height = "24" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} fill="none" viewBox="0 0 235 28">
+    <title>Dataprata logo</title>
     <path fill="#fff" d="M4.099 0H0v4.098h4.099V0z" />
     <path fill="#fff" d="M7.514 0H3.416v4.098h4.098V0z" />
     <path fill="#fff" d="M4.099 3.415H0v4.097h4.099V3.415z" />

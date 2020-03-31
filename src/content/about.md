@@ -1,31 +1,46 @@
 ---
 layout: page
-title: "Alla ska kunna se och prata med sina nära och kära"
+title: "Hur träffar man sina anhöriga när man inte får träffas?"
 ---
 
-Dataprata är ett initiativ från [Gibon](https://www.gibon.se) och [Daresay](https://daresay.co)
-som verkar för att göra det lättare att komma igång med att kommunicera över internet.
+## Vad är Dataprata?
 
-I rådande coronakris rekommenderas riskgrupper som bland annat äldre över 70 år att begränsa sina nära
-kontakter. För att inte tappa kontakt med sina anhöriga blir det därför extra viktigt att kunna
-kommunicera med vänner och anhöriga över telefon och dator. Tekniken kan dock vara svår att lära sig
-och kräver ofta en hjälpande hand för att komma igång.
+Den nya gratistjänsten Dataprata är ett initiativ från [Gibon](https://www.gibon.se) och [Daresay](https://daresay.co)
+för att hjälpa äldre och andra datorovana personer att ha kontakt med sina anhöriga trots social isolering.
 
-På Dataprata har vi samlat de bästa instruktionerna för man kommer igång med videosamtal så att alla
-ska kunna få se ansiktet på sina nära och kära under en tid då man inte kan träffas fysiskt.
+Dataprata gör det enklare att kommunicera med video, ljud och bild. Sajten känner av vilken enhet användaren har, ger tydliga steg-för-steg-instruktioner
+för att komma igång och hjälper till att starta upp de vanligaste apparna för videoträffar. Sajten är enkelt uppbyggd och har extra tydliga knappar och text.
 
-![Mia på Gibon](mia.jpg "Mia CEO på Gibon")
+![Mia på Gibon](mia-gibon.jpg "Mia CEO på Gibon")
 
 > Mia på Gibon är en av initiativtagarna till dataprata
 
-## Varför startades dataprata?
+## Varför har ni tagit detta initiativ?
 
-_Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book._
+&ndash; Vi vill bidra med det vi kan när samhället drabbats så hårt av covid-19. Gibon kan digitala lösningar och Daresay kan allt om digitala upplevelser - vi insåg att vår kompetens kan göra nytta genom att erbjuda framförallt den äldre generationen en förenklad möjlighet att kommunicera med sina nära och kära via videosamtal, säger Mia Åslander, vd på Gibon som är initiativtagare till Dataprata.
 
-## Hur kan jag bidra till initiativet?
+Vad den äldre generationen tydligt uttrycker är att man saknar tydliga instruktioner, på sitt modersmål, för att börja nyttja tjänsterna. Det tog vi fasta på. Målet är att översätta sajten till fler språk så att även personer med annat modersmål än svenska ska kunna nyttja tjänsten. Här behöver vi dock hjälp av andra, så den som har kunskap får gärna bidra för att flera grupper av människor ska kunna kommunicera digitalt.
 
-_It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum._
+## Vad önskar ni uppnå?
 
-## Vad kommer hända härnäst?
+Vi önskar göra det lättare för äldre och andra datorovana att kommunicera över nätet. Tjänsten Dataprata gör det enklare att kommunicera med video, ljud och bild.
 
-_Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old._
+## Vilka riktar ni er till med ert initiativ?
+
+Våra isolerade riskgrupper, framförallt den äldre generationen med låg datorovana, men även andra isolerade grupper i samhället som vill vara nära sina kära.
+
+Dock är dessa grupper svåra att nå digitalt så därför riktar vi vårt budskap till barn och barnbarn med uppmaningen att videoprata med en anhörig redan ikväll med hjälp av vår tjänst.
+
+## För mer information kontakta:
+
+Mia Åslander, vd Gibon <br/>
+076-188 91 77<br/>
+mia.aslander@gibon.se
+
+## Om Gibon
+
+Gibon erbjuder digitala lösningar för små och medelstora företag runt om i Sverige. Gibon har 140 medarbetare på 13 orter och företaget har en omsättning på drygt 350 miljoner.
+
+## Om Daresay
+
+Daresay är en digitalbyrå som skapar prisbelönta användarupplevelser. I samarbete med våra kunder levererar vi resultat som står ut från mängden och rustar företag och organisationer för en framtid i konstant förändring.
