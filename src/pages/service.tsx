@@ -58,39 +58,45 @@ const renderServiceCard = (
   cta: string,
   link: string,
   moreLink: string,
-): JSX.Element => (
-  <ServiceCard>
-    <AnalyticsContext.Consumer>
-      {({ trackEvent }) => (
-        <>
-          <div className="serviceHeader">
-            <div style={{ marginRight: 16 }}>
-              <img src={icon} alt={`${name} icon`} />
+): JSX.Element => {
+  // TODO: This feels like totally the wrong way to solve this,
+  // maybe extract to component, or pass in <a> as child?
+  const isExternalLink = moreLink.startsWith("http")
+
+  return (
+    <ServiceCard>
+      <AnalyticsContext.Consumer>
+        {({ trackEvent }) => (
+          <>
+            <div className="serviceHeader">
+              <div style={{ marginRight: 16 }}>
+                <img src={icon} alt={`${name} icon`} />
+              </div>
+              <Header2>{name}</Header2>
             </div>
-            <Header2>{name}</Header2>
-          </div>
-          <div style={{ marginBottom: 16 }}>
-            <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: desc })}</Paragraph>
-          </div>
-          <div style={{ marginBottom: 16 }}>
-            <a href={link} className="link" onClick={() => trackEvent(`StartCallWith${name}`)}>
-              {intl.formatMessage({ id: cta })}
+            <div style={{ marginBottom: 16 }}>
+              <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: desc })}</Paragraph>
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <a href={link} className="link" onClick={() => trackEvent(`StartCallWith${name}`)}>
+                {intl.formatMessage({ id: cta })}
+              </a>
+            </div>
+            <a
+              target={isExternalLink ? "_blank" : ""}
+              rel={isExternalLink ? "noopener noreferrer" : ""}
+              href={moreLink}
+              className="link"
+              onClick={() => trackEvent(`ReadMoreAbout${name}Click`)}
+            >
+              {intl.formatMessage({ id: "readMoreLink" })}
             </a>
-          </div>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={moreLink}
-            className="link"
-            onClick={() => trackEvent(`ReadMoreAbout${name}Click`)}
-          >
-            {intl.formatMessage({ id: "readMoreLink" })}
-          </a>
-        </>
-      )}
-    </AnalyticsContext.Consumer>
-  </ServiceCard>
-)
+          </>
+        )}
+      </AnalyticsContext.Consumer>
+    </ServiceCard>
+  )
+}
 
 const crumbs: Crumb[] = [
   {
@@ -110,6 +116,7 @@ const crumbs: Crumb[] = [
 const ServicePage: React.FC = () => {
   const intl = useIntl()
   const [OS, setOS] = useState("windows")
+  const [deviceFromHash, setDeviceFromHash] = useState("pc")
   const [loading, toggleLoading] = useState(true)
 
   useEffect(() => {
@@ -118,8 +125,10 @@ const ServicePage: React.FC = () => {
     // Not tested for ios, android, windows
     if (device.includes("mac") || device.includes("ios") || device.includes("iphone") || device.includes("ipad")) {
       setOS("apple")
+      setDeviceFromHash(device)
     } else if (device.includes("android")) {
       setOS("android")
+      setDeviceFromHash(device)
     }
     toggleLoading(false)
   })
@@ -145,7 +154,7 @@ const ServicePage: React.FC = () => {
                   "facetimeDescription",
                   "facetimeCTA",
                   "facetime:",
-                  "https://support.apple.com/sv-se/HT204380",
+                  `/facetime${deviceFromHash}`,
                 )}
               {renderServiceCard(
                 intl,
