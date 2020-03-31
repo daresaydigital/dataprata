@@ -1,9 +1,11 @@
 import React, { useContext } from "react"
 import styled from "@emotion/styled"
 import { useIntl, Link } from "gatsby-plugin-intl"
+import { css } from "@emotion/core"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { colors, widths } from "../styles/variables"
 import { CrumbsContext } from "../layouts"
-import { InvisibleLinkStyle } from "./typography"
 
 const Wrapper = styled.div`
   background-color: ${colors.yellow};
@@ -17,9 +19,43 @@ const InnerWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   @media (min-width: ${widths.md}px) {
     width: 656px;
+  }
+`
+
+const CrumbSpacer = styled.span`
+  margin: 0 16px;
+`
+
+const Back = styled.span`
+  margin: 0 16px;
+  display: inline;
+  @media (min-width: ${widths.md}px) {
+    display: none;
+  }
+`
+
+const prevStyle = css`
+  display: none;
+  text-decoration: none;
+  color: ${colors.gray.dark};
+  @media (min-width: ${widths.md}px) {
+    display: block;
+  }
+`
+const lastStyle = css`
+  text-decoration: none;
+  color: ${colors.gray.dark};
+  &:visited {
+    color: ${colors.gray.dark};
+  }
+  @media (min-width: ${widths.md}px) {
+    font-weight: 700;
+    color: ${colors.black};
+    &:visited {
+      color: ${colors.black};
+    }
   }
 `
 
@@ -33,10 +69,21 @@ export const Crumbs: React.FC = () => {
     <Wrapper>
       <InnerWrapper>
         {crumbs.map((crumb, i) => {
+          const last = i === crumbs.length - 1
           return (
-            <Link to={crumb.target} css={InvisibleLinkStyle}>
-              {` ${intl.formatMessage({ id: crumb.id })}${i < crumbs.length - 1 ? " /" : ""}`}
-            </Link>
+            <>
+              {last && (
+                <Link to={crumbs[i - 1].target} css={last ? lastStyle : prevStyle}>
+                  <Back>
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                  </Back>
+                </Link>
+              )}
+              <Link to={crumb.target} css={last ? lastStyle : prevStyle}>
+                {intl.formatMessage({ id: crumb.id })}
+                {!last && <CrumbSpacer>/</CrumbSpacer>}
+              </Link>
+            </>
           )
         })}
       </InnerWrapper>

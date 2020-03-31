@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Alla ska kunna se och prata med sina nära och kära"
+title: homepageMetaTitle
 ---
 
 Dataprata är ett initiativ från [Gibon](https://www.gibon.se) och [Daresay](https://daresay.co)

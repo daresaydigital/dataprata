@@ -37,7 +37,7 @@ interface StaticQueryProps {
 
 interface Props {
   pageTitleID: string
-  crumbs: Crumb[]
+  crumbs?: Crumb[]
 }
 
 const useAnalytics = (): boolean => process.env.ANALYTICS === "true"
@@ -107,7 +107,7 @@ if (useAnalytics()) {
 
 export const CrumbsContext = React.createContext<Crumb[]>([])
 export const AnalyticsContext = React.createContext<AnalyticsContext>(analyticsContext)
-export const IndexLayout: React.FC<Props> = ({ children, pageTitleID, crumbs }) => {
+export const IndexLayout: React.FC<Props> = ({ children, pageTitleID, crumbs = [] }) => {
   const intl = useIntl()
   return (
     <AnalyticsContext.Provider value={analyticsContext}>

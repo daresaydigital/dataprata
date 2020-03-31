@@ -176,7 +176,11 @@ const renderSecondaryLink = (platform: string): JSX.Element => (
 )
 const crumbs: Crumb[] = [
   {
-    id: "deviceCrumb",
+    id: "homepageCrumb",
+    target: "/",
+  },
+  {
+    id: "devicePageCrumb",
     target: "/device",
   },
 ]

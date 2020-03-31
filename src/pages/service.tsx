@@ -94,7 +94,20 @@ const renderServiceCard = (
   </ServiceCard>
 )
 
-const crumbs: Crumb[] = []
+const crumbs: Crumb[] = [
+  {
+    id: "homepageCrumb",
+    target: "/",
+  },
+  {
+    id: "devicePageCrumb",
+    target: "/device",
+  },
+  {
+    id: "servicePageCrumb",
+    target: "/service",
+  },
+]
 
 const ServicePage: React.FC = () => {
   const intl = useIntl()
