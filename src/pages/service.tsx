@@ -5,7 +5,7 @@ import { useIntl, IntlShape } from "gatsby-plugin-intl"
 import styled from "@emotion/styled"
 import { Page } from "../components/Page"
 import { Container } from "../components/Container"
-import { IndexLayout, AppContext } from "../layouts"
+import { IndexLayout, AnalyticsContext, Crumb } from "../layouts"
 import { Display, Paragraph, Header2 } from "../components/typography"
 import { colors } from "../styles/variables"
 
@@ -62,7 +62,7 @@ const renderServiceCard = (
   moreLink: string,
 ): JSX.Element => (
   <ServiceCard>
-    <AppContext.Consumer>
+    <AnalyticsContext.Consumer>
       {({ trackEvent }) => (
         <>
           <div className="serviceHeader">
@@ -90,9 +90,11 @@ const renderServiceCard = (
           </a>
         </>
       )}
-    </AppContext.Consumer>
+    </AnalyticsContext.Consumer>
   </ServiceCard>
 )
+
+const crumbs: Crumb[] = []
 
 const ServicePage: React.FC = () => {
   const intl = useIntl()
@@ -112,7 +114,7 @@ const ServicePage: React.FC = () => {
   })
 
   return (
-    <IndexLayout pageTitle={intl.formatMessage({ id: "servicepageTitle" })}>
+    <IndexLayout pageTitleID="servicepageTitle" crumbs={crumbs}>
       <Page showCTA={false}>
         <Container>
           {loading ? null : (

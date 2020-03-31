@@ -18,12 +18,13 @@ const StyledLayoutRoot = styled.div`
 
 interface LayoutRootProps {
   className?: string
+  trackEvent: (name: string) => void
 }
 
-export const LayoutRoot: React.FC<LayoutRootProps> = ({ children, className }) => (
+export const LayoutRoot: React.FC<LayoutRootProps> = ({ children, className, trackEvent }) => (
   <>
     <Global styles={() => css(normalize)} />
     <StyledLayoutRoot className={className}>{children}</StyledLayoutRoot>
-    <Footer />
+    <Footer trackEvent={trackEvent} />
   </>
 )

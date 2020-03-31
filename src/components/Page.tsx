@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "@emotion/styled"
 
-import { Nav } from "./nav"
+import { Nav } from "./Nav"
 
 const StyledPage = styled.div`
   display: flex;

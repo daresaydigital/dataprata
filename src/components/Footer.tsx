@@ -68,8 +68,10 @@ const IconContainer = styled.span`
   text-align: right;
   padding-right: 5px;
 `
-
-export const Footer: React.FC = () => {
+interface Props {
+  trackEvent: (name: string) => void
+}
+export const Footer: React.FC<Props> = ({ trackEvent }) => {
   const intl = useIntl()
   return (
     <StyledFooter>
@@ -79,7 +81,7 @@ export const Footer: React.FC = () => {
             <LI>
               <Strong>{intl.formatMessage({ id: "footer-sponsors" })}</Strong>
             </LI>
-            <LI>
+            <LI onClick={() => trackEvent("GibonClick")}>
               <GibonLogo />
             </LI>
           </UL>
@@ -89,15 +91,14 @@ export const Footer: React.FC = () => {
             <LI>
               <Strong>{intl.formatMessage({ id: "footer-wantToKnowMore" })}</Strong>
             </LI>
-            <LI>
+            <LI onClick={() => trackEvent("AboutUsClick")}>
               <Link to="/about">{intl.formatMessage({ id: "footer-aboutUs" })}</Link>
             </LI>
-            <LI>{intl.formatMessage({ id: "footer-support" })}</LI>
           </UL>
         </Col>
         <Col>
           <UL>
-            <LI>
+            <LI onClick={() => trackEvent("LicenseClick")}>
               <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/blob/master/LICENSE" target="blank">
                 <IconContainer>
                   <FontAwesomeIcon icon={faFileContract} />
@@ -105,7 +106,7 @@ export const Footer: React.FC = () => {
                 License
               </a>
             </LI>
-            <LI>
+            <LI onClick={() => trackEvent("GithubClick")}>
               <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/" target="blank">
                 <IconContainer>
                   <FontAwesomeIcon icon={faGithub} />
@@ -113,7 +114,7 @@ export const Footer: React.FC = () => {
                 Source
               </a>
             </LI>
-            <LI>
+            <LI onClick={() => trackEvent("ContributeClick")}>
               <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/issues" target="blank">
                 <IconContainer>
                   <FontAwesomeIcon icon={faHandsHelping} />

@@ -5,24 +5,29 @@ import { useIntl, Link } from "gatsby-plugin-intl"
 import { colors, widths } from "../styles/variables"
 import { InvisibleLinkStyle, Paragraph } from "./typography"
 import { LogoSmall } from "../icons/logos"
+import { AnalyticsContext } from "../layouts"
+import { Crumbs } from "./Crumbs"
 
-interface SidebarProps {
+interface NavProps {
   showCTA?: boolean
 }
 
-const StyledDiv = styled.div`
-  background: ${colors.black};
-  padding: 16px;
-  z-index: 999;
+const Wrapper = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  z-index: 999;
   @media (min-width: ${widths.md}px) {
     position: fixed;
     left: 0;
     top: 0;
   }
+`
+
+const StyledDiv = styled.div`
+  background: ${colors.black};
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `
 
 const InnerWrapper = styled.div`
@@ -65,36 +70,43 @@ const StyledButton = styled(Link)`
   border-radius: 4px;
 `
 
-export const Nav: React.FC<SidebarProps> = ({ showCTA = true }) => {
+export const Nav: React.FC<NavProps> = ({ showCTA = true }) => {
   const intl = useIntl()
   return (
-    <StyledDiv>
-      <InnerWrapper>
-        <LogoWrapper>
-          <div style={{ marginRight: 16, marginTop: 8 }}>
-            <Link css={InvisibleLinkStyle} to="/">
-              <LogoSmall />
-            </Link>
-          </div>
-        </LogoWrapper>
+    <Wrapper>
+      <StyledDiv>
+        <AnalyticsContext.Consumer>
+          {({ trackEvent }) => (
+            <InnerWrapper>
+              <LogoWrapper onClick={() => trackEvent("LogoClick")}>
+                <div style={{ marginRight: 16, marginTop: 8 }}>
+                  <Link css={InvisibleLinkStyle} to="/">
+                    <LogoSmall />
+                  </Link>
+                </div>
+              </LogoWrapper>
 
-        <LinkWrapper>
-          <ItemWrapper>
-            <Paragraph color={colors.white}>
-              <Link css={InvisibleLinkStyle} to="/about">
-                {intl.formatMessage({ id: "footer-aboutUs" })}
-              </Link>
-            </Paragraph>
-          </ItemWrapper>
-          {showCTA && (
-            <div style={{ marginLeft: 24 }}>
-              <StyledButton to="/device" color={colors.white}>
-                {intl.formatMessage({ id: "homepageCTA" })}
-              </StyledButton>
-            </div>
+              <LinkWrapper>
+                <ItemWrapper>
+                  <Paragraph color={colors.white}>
+                    <Link css={InvisibleLinkStyle} to="/about" onClick={() => trackEvent("AboutUsClick")}>
+                      {intl.formatMessage({ id: "footer-aboutUs" })}
+                    </Link>
+                  </Paragraph>
+                </ItemWrapper>
+                {showCTA && (
+                  <div style={{ marginLeft: 24 }}>
+                    <StyledButton to="/device" color={colors.white} onClick={() => trackEvent("GetStartedClick")}>
+                      {intl.formatMessage({ id: "homepageCTA" })}
+                    </StyledButton>
+                  </div>
+                )}
+              </LinkWrapper>
+            </InnerWrapper>
           )}
-        </LinkWrapper>
-      </InnerWrapper>
-    </StyledDiv>
+        </AnalyticsContext.Consumer>
+      </StyledDiv>
+      <Crumbs />
+    </Wrapper>
   )
 }

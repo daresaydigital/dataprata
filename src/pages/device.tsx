@@ -5,7 +5,7 @@ import styled from "@emotion/styled"
 
 import { Page } from "../components/Page"
 import { Container } from "../components/Container"
-import { IndexLayout, AppContext } from "../layouts"
+import { IndexLayout, AnalyticsContext, Crumb } from "../layouts"
 import { Display, Header2, Header1, Paragraph } from "../components/typography"
 import { WindowsIcon, MacIcon, ArrowIcon, IosIcon, AndroidIcon } from "../icons/svgs"
 import { colors, widths } from "../styles/variables"
@@ -157,7 +157,7 @@ const renderDeviceOS = (platform: string): string => {
 
 const renderSecondaryLink = (platform: string): JSX.Element => (
   <>
-    <AppContext.Consumer>
+    <AnalyticsContext.Consumer>
       {({ trackEvent }) => (
         <SecondaryLink to={`/service#${platform}/`} onClick={() => trackEvent(`${platform}ServicePageClick`)}>
           <div className="innerWrapper">
@@ -171,9 +171,15 @@ const renderSecondaryLink = (platform: string): JSX.Element => (
           </div>
         </SecondaryLink>
       )}
-    </AppContext.Consumer>
+    </AnalyticsContext.Consumer>
   </>
 )
+const crumbs: Crumb[] = [
+  {
+    id: "deviceCrumb",
+    target: "/device",
+  },
+]
 
 const Device: React.FC = () => {
   const intl = useIntl()
@@ -195,7 +201,7 @@ const Device: React.FC = () => {
   })
 
   return (
-    <IndexLayout pageTitle={intl.formatMessage({ id: "devicepageTitle" })}>
+    <IndexLayout pageTitleID="devicepageTitle" crumbs={crumbs}>
       <Page showCTA={false}>
         <Container>
           {loading ? null : (
@@ -206,7 +212,7 @@ const Device: React.FC = () => {
               <div style={{ marginBottom: 16 }}>
                 <Header2>{intl.formatMessage({ id: "currentDeviceTitle" })}</Header2>
               </div>
-              <AppContext.Consumer>
+              <AnalyticsContext.Consumer>
                 {({ trackEvent }) => (
                   <PrimaryLink to={`/service#${OS}/`} onClick={() => trackEvent(`${OS}ServicePageClick`)}>
                     <div className="innerWrapper">
@@ -220,7 +226,7 @@ const Device: React.FC = () => {
                     </div>
                   </PrimaryLink>
                 )}
-              </AppContext.Consumer>
+              </AnalyticsContext.Consumer>
               <div style={{ marginBottom: 8 }}>
                 <Header2>{intl.formatMessage({ id: "otherDeviceTitle" })}</Header2>
               </div>
