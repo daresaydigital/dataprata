@@ -1,88 +1,121 @@
 import * as React from "react"
 import { useEffect, useState } from "react"
-import { useIntl } from "gatsby-plugin-intl"
+import { useIntl, IntlShape } from "gatsby-plugin-intl"
 
 import styled from "@emotion/styled"
 import { Page } from "../components/Page"
 import { Container } from "../components/Container"
-import { IndexLayout } from "../layouts"
+import { IndexLayout, AppContext } from "../layouts"
 import { Display, Paragraph, Header2 } from "../components/typography"
 import { colors } from "../styles/variables"
 
+import facetimeIcon from "../content/facetimeIcon.png"
+import messengerIcon from "../content/messengerIcon.png"
+import skypeIcon from "../content/skypeIcon.png"
+import teamsIcon from "../content/teamsIcon.png"
+
+const ServiceCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  background: ${colors.gray.light};
+  border: 3px solid #eee;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+
+  .serviceHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .actionWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .link {
+    text-decoration: none;
+
+    color: ${colors.black};
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+    font-weight: 600;
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
+  }
+`
+
+const renderServiceCard = (
+  intl: IntlShape,
+  name: string,
+  icon: string,
+  desc: string,
+  cta: string,
+  link: string,
+  moreLink: string,
+): JSX.Element => (
+  <ServiceCard>
+    <AppContext.Consumer>
+      {({ trackEvent }) => (
+        <>
+          <div className="serviceHeader">
+            <div style={{ marginRight: 16 }}>
+              <img src={icon} alt={`${name} icon`} />
+            </div>
+            <Header2>{name}</Header2>
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: desc })}</Paragraph>
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <a href={link} className="link" onClick={() => trackEvent(`StartCallWith${name}`)}>
+              {intl.formatMessage({ id: cta })}
+            </a>
+          </div>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={moreLink}
+            className="link"
+            onClick={() => trackEvent(`ReadMoreAbout${name}Click`)}
+          >
+            {intl.formatMessage({ id: "readMoreLink" })}
+          </a>
+        </>
+      )}
+    </AppContext.Consumer>
+  </ServiceCard>
+)
+
 const ServicePage: React.FC = () => {
   const intl = useIntl()
-  const [OS, setOS] = useState("")
+  const [OS, setOS] = useState("windows")
   const [loading, toggleLoading] = useState(true)
 
   useEffect(() => {
     const device = window.location.hash.toLocaleLowerCase()
 
-    if (device.includes("mac") || device.includes("ios")) {
+    // Not tested for ios, android, windows
+    if (device.includes("mac") || device.includes("ios") || device.includes("iphone") || device.includes("ipad")) {
       setOS("apple")
-      toggleLoading(false)
-    }
-
-    if (device.includes("android")) {
+    } else if (device.includes("android")) {
       setOS("android")
-      toggleLoading(false)
     }
-
-    if (device.includes("windows")) {
-      setOS("windows")
-      toggleLoading(false)
-    }
-
-    if (!device) {
-      setOS("not-selected")
-      toggleLoading(false)
-    }
+    toggleLoading(false)
   })
-
-  const ServiceCard = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    background: ${colors.gray.light};
-    border: 3px solid #eee;
-    padding: 24px;
-    border-radius: 8px;
-    margin-bottom: 24px;
-
-    .serviceHeader {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .actionWrapper {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .link {
-      text-decoration: none;
-
-      color: ${colors.black};
-      font-size: 18px;
-      line-height: 24px;
-      letter-spacing: -0.2px;
-      font-weight: 600;
-    }
-
-    img {
-      width: 40px;
-      height: 40px;
-    }
-  `
 
   return (
     <IndexLayout pageTitle={intl.formatMessage({ id: "servicepageTitle" })}>
       <Page showCTA={false}>
         <Container>
-          {loading ? (
-            <Display>Loading...</Display>
-          ) : (
+          {loading ? null : (
             <>
               <div style={{ marginBottom: 24 }}>
                 <Display>{intl.formatMessage({ id: "servicepageTitle" })}</Display>
@@ -92,102 +125,43 @@ const ServicePage: React.FC = () => {
               </div>
 
               <div style={{ paddingBottom: 48 }}>
-                {OS === "apple" && (
-                  <ServiceCard>
-                    <div className="serviceHeader">
-                      <div style={{ marginRight: 16 }}>
-                        <img src="../../facetimeIcon.png" alt="Facetime logo" />
-                      </div>
-                      <Header2>FaceTime</Header2>
-                    </div>
-                    <div style={{ marginBottom: 16 }}>
-                      <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimeDescription" })}</Paragraph>
-                    </div>
-                    <div style={{ marginBottom: 16 }}>
-                      <a href="facetime:" className="link">
-                        {intl.formatMessage({ id: "facetimeCTA" })}
-                      </a>
-                    </div>
-                    <a target="_blank" rel="noopener noreferrer" href="https://support.apple.com/sv-se/HT204380" className="link">
-                      {intl.formatMessage({ id: "readMoreLink" })}
-                    </a>
-                  </ServiceCard>
+                {OS === "apple" &&
+                  renderServiceCard(
+                    intl,
+                    "FaceTime",
+                    facetimeIcon,
+                    "facetimeDescription",
+                    "facetimeCTA",
+                    "facetime:",
+                    "https://support.apple.com/sv-se/HT204380",
+                  )}
+                {renderServiceCard(
+                  intl,
+                  "Skype",
+                  skypeIcon,
+                  "skypeDescription",
+                  "skypeCTA",
+                  "https://web.skype.com/",
+                  "https://www.skype.com/sv/features/",
                 )}
-
-                <ServiceCard>
-                  <div className="serviceHeader">
-                    <div style={{ marginRight: 16 }}>
-                      <img src="../../skypeIcon.png" alt="Skype logo" />
-                    </div>
-                    <Header2>Skype</Header2>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "skypeDescription" })}</Paragraph>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <a target="_blank" rel="noopener noreferrer" href="https://web.skype.com/" className="link">
-                      {intl.formatMessage({ id: "skypeCTA" })}
-                    </a>
-                  </div>
-                  <a target="_blank" rel="noopener noreferrer" href="https://www.skype.com/sv/features/" className="link">
-                    {intl.formatMessage({ id: "readMoreLink" })}
-                  </a>
-                </ServiceCard>
-
-                <ServiceCard>
-                  <div className="serviceHeader">
-                    <div style={{ marginRight: 16 }}>
-                      <img src="../../teamsIcon.png" alt="Teams logo" />
-                    </div>
-                    <Header2>Microsoft Teams</Header2>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "teamsDescription" })}</Paragraph>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://teams.microsoft.com/dl/launcher/launcher.html?url=%2f_%23%2fl%2fmeetup-join%2f&type=meetup-join&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true"
-                      className="link"
-                    >
-                      {intl.formatMessage({ id: "teamsCTA" })}
-                    </a>
-                  </div>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://support.office.com/sv-se/article/video-kom-ig%C3%A5ng-med-ditt-team-702a2977-e662-4038-bef5-bdf8ee47b17b"
-                    className="link"
-                  >
-                    {intl.formatMessage({ id: "readMoreLink" })}
-                  </a>
-                </ServiceCard>
-
-                <ServiceCard>
-                  <div className="serviceHeader">
-                    <div style={{ marginRight: 16 }}>
-                      <img src="../../messengerIcon.png" alt="messenger logo" />
-                    </div>
-                    <Header2>Facebook Messenger</Header2>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "messengerDescription" })}</Paragraph>
-                  </div>
-                  <div style={{ marginBottom: 16 }}>
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.messenger.com/" className="link">
-                      {intl.formatMessage({ id: "messengerCTA" })}
-                    </a>
-                  </div>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://www.facebook.com/help/messenger-app/1414800065460231?helpref=topq"
-                    className="link"
-                  >
-                    {intl.formatMessage({ id: "readMoreLink" })}
-                  </a>
-                </ServiceCard>
+                {renderServiceCard(
+                  intl,
+                  "Teams",
+                  teamsIcon,
+                  "teamsDescription",
+                  "teamsCTA",
+                  "https://teams.microsoft.com/dl/launcher/launcher.html?url=%2f_%23%2fl%2fmeetup-join%2f&type=meetup-join&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true",
+                  "https://support.office.com/sv-se/article/video-kom-ig%C3%A5ng-med-ditt-team-702a2977-e662-4038-bef5-bdf8ee47b17b",
+                )}
+                {renderServiceCard(
+                  intl,
+                  "Facebook Messenger",
+                  messengerIcon,
+                  "messengerDescription",
+                  "messengerCTA",
+                  "https://www.messenger.com/",
+                  "https://www.facebook.com/help/messenger-app/1414800065460231?helpref=topq",
+                )}
               </div>
             </>
           )}

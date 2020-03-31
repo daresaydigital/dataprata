@@ -5,7 +5,7 @@ import styled from "@emotion/styled"
 
 import { Page } from "../components/Page"
 import { Container } from "../components/Container"
-import { IndexLayout } from "../layouts"
+import { IndexLayout, AppContext } from "../layouts"
 import { Display, Header2, Header1, Paragraph } from "../components/typography"
 import { WindowsIcon, MacIcon, ArrowIcon, IosIcon, AndroidIcon } from "../icons/svgs"
 import { colors, widths } from "../styles/variables"
@@ -129,9 +129,55 @@ const SecondaryLink = styled(Link)`
   }
 `
 
+const renderIcon = (platform: string): JSX.Element => {
+  switch (platform) {
+    case "android":
+      return <AndroidIcon />
+    case "mac":
+      return <MacIcon />
+    case "ios":
+      return <IosIcon />
+    default:
+      return <WindowsIcon />
+  }
+}
+
+const renderDeviceOS = (platform: string): string => {
+  switch (platform) {
+    case "android":
+      return "Android"
+    case "mac":
+      return "Mac"
+    case "ios":
+      return "iPhone / iPad"
+    default:
+      return "Windows"
+  }
+}
+
+const renderSecondaryLink = (platform: string): JSX.Element => (
+  <>
+    <AppContext.Consumer>
+      {({ trackEvent }) => (
+        <SecondaryLink to={`/service#${platform}/`} onClick={() => trackEvent(`${platform}ServicePageClick`)}>
+          <div className="innerWrapper">
+            <div className="row">
+              <div className="iconMargin">{renderIcon(platform)}</div>
+              <Header1>{renderDeviceOS(platform)}</Header1>
+            </div>
+            <div className="arrow">
+              <ArrowIcon />
+            </div>
+          </div>
+        </SecondaryLink>
+      )}
+    </AppContext.Consumer>
+  </>
+)
+
 const Device: React.FC = () => {
   const intl = useIntl()
-  const [OS, setOS] = useState("")
+  const [OS, setOS] = useState("windows")
   const [loading, toggleLoading] = useState(true)
 
   useEffect(() => {
@@ -140,58 +186,19 @@ const Device: React.FC = () => {
     // Not tested for ios, android, windows
     if (userOS.includes("mac")) {
       setOS("mac")
-      toggleLoading(false)
     } else if (userOS.includes("iphone") || userOS.includes("ipad")) {
       setOS("ios")
-      toggleLoading(false)
     } else if (userOS.includes("android")) {
       setOS("android")
-      toggleLoading(false)
-    } else {
-      setOS("windows")
-      toggleLoading(false)
     }
+    toggleLoading(false)
   })
-
-  const renderIcon = () => {
-    if (OS === "android") {
-      return <AndroidIcon />
-    }
-
-    if (OS === "mac") {
-      return <MacIcon />
-    }
-
-    if (OS === "ios") {
-      return <IosIcon />
-    }
-
-    return <WindowsIcon />
-  }
-
-  const renderDeviceOS = () => {
-    if (OS === "android") {
-      return "Android"
-    }
-
-    if (OS === "mac") {
-      return "Mac"
-    }
-
-    if (OS === "ios") {
-      return "iPhone / iPad"
-    }
-
-    return "Windows"
-  }
 
   return (
     <IndexLayout pageTitle={intl.formatMessage({ id: "devicepageTitle" })}>
       <Page showCTA={false}>
         <Container>
-          {loading ? (
-            <Display>Loading...</Display>
-          ) : (
+          {loading ? null : (
             <>
               <div style={{ marginBottom: 40 }}>
                 <Display>{intl.formatMessage({ id: "devicepageTitle" })}</Display>
@@ -199,17 +206,21 @@ const Device: React.FC = () => {
               <div style={{ marginBottom: 16 }}>
                 <Header2>{intl.formatMessage({ id: "currentDeviceTitle" })}</Header2>
               </div>
-              <PrimaryLink to={`/service#${OS}/`}>
-                <div className="innerWrapper">
-                  <div className="row">
-                    <div style={{ paddingRight: 24 }}>{renderIcon()}</div>
-                    <Header1>{renderDeviceOS()}</Header1>
-                  </div>
-                  <div className="row">
-                    <ArrowIcon />
-                  </div>
-                </div>
-              </PrimaryLink>
+              <AppContext.Consumer>
+                {({ trackEvent }) => (
+                  <PrimaryLink to={`/service#${OS}/`} onClick={() => trackEvent(`${OS}ServicePageClick`)}>
+                    <div className="innerWrapper">
+                      <div className="row">
+                        <div style={{ paddingRight: 24 }}>{renderIcon(OS)}</div>
+                        <Header1>{renderDeviceOS(OS)}</Header1>
+                      </div>
+                      <div className="row">
+                        <ArrowIcon />
+                      </div>
+                    </div>
+                  </PrimaryLink>
+                )}
+              </AppContext.Consumer>
               <div style={{ marginBottom: 8 }}>
                 <Header2>{intl.formatMessage({ id: "otherDeviceTitle" })}</Header2>
               </div>
@@ -217,66 +228,10 @@ const Device: React.FC = () => {
                 <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "otherDeviceParagraph" })}</Paragraph>
               </div>
               <LinkWrapper>
-                {OS === "windows" ? null : (
-                  <SecondaryLink to="/service#windows/">
-                    <div className="innerWrapper">
-                      <div className="row">
-                        <div className="iconMargin">
-                          <WindowsIcon />
-                        </div>
-                        <Header1>Windows</Header1>
-                      </div>
-                      <div className="arrow">
-                        <ArrowIcon />
-                      </div>
-                    </div>
-                  </SecondaryLink>
-                )}
-                {OS === "mac" ? null : (
-                  <SecondaryLink to="/service#mac/">
-                    <div className="innerWrapper">
-                      <div className="row">
-                        <div className="iconMargin">
-                          <MacIcon />
-                        </div>
-                        <Header1>Mac</Header1>
-                      </div>
-                      <div className="arrow">
-                        <ArrowIcon />
-                      </div>
-                    </div>
-                  </SecondaryLink>
-                )}
-                {OS === "ios" ? null : (
-                  <SecondaryLink to="/service#ios/">
-                    <div className="innerWrapper">
-                      <div className="row">
-                        <div className="iconMargin">
-                          <IosIcon />
-                        </div>
-                        <Header1>iPhone / iPad</Header1>
-                      </div>
-                      <div className="arrow">
-                        <ArrowIcon />
-                      </div>
-                    </div>
-                  </SecondaryLink>
-                )}
-                {OS === "android" ? null : (
-                  <SecondaryLink to="/service#android/">
-                    <div className="innerWrapper">
-                      <div className="row">
-                        <div className="iconMargin">
-                          <AndroidIcon />
-                        </div>
-                        <Header1>Android</Header1>
-                      </div>
-                      <div className="arrow">
-                        <ArrowIcon />
-                      </div>
-                    </div>
-                  </SecondaryLink>
-                )}
+                {OS !== "windows" ? renderSecondaryLink("windows") : null}
+                {OS !== "mac" ? renderSecondaryLink("mac") : null}
+                {OS !== "ios" ? renderSecondaryLink("ios") : null}
+                {OS !== "android" ? renderSecondaryLink("android") : null}
               </LinkWrapper>
             </>
           )}
