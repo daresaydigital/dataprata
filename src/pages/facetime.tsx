@@ -167,7 +167,7 @@ const FacetimePage: React.FC = () => {
                 </StyledDiv>
 
                 {cards.map((card) => (
-                  <Card>
+                  <Card key={card.id}>
                     <div className="cardHeader">
                       <div style={{ marginRight: 16 }}>
                         <img src={card.image} alt="Facetime Menu icon" />
