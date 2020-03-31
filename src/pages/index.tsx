@@ -79,13 +79,13 @@ const IndexPage: React.FC = () => {
               <ContactCard>
                 <div className="leftCol">
                   <div style={{ marginBottom: 8 }}>
-                    <Header1>{intl.formatMessage({ id: "feedback-title" })}</Header1>
+                    <Header1 color={colors.black}>{intl.formatMessage({ id: "feedback-title" })}</Header1>
                   </div>
                   <div style={{ marginBottom: 16 }}>
                     <Caption color={colors.gray.dark}>{intl.formatMessage({ id: "feedback-text" })}</Caption>
                   </div>
 
-                  <Header1>073 151 90 83</Header1>
+                  <Header1 color={colors.black}>073 151 90 83</Header1>
                 </div>
                 <div className="rightCol">
                   <FeedbackIcon />
