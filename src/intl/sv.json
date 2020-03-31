@@ -2,9 +2,9 @@
   "hashtag": "#vitecherupp",
   "homepageMetaTitle": "Lär dig kommunicera över internet med vänner och anhöriga",
   "homepageTitle": "Vi vill att du ska kunna hålla kontakten med den du vill",
-  "homepageParagraph1": "Att kontakta någon med video-, eller röstsamtal behöver inte vara så krångligt. Den här tjänsten är för alla, men framförallt för dig som känner dig lite osäker på digitala tjänster.",
-  "homepageParagraph2": "Därför vill vi hjälpa dig att bli mer självständig digitalt. Vi har samlat enkla instruktioner så att du kan kontakta vem du vill.",
-  "homepageNavigate": "Kom igång -->",
+  "homepageParagraph1": "Att kontakta någon med videosamtal behöver inte vara krångligt. Den här tjänsten är för alla, men framförallt för dig som känner dig lite osäker på digitala tjänster.",
+  "homepageParagraph2": "Därför vill vi hjälpa dig att bli mer självständig digitalt. Vi har samlat enkla instruktioner så att du kan kontakta vem du vill via videosamtal.",
+  "homepageCTA": "Kom igång -->",
 
   "sidebar-step-1": "Introduktion",
   "sidebar-step-2": "Välj enhet",
@@ -34,5 +34,8 @@
   "footer-sponsors": "Ett initiativ av",
   "footer-wantToKnowMore": "Vill du veta mer?",
   "footer-aboutUs": "Om oss",
-  "footer-support": "Support"
+  "footer-support": "Support",
+
+  "feedback-title": "Tipsa oss om ditt bästa sätt att hålla kontakten!",
+  "feedback-text": "Ring till vår telefonsvarare och berätta! Vi lyssnar även gärna om du har något du vill förbättra."
 }

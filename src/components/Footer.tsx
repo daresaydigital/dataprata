@@ -17,7 +17,7 @@ const StyledFooter = styled.div`
 
 const Container = styled.div`
   color: ${colors.gray.light};
-  max-width: 800px;
+  max-width: 656px;
   padding: 15px 0px 15px;
   margin: 0 auto;
   display: flex;
@@ -36,8 +36,8 @@ const Container = styled.div`
 const Col = styled.div`
   flex: 1;
   align-self: top;
-  min-width: 180px;
-  max-width: 180px;
+  min-width: 128px;
+  max-width: 128px;
   margin: 15px;
 
   @media (min-width: ${widths.md}px) {
