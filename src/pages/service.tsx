@@ -44,6 +44,10 @@ const ServiceCard = styled.div`
     font-weight: 600;
   }
 
+  .link.disabled {
+    color: #ccc;
+  }
+
   img {
     width: 40px;
     height: 40px;
@@ -58,6 +62,7 @@ const renderServiceCard = (
   cta: string,
   link: string,
   moreLink: string,
+  disabled: boolean,
 ): JSX.Element => {
   // TODO: This feels like totally the wrong way to solve this,
   // maybe extract to component, or pass in <a> as child?
@@ -82,15 +87,19 @@ const renderServiceCard = (
                 {intl.formatMessage({ id: cta })}
               </a>
             </div>
-            <a
-              target={isExternalLink ? "_blank" : ""}
-              rel={isExternalLink ? "noopener noreferrer" : ""}
-              href={moreLink}
-              className="link"
-              onClick={() => trackEvent(`ReadMoreAbout${name}Click`)}
-            >
-              {intl.formatMessage({ id: "readMoreLink" })}
-            </a>
+            {disabled ? (
+              <span className="link disabled">Guide kommer snart</span>
+            ) : (
+              <a
+                target={isExternalLink ? "_blank" : ""}
+                rel={isExternalLink ? "noopener noreferrer" : ""}
+                href={moreLink}
+                className="link"
+                onClick={() => trackEvent(`ReadMoreAbout${name}Click`)}
+              >
+                {intl.formatMessage({ id: "readMoreLink" })}
+              </a>
+            )}
           </>
         )}
       </AnalyticsContext.Consumer>
@@ -138,6 +147,15 @@ const ServicePage: React.FC = () => {
     toggleLoading(false)
   })
 
+  const hideTeams =
+    deviceFromHash.includes("android") ||
+    deviceFromHash.includes("ios") ||
+    deviceFromHash.includes("iphone") ||
+    deviceFromHash.includes("ipad")
+  const hideMessenger = deviceFromHash.includes("pc") || deviceFromHash.includes("mac")
+
+  // window.console.log(hideTeams, hideMessenger, deviceFromHash, OS)
+
   return (
     <IndexLayout pageTitleID="servicepageTitle" crumbs={crumbs} showCTA={false}>
       <Container>
@@ -160,8 +178,9 @@ const ServicePage: React.FC = () => {
                   "facetimeCTA",
                   "facetime:",
                   `/facetime${deviceFromHash}`,
+                  false,
                 )}
-              {renderServiceCard(intl, "Skype", skypeIcon, "skypeDescription", "skypeCTA", "skype:", `/skype${deviceFromHash}`)}
+              {renderServiceCard(intl, "Skype", skypeIcon, "skypeDescription", "skypeCTA", "skype:", `/skype${deviceFromHash}`, false)}
               {renderServiceCard(
                 intl,
                 "Teams",
@@ -170,6 +189,7 @@ const ServicePage: React.FC = () => {
                 "teamsCTA",
                 "https://teams.microsoft.com/dl/launcher/launcher.html?url=%2f_%23%2fl%2fmeetup-join%2f&type=meetup-join&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true",
                 `/teams${deviceFromHash}`,
+                hideTeams,
               )}
               {renderServiceCard(
                 intl,
@@ -179,6 +199,7 @@ const ServicePage: React.FC = () => {
                 "messengerCTA",
                 isMobile ? "fb://messaging/new" : "https://facebook.com",
                 `/messenger${deviceFromHash}`,
+                hideMessenger,
               )}
             </div>
           </>
