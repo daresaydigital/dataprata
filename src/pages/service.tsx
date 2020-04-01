@@ -163,7 +163,7 @@ const ServicePage: React.FC = () => {
                 "skypeDescription",
                 "skypeCTA",
                 "https://web.skype.com/",
-                "https://www.skype.com/sv/features/",
+                `/skype${deviceFromHash}`,
               )}
               {renderServiceCard(
                 intl,
