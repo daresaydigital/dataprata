@@ -116,7 +116,7 @@ const crumbs: Crumb[] = [
 const ServicePage: React.FC = () => {
   const intl = useIntl()
   const [OS, setOS] = useState("windows")
-  const [deviceFromHash, setDeviceFromHash] = useState("pc")
+  const [deviceFromHash, setDeviceFromHash] = useState("#pc")
   const [loading, toggleLoading] = useState(true)
 
   useEffect(() => {
@@ -163,7 +163,7 @@ const ServicePage: React.FC = () => {
                 "skypeDescription",
                 "skypeCTA",
                 "https://web.skype.com/",
-                "https://www.skype.com/sv/features/",
+                `/skype${deviceFromHash}`,
               )}
               {renderServiceCard(
                 intl,
