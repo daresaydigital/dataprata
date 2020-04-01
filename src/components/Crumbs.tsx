@@ -77,7 +77,7 @@ export const Crumbs: React.FC = () => {
         {crumbs.map((crumb, i) => {
           const last = i === crumbs.length - 1
           return (
-            <>
+            <React.Fragment key={crumb.id}>
               {last && (
                 <Link to={crumbs[i - 1].target} css={last ? lastStyle : prevStyle}>
                   <Back>
@@ -89,7 +89,7 @@ export const Crumbs: React.FC = () => {
                 {intl.formatMessage({ id: crumb.id })}
                 {!last && <CrumbSpacer>/</CrumbSpacer>}
               </Link>
-            </>
+            </React.Fragment>
           )
         })}
       </InnerWrapper>
