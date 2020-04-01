@@ -1,13 +1,12 @@
-import { faFileContract, faHandsHelping } from "@fortawesome/free-solid-svg-icons"
-import { faGithub } from "@fortawesome/free-brands-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useIntl, Link } from "gatsby-plugin-intl"
-import React from "react"
 import styled from "@emotion/styled"
-
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
+import { faFileContract, faHandsHelping } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link, useIntl } from "gatsby-plugin-intl"
+import React from "react"
+import { GibonLogo } from "../icons/logos"
 import { colors, widths } from "../styles/variables"
 import { InvisibleLinkStyle } from "./typography"
-import { GibonLogo } from "../icons/logos"
 
 const StyledFooter = styled.div`
   background-color: ${colors.black};
@@ -17,7 +16,7 @@ const StyledFooter = styled.div`
 
 const Container = styled.div`
   color: ${colors.gray.light};
-  max-width: 800px;
+  max-width: 900px;
   padding: 15px 0px 15px;
   margin: 0 auto;
   display: flex;
@@ -36,8 +35,8 @@ const Container = styled.div`
 const Col = styled.div`
   flex: 1;
   align-self: top;
-  min-width: 180px;
-  max-width: 180px;
+  min-width: 128px;
+  max-width: 150px;
   margin: 15px;
 
   @media (min-width: ${widths.md}px) {
@@ -68,8 +67,10 @@ const IconContainer = styled.span`
   text-align: right;
   padding-right: 5px;
 `
-
-export const Footer: React.FC = () => {
+interface Props {
+  trackEvent: (name: string) => void
+}
+export const Footer: React.FC<Props> = ({ trackEvent }) => {
   const intl = useIntl()
   return (
     <StyledFooter>
@@ -79,7 +80,7 @@ export const Footer: React.FC = () => {
             <LI>
               <Strong>{intl.formatMessage({ id: "footer-sponsors" })}</Strong>
             </LI>
-            <LI>
+            <LI onClick={() => trackEvent("GibonClick")}>
               <GibonLogo />
             </LI>
           </UL>
@@ -89,15 +90,14 @@ export const Footer: React.FC = () => {
             <LI>
               <Strong>{intl.formatMessage({ id: "footer-wantToKnowMore" })}</Strong>
             </LI>
-            <LI>
+            <LI onClick={() => trackEvent("AboutUsClick")}>
               <Link to="/about">{intl.formatMessage({ id: "footer-aboutUs" })}</Link>
             </LI>
-            <LI>{intl.formatMessage({ id: "footer-support" })}</LI>
           </UL>
         </Col>
         <Col>
           <UL>
-            <LI>
+            <LI onClick={() => trackEvent("LicenseClick")}>
               <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/blob/master/LICENSE" target="blank">
                 <IconContainer>
                   <FontAwesomeIcon icon={faFileContract} />
@@ -105,7 +105,7 @@ export const Footer: React.FC = () => {
                 License
               </a>
             </LI>
-            <LI>
+            <LI onClick={() => trackEvent("GithubClick")}>
               <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/" target="blank">
                 <IconContainer>
                   <FontAwesomeIcon icon={faGithub} />
@@ -113,7 +113,7 @@ export const Footer: React.FC = () => {
                 Source
               </a>
             </LI>
-            <LI>
+            <LI onClick={() => trackEvent("ContributeClick")}>
               <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/issues" target="blank">
                 <IconContainer>
                   <FontAwesomeIcon icon={faHandsHelping} />

@@ -11,9 +11,9 @@ const DisplayText = styled.h1`
   font-weight: 700;
   margin: 0;
   @media (min-width: ${widths.md}px) {
-    font-size: 48px;
-    line-height: 56px;
-    letter-spacing: -4px;
+    font-size: 64px;
+    line-height: 72px;
+    letter-spacing: -3px;
   }
 `
 
@@ -43,15 +43,15 @@ const HeaderSm = styled.h3`
 `
 
 const StyledParagraph = styled.p`
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 150%;
   font-weight: 400;
   margin: 0;
 `
 
 const StyledCaption = styled.p`
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 21px;
   font-weight: 400;
   margin: 0;
 `
@@ -62,6 +62,19 @@ const StyledLogoText = styled.p`
   line-height: 100%;
   letter-spacing: -1px;
   margin: 0;
+`
+
+const NumberCircle = styled.span`
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #ffe000;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 16px;
+  line-height: 26px;
 `
 
 interface TypographyProps {
@@ -88,6 +101,13 @@ export const Caption: React.FC<TypographyProps> = ({ color = colors.black, child
 
 export const LogoText: React.FC<TypographyProps> = ({ color = colors.black, children }) => (
   <StyledLogoText style={{ color }}>{children}</StyledLogoText>
+)
+
+export const TitleWithNumberCircle: React.FC<TypographyProps & { number: number }> = ({ color = colors.black, number, children }) => (
+  <HeaderLrg style={{ color }}>
+    <NumberCircle>{number}</NumberCircle>
+    {children}
+  </HeaderLrg>
 )
 
 export const InvisibleLinkStyle = css`
