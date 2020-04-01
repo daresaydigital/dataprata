@@ -128,7 +128,7 @@ const ServicePage: React.FC = () => {
       setDeviceFromHash(device)
     } else if (device.includes("linux") || device === null || device.includes("android")) {
       setOS("android")
-      setDeviceFromHash("android")
+      setDeviceFromHash("#android")
     }
     toggleLoading(false)
   })
