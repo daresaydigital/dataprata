@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Hur träffar man sina anhöriga när man inte får träffas?"
+title: homepageMetaTitle
 ---
 
 ## Vad är Dataprata?

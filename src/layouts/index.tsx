@@ -1,14 +1,14 @@
+import { ApplicationInsights } from "@microsoft/applicationinsights-web"
+import { graphql, StaticQuery } from "gatsby"
+import { useIntl } from "gatsby-plugin-intl"
+import "modern-normalize"
 import * as React from "react"
 import Helmet from "react-helmet"
-import { StaticQuery, graphql } from "gatsby"
-import "modern-normalize"
-import { ApplicationInsights } from "@microsoft/applicationinsights-web"
-
-import "../styles/normalize"
-import img from "../content/dataprata.png"
-
-import { LayoutRoot } from "../components/LayoutRoot"
+import { Crumb, CrumbsContext } from "../components/Crumbs"
 import { LayoutMain } from "../components/LayoutMain"
+import { LayoutRoot } from "../components/LayoutRoot"
+import img from "../content/dataprata.png"
+import "../styles/normalize"
 
 interface StaticQueryProps {
   site: {
@@ -32,7 +32,9 @@ interface StaticQueryProps {
 }
 
 interface Props {
-  pageTitle: string
+  pageTitleID: string
+  showCTA?: boolean
+  crumbs?: Crumb[]
 }
 
 const useAnalytics = (): boolean => process.env.ANALYTICS === "true"
@@ -62,11 +64,11 @@ gtag('config', '${process.env.GTAG}');
   `}</script>
 )
 
-interface AnalyticsContext {
+export interface AnalyticsContext {
   trackEvent: (name: string) => void
 }
 
-let analytics: AnalyticsContext = {
+let analyticsContext: AnalyticsContext = {
   trackEvent: (name: string) => {
     // eslint-disable-next-line no-console
     console.log(`Should be tracking event in production: ${name}`)
@@ -81,7 +83,7 @@ if (useAnalytics()) {
   try {
     appInsights.loadAppInsights()
     appInsights.trackPageView()
-    analytics = {
+    analyticsContext = {
       trackEvent: (name) => {
         try {
           appInsights.trackEvent({ name })
@@ -100,72 +102,75 @@ if (useAnalytics()) {
   }
 }
 
-export const AppContext = React.createContext<AnalyticsContext>(analytics)
-export const IndexLayout: React.FC<Props> = ({ children, pageTitle }) => {
+export const AnalyticsContext = React.createContext<AnalyticsContext>(analyticsContext)
+export const IndexLayout: React.FC<Props> = ({ children, pageTitleID, crumbs = [], showCTA = true }) => {
+  const intl = useIntl()
   return (
-    <AppContext.Provider value={analytics}>
-      <StaticQuery
-        query={graphql`
-          query IndexLayoutQuery {
-            site {
-              siteMetadata {
-                title
-                description
-                siteUrl
-                author {
-                  name
-                  url
-                  email
-                  twitter
-                }
-                seo {
+    <AnalyticsContext.Provider value={analyticsContext}>
+      <CrumbsContext.Provider value={crumbs}>
+        <StaticQuery
+          query={graphql`
+            query IndexLayoutQuery {
+              site {
+                siteMetadata {
                   title
                   description
+                  siteUrl
+                  author {
+                    name
+                    url
+                    email
+                    twitter
+                  }
+                  seo {
+                    title
+                    description
+                  }
                 }
               }
             }
-          }
-        `}
-        render={(data: StaticQueryProps) => (
-          <LayoutRoot>
-            <Helmet
-              title={pageTitle}
-              titleTemplate={`${data.site.siteMetadata.title} - %s`}
-              defaultTitle={data.site.siteMetadata.title}
-              meta={[
-                { name: "title", content: data.site.siteMetadata.seo.title },
-                { name: "description", content: data.site.siteMetadata.seo.description },
-                { name: "keywords", content: data.site.siteMetadata.keywords },
-                { name: "image", content: `${data.site.siteMetadata.siteUrl}${img}` },
-                { property: "og:type", content: "website" },
-                { property: "og:site_name", content: data.site.siteMetadata.title },
-                { property: "og:url", content: data.site.siteMetadata.siteUrl },
-                { property: "og:title", content: data.site.siteMetadata.seo.title },
-                { property: "og:description", content: data.site.siteMetadata.seo.description },
-                { property: "og:image", content: `${data.site.siteMetadata.siteUrl}${img}` },
-                { property: "twitter:card", content: "summary_large_image" },
-                { property: "twitter:url", content: data.site.siteMetadata.siteUrl },
-                {
-                  name: `twitter:creator`,
-                  content: data.site.siteMetadata.author.twitter,
-                },
-                { property: "twitter:title", content: data.site.siteMetadata.seo.title },
-                {
-                  property: "twitter:description",
-                  content: data.site.siteMetadata.seo.description,
-                },
-                { property: "twitter:image", content: `${data.site.siteMetadata.siteUrl}${img}` },
-              ]}
-            >
-              <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet" />
-              {useAnalytics() && tagManagerScript()}
-              {useAnalytics() && gtagScript()}
-              {useAnalytics() && hotJarScript()}
-            </Helmet>
-            <LayoutMain>{children}</LayoutMain>
-          </LayoutRoot>
-        )}
-      />
-    </AppContext.Provider>
+          `}
+          render={(data: StaticQueryProps) => (
+            <LayoutRoot trackEvent={analyticsContext.trackEvent} showCTA={showCTA}>
+              <Helmet
+                title={intl.formatMessage({ id: pageTitleID })}
+                titleTemplate={`${data.site.siteMetadata.title} - %s`}
+                defaultTitle={data.site.siteMetadata.title}
+                meta={[
+                  { name: "title", content: data.site.siteMetadata.seo.title },
+                  { name: "description", content: data.site.siteMetadata.seo.description },
+                  { name: "keywords", content: data.site.siteMetadata.keywords },
+                  { name: "image", content: `${data.site.siteMetadata.siteUrl}${img}` },
+                  { property: "og:type", content: "website" },
+                  { property: "og:site_name", content: data.site.siteMetadata.title },
+                  { property: "og:url", content: data.site.siteMetadata.siteUrl },
+                  { property: "og:title", content: data.site.siteMetadata.seo.title },
+                  { property: "og:description", content: data.site.siteMetadata.seo.description },
+                  { property: "og:image", content: `${data.site.siteMetadata.siteUrl}${img}` },
+                  { property: "twitter:card", content: "summary_large_image" },
+                  { property: "twitter:url", content: data.site.siteMetadata.siteUrl },
+                  {
+                    name: `twitter:creator`,
+                    content: data.site.siteMetadata.author.twitter,
+                  },
+                  { property: "twitter:title", content: data.site.siteMetadata.seo.title },
+                  {
+                    property: "twitter:description",
+                    content: data.site.siteMetadata.seo.description,
+                  },
+                  { property: "twitter:image", content: `${data.site.siteMetadata.siteUrl}${img}` },
+                ]}
+              >
+                <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet" />
+                {useAnalytics() && tagManagerScript()}
+                {useAnalytics() && gtagScript()}
+                {useAnalytics() && hotJarScript()}
+              </Helmet>
+              <LayoutMain>{children}</LayoutMain>
+            </LayoutRoot>
+          )}
+        />
+      </CrumbsContext.Provider>
+    </AnalyticsContext.Provider>
   )
 }

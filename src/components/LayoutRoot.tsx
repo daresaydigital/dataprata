@@ -1,29 +1,28 @@
-import * as React from "react"
-import { Global, css } from "@emotion/core"
+import { css, Global } from "@emotion/core"
 import styled from "@emotion/styled"
-
+import * as React from "react"
 import normalize from "../styles/normalize"
 import { Footer } from "./Footer"
-import { widths } from "../styles/variables"
+import { Header } from "./Header"
 
 const StyledLayoutRoot = styled.div`
   display: flex;
   flex-direction: column;
-  @media (min-width: ${widths.md}px) {
-    min-height: 100vh;
-    padding-bottom: 250px;
-    margin-bottom: -250px;
-  }
 `
 
 interface LayoutRootProps {
   className?: string
+  showCTA: boolean
+  trackEvent: (name: string) => void
 }
 
-export const LayoutRoot: React.FC<LayoutRootProps> = ({ children, className }) => (
+export const LayoutRoot: React.FC<LayoutRootProps> = ({ children, className, trackEvent, showCTA }) => (
   <>
     <Global styles={() => css(normalize)} />
-    <StyledLayoutRoot className={className}>{children}</StyledLayoutRoot>
-    <Footer />
+    <StyledLayoutRoot className={className}>
+      <Header showCTA={showCTA} trackEvent={trackEvent} />
+      {children}
+    </StyledLayoutRoot>
+    <Footer trackEvent={trackEvent} />
   </>
 )

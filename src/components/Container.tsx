@@ -7,12 +7,10 @@ const StyledContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 16px;
-  min-height: 100vh;
   @media (min-width: ${widths.md}px) {
     padding: 0;
     max-width: 656px;
-    margin: 0 auto;
-    margin-top: 128px;
+    margin: 178px auto 96px;
   }
 `
 

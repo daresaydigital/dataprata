@@ -1,20 +1,19 @@
 {
   "hashtag": "#vitecherupp",
+  "homepageCrumb": "Kom igång",
   "homepageMetaTitle": "Lär dig kommunicera över internet med vänner och anhöriga",
   "homepageTitle": "Vi vill att du ska kunna hålla kontakten med den du vill",
   "homepageParagraph1": "Att kontakta någon med videosamtal behöver inte vara krångligt. Den här tjänsten är för alla, men framförallt för dig som känner dig lite osäker på digitala tjänster.",
   "homepageParagraph2": "Därför vill vi hjälpa dig att bli mer självständig digitalt. Vi har samlat enkla instruktioner så att du kan kontakta vem du vill via videosamtal.",
   "homepageCTA": "Kom igång -->",
 
-  "sidebar-step-1": "Introduktion",
-  "sidebar-step-2": "Välj enhet",
-  "sidebar-step-3": "Kontaktsätt",
-
+  "devicePageCrumb": "Välj enhet",
   "devicepageTitle": "Välj den enhet du vill använda i samtalet",
   "currentDeviceTitle": "Detta är enheten som du använder nu.",
   "otherDeviceTitle": "Vill du använda en annan enhet?",
   "otherDeviceParagraph": "Klicka nedan på den enheten du vill ha samtalet på.",
 
+  "servicePageCrumb": "Välj tjänst",
   "servicepageTitle": "Välj vilken tjänst du vill använda för samtalet",
   "servicepageParagraph": "Klicka på den tjänst du vill använda dig av nedan för att få vidare instruktioner om hur du kommer igång.",
   "readMoreLink": "Läs mer -->",

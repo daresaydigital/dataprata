@@ -1,18 +1,16 @@
+import styled from "@emotion/styled"
+import { IntlShape, useIntl } from "gatsby-plugin-intl"
 import * as React from "react"
 import { useEffect, useState } from "react"
-import { useIntl, IntlShape } from "gatsby-plugin-intl"
-
-import styled from "@emotion/styled"
-import { Page } from "../components/Page"
 import { Container } from "../components/Container"
-import { IndexLayout, AppContext } from "../layouts"
-import { Display, Paragraph, Header2 } from "../components/typography"
-import { colors } from "../styles/variables"
-
+import { Display, Header2, Paragraph } from "../components/typography"
 import facetimeIcon from "../content/facetimeIcon.png"
 import messengerIcon from "../content/messengerIcon.png"
 import skypeIcon from "../content/skypeIcon.png"
 import teamsIcon from "../content/teamsIcon.png"
+import { AnalyticsContext, IndexLayout } from "../layouts"
+import { colors } from "../styles/variables"
+import { Crumb } from "../components/Crumbs"
 
 const ServiceCard = styled.div`
   display: flex;
@@ -62,7 +60,7 @@ const renderServiceCard = (
   moreLink: string,
 ): JSX.Element => (
   <ServiceCard>
-    <AppContext.Consumer>
+    <AnalyticsContext.Consumer>
       {({ trackEvent }) => (
         <>
           <div className="serviceHeader">
@@ -90,9 +88,24 @@ const renderServiceCard = (
           </a>
         </>
       )}
-    </AppContext.Consumer>
+    </AnalyticsContext.Consumer>
   </ServiceCard>
 )
+
+const crumbs: Crumb[] = [
+  {
+    id: "homepageCrumb",
+    target: "/",
+  },
+  {
+    id: "devicePageCrumb",
+    target: "/device",
+  },
+  {
+    id: "servicePageCrumb",
+    target: "/service",
+  },
+]
 
 const ServicePage: React.FC = () => {
   const intl = useIntl()
@@ -112,61 +125,59 @@ const ServicePage: React.FC = () => {
   })
 
   return (
-    <IndexLayout pageTitle={intl.formatMessage({ id: "servicepageTitle" })}>
-      <Page showCTA={false}>
-        <Container>
-          {loading ? null : (
-            <>
-              <div style={{ marginBottom: 24 }}>
-                <Display>{intl.formatMessage({ id: "servicepageTitle" })}</Display>
-              </div>
-              <div style={{ marginBottom: 16 }}>
-                <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "servicepageParagraph" })}</Paragraph>
-              </div>
+    <IndexLayout pageTitleID="servicepageTitle" crumbs={crumbs} showCTA={false}>
+      <Container>
+        {loading ? null : (
+          <>
+            <div style={{ marginBottom: 24 }}>
+              <Display>{intl.formatMessage({ id: "servicepageTitle" })}</Display>
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "servicepageParagraph" })}</Paragraph>
+            </div>
 
-              <div style={{ paddingBottom: 48 }}>
-                {OS === "apple" &&
-                  renderServiceCard(
-                    intl,
-                    "FaceTime",
-                    facetimeIcon,
-                    "facetimeDescription",
-                    "facetimeCTA",
-                    "facetime:",
-                    "https://support.apple.com/sv-se/HT204380",
-                  )}
-                {renderServiceCard(
+            <div style={{ paddingBottom: 48 }}>
+              {OS === "apple" &&
+                renderServiceCard(
                   intl,
-                  "Skype",
-                  skypeIcon,
-                  "skypeDescription",
-                  "skypeCTA",
-                  "https://web.skype.com/",
-                  "https://www.skype.com/sv/features/",
+                  "FaceTime",
+                  facetimeIcon,
+                  "facetimeDescription",
+                  "facetimeCTA",
+                  "facetime:",
+                  "https://support.apple.com/sv-se/HT204380",
                 )}
-                {renderServiceCard(
-                  intl,
-                  "Teams",
-                  teamsIcon,
-                  "teamsDescription",
-                  "teamsCTA",
-                  "https://teams.microsoft.com/dl/launcher/launcher.html?url=%2f_%23%2fl%2fmeetup-join%2f&type=meetup-join&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true",
-                  "https://support.office.com/sv-se/article/video-kom-ig%C3%A5ng-med-ditt-team-702a2977-e662-4038-bef5-bdf8ee47b17b",
-                )}
-                {renderServiceCard(
-                  intl,
-                  "Facebook Messenger",
-                  messengerIcon,
-                  "messengerDescription",
-                  "messengerCTA",
-                  "https://www.messenger.com/",
-                  "https://www.facebook.com/help/messenger-app/1414800065460231?helpref=topq",
-                )}
-              </div>
-            </>
-          )}
-        </Container>
-      </Page>
+              {renderServiceCard(
+                intl,
+                "Skype",
+                skypeIcon,
+                "skypeDescription",
+                "skypeCTA",
+                "https://web.skype.com/",
+                "https://www.skype.com/sv/features/",
+              )}
+              {renderServiceCard(
+                intl,
+                "Teams",
+                teamsIcon,
+                "teamsDescription",
+                "teamsCTA",
+                "https://teams.microsoft.com/dl/launcher/launcher.html?url=%2f_%23%2fl%2fmeetup-join%2f&type=meetup-join&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true",
+                "https://support.office.com/sv-se/article/video-kom-ig%C3%A5ng-med-ditt-team-702a2977-e662-4038-bef5-bdf8ee47b17b",
+              )}
+              {renderServiceCard(
+                intl,
+                "Facebook Messenger",
+                messengerIcon,
+                "messengerDescription",
+                "messengerCTA",
+                "https://www.messenger.com/",
+                "https://www.facebook.com/help/messenger-app/1414800065460231?helpref=topq",
+              )}
+            </div>
+          </>
+        )}
+      </Container>
     </IndexLayout>
   )
 }
