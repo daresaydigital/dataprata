@@ -55,5 +55,6 @@
   "facetimeturnOfVideoInfo": "Stänger av din videokamera så att de andra i samtalet inte kan se dig.",
   "facetimefullscreenTitle": "Fullskärm",
   "facetimefullscreenInfo": "Visar samtalet i fullskärm så att du bättre kan se de du pratar med.",
-  "or": "eller"
+  "or": "eller",
+  "facetimePageCrumb": "FaceTime"
 }
