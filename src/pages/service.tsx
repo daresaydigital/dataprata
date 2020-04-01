@@ -126,9 +126,9 @@ const ServicePage: React.FC = () => {
     if (device.includes("mac") || device.includes("ios") || device.includes("iphone") || device.includes("ipad")) {
       setOS("apple")
       setDeviceFromHash(device)
-    } else if (device.includes("android")) {
+    } else if (device.includes("linux") || device === null || device.includes("android")) {
       setOS("android")
-      setDeviceFromHash(device)
+      setDeviceFromHash("android")
     }
     toggleLoading(false)
   })

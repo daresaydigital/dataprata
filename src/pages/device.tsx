@@ -197,7 +197,7 @@ const Device: React.FC = () => {
       setOS("mac")
     } else if (userOS.includes("iphone") || userOS.includes("ipad")) {
       setOS("ios")
-    } else if (userOS.includes("android")) {
+    } else if (userOS.includes("linux") || userOS === null || userOS.includes("android")) {
       setOS("android")
     }
     toggleLoading(false)
