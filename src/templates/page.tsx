@@ -1,11 +1,9 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-
 import styled from "@emotion/styled"
-import { Page } from "../components/Page"
+import { graphql } from "gatsby"
+import * as React from "react"
 import { Container } from "../components/Container"
-import { IndexLayout } from "../layouts"
 import { Display } from "../components/typography"
+import { IndexLayout } from "../layouts"
 
 interface PageTemplateProps {
   data: {
@@ -50,13 +48,11 @@ const BodyDiv = styled.div`
 
 export const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
   <IndexLayout pageTitleID={data.markdownRemark.frontmatter.title} crumbs={[]}>
-    <Page>
-      <Container>
-        <Display>{data.markdownRemark.frontmatter.title}</Display>
-        {/* eslint-disable-next-line react/no-danger */}
-        <BodyDiv dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
-      </Container>
-    </Page>
+    <Container>
+      <Display>{data.markdownRemark.frontmatter.title}</Display>
+      {/* eslint-disable-next-line react/no-danger */}
+      <BodyDiv dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
+    </Container>
   </IndexLayout>
 )
 

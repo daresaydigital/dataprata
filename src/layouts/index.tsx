@@ -4,15 +4,11 @@ import { useIntl } from "gatsby-plugin-intl"
 import "modern-normalize"
 import * as React from "react"
 import Helmet from "react-helmet"
+import { Crumb, CrumbsContext } from "../components/Crumbs"
 import { LayoutMain } from "../components/LayoutMain"
 import { LayoutRoot } from "../components/LayoutRoot"
 import img from "../content/dataprata.png"
 import "../styles/normalize"
-
-export interface Crumb {
-  id: string
-  target: string
-}
 
 interface StaticQueryProps {
   site: {
@@ -37,6 +33,7 @@ interface StaticQueryProps {
 
 interface Props {
   pageTitleID: string
+  showCTA?: boolean
   crumbs?: Crumb[]
 }
 
@@ -105,9 +102,8 @@ if (useAnalytics()) {
   }
 }
 
-export const CrumbsContext = React.createContext<Crumb[]>([])
 export const AnalyticsContext = React.createContext<AnalyticsContext>(analyticsContext)
-export const IndexLayout: React.FC<Props> = ({ children, pageTitleID, crumbs = [] }) => {
+export const IndexLayout: React.FC<Props> = ({ children, pageTitleID, crumbs = [], showCTA = true }) => {
   const intl = useIntl()
   return (
     <AnalyticsContext.Provider value={analyticsContext}>
@@ -135,7 +131,7 @@ export const IndexLayout: React.FC<Props> = ({ children, pageTitleID, crumbs = [
             }
           `}
           render={(data: StaticQueryProps) => (
-            <LayoutRoot trackEvent={analyticsContext.trackEvent}>
+            <LayoutRoot trackEvent={analyticsContext.trackEvent} showCTA={showCTA}>
               <Helmet
                 title={intl.formatMessage({ id: pageTitleID })}
                 titleTemplate={`${data.site.siteMetadata.title} - %s`}

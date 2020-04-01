@@ -5,7 +5,6 @@ import { css } from "@emotion/core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { colors, widths } from "../styles/variables"
-import { CrumbsContext } from "../layouts"
 
 const Wrapper = styled.div`
   background-color: ${colors.yellow};
@@ -58,6 +57,13 @@ const lastStyle = css`
     }
   }
 `
+
+export interface Crumb {
+  id: string
+  target: string
+}
+
+export const CrumbsContext = React.createContext<Crumb[]>([])
 
 export const Crumbs: React.FC = () => {
   const crumbs = useContext(CrumbsContext)

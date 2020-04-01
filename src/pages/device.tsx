@@ -1,14 +1,13 @@
+import styled from "@emotion/styled"
+import { Link, useIntl } from "gatsby-plugin-intl"
 import * as React from "react"
 import { useEffect, useState } from "react"
-import { useIntl, Link } from "gatsby-plugin-intl"
-import styled from "@emotion/styled"
-
-import { Page } from "../components/Page"
 import { Container } from "../components/Container"
-import { IndexLayout, AnalyticsContext, Crumb } from "../layouts"
-import { Display, Header2, Header1, Paragraph } from "../components/typography"
-import { WindowsIcon, MacIcon, ArrowIcon, IosIcon, AndroidIcon } from "../icons/svgs"
+import { Display, Header1, Header2, Paragraph } from "../components/typography"
+import { AndroidIcon, ArrowIcon, IosIcon, MacIcon, WindowsIcon } from "../icons/svgs"
+import { AnalyticsContext, IndexLayout } from "../layouts"
 import { colors, widths } from "../styles/variables"
+import { Crumb } from "../components/Crumbs"
 
 const PrimaryLink = styled(Link)`
   align-self: stretch;
@@ -205,48 +204,46 @@ const Device: React.FC = () => {
   })
 
   return (
-    <IndexLayout pageTitleID="devicepageTitle" crumbs={crumbs}>
-      <Page showCTA={false}>
-        <Container>
-          {loading ? null : (
-            <>
-              <div style={{ marginBottom: 40 }}>
-                <Display>{intl.formatMessage({ id: "devicepageTitle" })}</Display>
-              </div>
-              <div style={{ marginBottom: 16 }}>
-                <Header2>{intl.formatMessage({ id: "currentDeviceTitle" })}</Header2>
-              </div>
-              <AnalyticsContext.Consumer>
-                {({ trackEvent }) => (
-                  <PrimaryLink to={`/service#${OS}/`} onClick={() => trackEvent(`${OS}ServicePageClick`)}>
-                    <div className="innerWrapper">
-                      <div className="row">
-                        <div style={{ paddingRight: 24 }}>{renderIcon(OS)}</div>
-                        <Header1>{renderDeviceOS(OS)}</Header1>
-                      </div>
-                      <div className="row">
-                        <ArrowIcon />
-                      </div>
+    <IndexLayout pageTitleID="devicepageTitle" crumbs={crumbs} showCTA={false}>
+      <Container>
+        {loading ? null : (
+          <>
+            <div style={{ marginBottom: 40 }}>
+              <Display>{intl.formatMessage({ id: "devicepageTitle" })}</Display>
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <Header2>{intl.formatMessage({ id: "currentDeviceTitle" })}</Header2>
+            </div>
+            <AnalyticsContext.Consumer>
+              {({ trackEvent }) => (
+                <PrimaryLink to={`/service#${OS}/`} onClick={() => trackEvent(`${OS}ServicePageClick`)}>
+                  <div className="innerWrapper">
+                    <div className="row">
+                      <div style={{ paddingRight: 24 }}>{renderIcon(OS)}</div>
+                      <Header1>{renderDeviceOS(OS)}</Header1>
                     </div>
-                  </PrimaryLink>
-                )}
-              </AnalyticsContext.Consumer>
-              <div style={{ marginBottom: 8 }}>
-                <Header2>{intl.formatMessage({ id: "otherDeviceTitle" })}</Header2>
-              </div>
-              <div style={{ marginBottom: 16 }}>
-                <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "otherDeviceParagraph" })}</Paragraph>
-              </div>
-              <LinkWrapper>
-                {OS !== "windows" ? renderSecondaryLink("windows") : null}
-                {OS !== "mac" ? renderSecondaryLink("mac") : null}
-                {OS !== "ios" ? renderSecondaryLink("ios") : null}
-                {OS !== "android" ? renderSecondaryLink("android") : null}
-              </LinkWrapper>
-            </>
-          )}
-        </Container>
-      </Page>
+                    <div className="row">
+                      <ArrowIcon />
+                    </div>
+                  </div>
+                </PrimaryLink>
+              )}
+            </AnalyticsContext.Consumer>
+            <div style={{ marginBottom: 8 }}>
+              <Header2>{intl.formatMessage({ id: "otherDeviceTitle" })}</Header2>
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "otherDeviceParagraph" })}</Paragraph>
+            </div>
+            <LinkWrapper>
+              {OS !== "windows" ? renderSecondaryLink("windows") : null}
+              {OS !== "mac" ? renderSecondaryLink("mac") : null}
+              {OS !== "ios" ? renderSecondaryLink("ios") : null}
+              {OS !== "android" ? renderSecondaryLink("android") : null}
+            </LinkWrapper>
+          </>
+        )}
+      </Container>
     </IndexLayout>
   )
 }

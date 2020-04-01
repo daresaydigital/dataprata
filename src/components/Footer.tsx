@@ -1,13 +1,12 @@
-import { faFileContract, faHandsHelping } from "@fortawesome/free-solid-svg-icons"
-import { faGithub } from "@fortawesome/free-brands-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useIntl, Link } from "gatsby-plugin-intl"
-import React from "react"
 import styled from "@emotion/styled"
-
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
+import { faFileContract, faHandsHelping } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link, useIntl } from "gatsby-plugin-intl"
+import React from "react"
+import { GibonLogo } from "../icons/logos"
 import { colors, widths } from "../styles/variables"
 import { InvisibleLinkStyle } from "./typography"
-import { GibonLogo } from "../icons/logos"
 
 const StyledFooter = styled.div`
   background-color: ${colors.black};
