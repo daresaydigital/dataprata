@@ -18,7 +18,7 @@ import pcDownloadsImg from "../content/skypePage/skypePcDownloads.png"
 import installImg from "../content/skypePage/skypeInstallScreenshot.png"
 import addContactsImg from "../content/skypePage/skypeAddContacts.png"
 import newContactsImg from "../content/skypePage/skypeNewContact.png"
-import makeACallImg from "../content/skypePage/skypeMacACall.png"
+import makeACallImg from "../content/skypePage/skypeMakeACall.png"
 
 const cards = [
   { id: "toggleVideo", image: toggleVideoImg },
