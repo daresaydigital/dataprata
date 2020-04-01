@@ -116,7 +116,7 @@ const crumbs: Crumb[] = [
 const ServicePage: React.FC = () => {
   const intl = useIntl()
   const [OS, setOS] = useState("windows")
-  const [deviceFromHash, setDeviceFromHash] = useState("pc")
+  const [deviceFromHash, setDeviceFromHash] = useState("#pc")
   const [loading, toggleLoading] = useState(true)
 
   useEffect(() => {
@@ -126,9 +126,9 @@ const ServicePage: React.FC = () => {
     if (device.includes("mac") || device.includes("ios") || device.includes("iphone") || device.includes("ipad")) {
       setOS("apple")
       setDeviceFromHash(device)
-    } else if (device.includes("android")) {
+    } else if (device.includes("linux") || device === null || device.includes("android")) {
       setOS("android")
-      setDeviceFromHash(device)
+      setDeviceFromHash("#android")
     }
     toggleLoading(false)
   })
@@ -163,7 +163,7 @@ const ServicePage: React.FC = () => {
                 "skypeDescription",
                 "skypeCTA",
                 "https://web.skype.com/",
-                "https://www.skype.com/sv/features/",
+                `/skype${deviceFromHash}`,
               )}
               {renderServiceCard(
                 intl,
@@ -172,7 +172,7 @@ const ServicePage: React.FC = () => {
                 "teamsDescription",
                 "teamsCTA",
                 "https://teams.microsoft.com/dl/launcher/launcher.html?url=%2f_%23%2fl%2fmeetup-join%2f&type=meetup-join&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true",
-                "https://support.office.com/sv-se/article/video-kom-ig%C3%A5ng-med-ditt-team-702a2977-e662-4038-bef5-bdf8ee47b17b",
+                `/teams${deviceFromHash}`,
               )}
               {renderServiceCard(
                 intl,
@@ -181,7 +181,7 @@ const ServicePage: React.FC = () => {
                 "messengerDescription",
                 "messengerCTA",
                 "https://www.messenger.com/",
-                "https://www.facebook.com/help/messenger-app/1414800065460231?helpref=topq",
+                `/messenger${deviceFromHash}`,
               )}
             </div>
           </>
