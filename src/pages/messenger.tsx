@@ -38,26 +38,29 @@ const StyledDiv = styled.div`
 const MessengerPage: React.FC = () => {
   const intl = useIntl()
   const [loading, setLoading] = React.useState(true)
-  const [device, setDevice] = React.useState("mac")
+  const [os, setOs] = React.useState("pc")
+  const [deviceTitle, setDeviceTitle] = React.useState("Pc")
 
   React.useEffect(() => {
     const deviceFromHash = window.location.hash.toLocaleLowerCase()
-    let deviceTitle = "Mac"
-    if (deviceFromHash.includes("ios")) {
-      deviceTitle = `iPhone ${intl.formatMessage({ id: "or" })} iPad`
+    if (deviceFromHash.includes("mac")) {
+      setDeviceTitle("Mac")
+      setOs("mac")
+    } else if (deviceFromHash.includes("ios")) {
+      setDeviceTitle(`iPhone ${intl.formatMessage({ id: "or" })} iPad`)
+      setOs("ios")
     }
-    setDevice(deviceTitle)
     setLoading(false)
   })
 
   return (
     <IndexLayout pageTitleID="messengerpageTitle" showCTA={false} crumbs={crumbs}>
-      <Container>
+      <Container className={os}>
         {!loading && (
           <>
             <div style={{ marginBottom: 24 }}>
               <Display>
-                {intl.formatMessage({ id: "messengerpageTitle" })} {device}
+                {intl.formatMessage({ id: "messengerpageTitle" })} {deviceTitle}
               </Display>
             </div>
             <StyledDiv>
