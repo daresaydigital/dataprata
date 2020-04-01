@@ -117,6 +117,7 @@ const ServicePage: React.FC = () => {
   const intl = useIntl()
   const [OS, setOS] = useState("windows")
   const [deviceFromHash, setDeviceFromHash] = useState("#pc")
+  const [isMobile, setMobile] = useState(false)
   const [loading, toggleLoading] = useState(true)
 
   useEffect(() => {
@@ -126,9 +127,13 @@ const ServicePage: React.FC = () => {
     if (device.includes("mac") || device.includes("ios") || device.includes("iphone") || device.includes("ipad")) {
       setOS("apple")
       setDeviceFromHash(device)
+      if (device.includes("ios")) {
+        setMobile(true)
+      }
     } else if (device.includes("linux") || device === null || device.includes("android")) {
       setOS("android")
       setDeviceFromHash("#android")
+      setMobile(true)
     }
     toggleLoading(false)
   })
@@ -156,15 +161,7 @@ const ServicePage: React.FC = () => {
                   "facetime:",
                   `/facetime${deviceFromHash}`,
                 )}
-              {renderServiceCard(
-                intl,
-                "Skype",
-                skypeIcon,
-                "skypeDescription",
-                "skypeCTA",
-                "https://web.skype.com/",
-                `/skype${deviceFromHash}`,
-              )}
+              {renderServiceCard(intl, "Skype", skypeIcon, "skypeDescription", "skypeCTA", "skype:", `/skype${deviceFromHash}`)}
               {renderServiceCard(
                 intl,
                 "Teams",
@@ -180,7 +177,7 @@ const ServicePage: React.FC = () => {
                 messengerIcon,
                 "messengerDescription",
                 "messengerCTA",
-                "https://www.messenger.com/",
+                isMobile ? "fb://messaging/new" : "https://facebook.com",
                 `/messenger${deviceFromHash}`,
               )}
             </div>
