@@ -82,5 +82,7 @@
   "skypecancelCallInfo": "Tryck här för att avsluta samtalet.",
   "skypeopenChatTitle": "Öppna chatt",
   "skypeopenChatInfo": "Tryck här för att skriva eller se meddelanden i chatten från personen du har ett samtal med.",
-  "skypePageCrumb": "Skype"
+  "skypePageCrumb": "Skype",
+  "skypeMacDownloadLinkUrl": "https://go.skype.com/mac.download",
+  "skypeMacDownloadLinkText": "Tryck här"
 }

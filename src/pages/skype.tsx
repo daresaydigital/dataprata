@@ -120,8 +120,15 @@ const SkypePage: React.FC = () => {
 
                 <StyledDiv>
                   <Paragraph color={colors.gray.dark}>
-                    {intl.formatMessage({ id: "skypepageParagraph2Part1" })}
-                    <a href="..">TODO</a>
+                    {intl.formatMessage({ id: "skypepageParagraph2Part1" })}{" "}
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={intl.formatMessage({ id: "skypeMacDownloadLinkUrl" })}
+                      onClick={() => trackEvent(`DowloadSkypeForMac`)}
+                    >
+                      {intl.formatMessage({ id: "skypeMacDownloadLinkText" })}
+                    </a>{" "}
                     {intl.formatMessage({ id: "skypepageParagraph2Part2" })}
                   </Paragraph>
                 </StyledDiv>
