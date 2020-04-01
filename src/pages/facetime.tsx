@@ -194,7 +194,7 @@ const FacetimePage: React.FC = () => {
                   <Card key={card.id}>
                     <div className="cardHeader">
                       <div style={{ marginRight: 16 }}>
-                        <img src={card.image} alt={`FaceTime icon ${card.id}`} />
+                        <img src={card.image} alt="Facetime Menu icon" />
                       </div>
                       <Header1>{intl.formatMessage({ id: `facetime${card.id}Title` })}</Header1>
                     </div>

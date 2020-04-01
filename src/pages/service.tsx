@@ -172,7 +172,7 @@ const ServicePage: React.FC = () => {
                 "teamsDescription",
                 "teamsCTA",
                 "https://teams.microsoft.com/dl/launcher/launcher.html?url=%2f_%23%2fl%2fmeetup-join%2f&type=meetup-join&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true",
-                "https://support.office.com/sv-se/article/video-kom-ig%C3%A5ng-med-ditt-team-702a2977-e662-4038-bef5-bdf8ee47b17b",
+                `/teams${deviceFromHash}`,
               )}
               {renderServiceCard(
                 intl,
@@ -181,7 +181,7 @@ const ServicePage: React.FC = () => {
                 "messengerDescription",
                 "messengerCTA",
                 "https://www.messenger.com/",
-                "https://www.facebook.com/help/messenger-app/1414800065460231?helpref=topq",
+                `/messenger${deviceFromHash}`,
               )}
             </div>
           </>

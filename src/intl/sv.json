@@ -88,5 +88,10 @@
   "skypeMacDownloadLinkUrl": "https://go.skype.com/mac.download",
   "skypePcDownloadLinkUrl": "https://go.skype.com/windows.desktop.download",
   "skypepageParagraphPcDownloadDone": "När nedladdningen börjar så dyker den upp nere i vänstra hörnet av din webbläsare.",
-  "skypepageParagraphPcDownloadDone2": "Tryck på den nedladdade filen och följ sedan de instruktioner som dyker upp på skärmen för att installera Skype."
+  "skypepageParagraphPcDownloadDone2": "Tryck på den nedladdade filen och följ sedan de instruktioner som dyker upp på skärmen för att installera Skype.",
+  "teamspageTitle": "Kom igång med Microsoft Teams för",
+  "comingSoon": "Under konstruktion...",
+  "messengerpageTitle": "Kom igång med Messenger för",
+  "teamsPageCrumb": "Microsoft Teams",
+  "messengerPageCrumb": "Messenger"
 }
