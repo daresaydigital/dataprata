@@ -98,6 +98,9 @@ const SkypePage: React.FC = () => {
     } else if (deviceFromHash.includes("ios")) {
       setDeviceTitle(`iPhone ${intl.formatMessage({ id: "or" })} iPad`)
       setOs("ios")
+    } else if (deviceFromHash.includes("linux") || deviceFromHash === null || deviceFromHash.includes("android")) {
+      setOs("android")
+      setDeviceTitle("Android")
     }
     setLoading(false)
   })
