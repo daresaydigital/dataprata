@@ -54,25 +54,6 @@ const duringCallCards = [
   },
 ]
 
-const crumbs: Crumb[] = [
-  {
-    id: "homepageCrumb",
-    target: "/",
-  },
-  {
-    id: "devicePageCrumb",
-    target: "/device",
-  },
-  {
-    id: "servicePageCrumb",
-    target: "/service",
-  },
-  {
-    id: "messengerpageCrumb",
-    target: "/messenger",
-  },
-]
-
 const DownloadButton = styled.a`
   text-align: left;
   width: 100%;
@@ -194,205 +175,226 @@ const MessengerPage: React.FC = () => {
     downloadMessengerUrl = "https://play.google.com/store/apps/details?id=com.facebook.orca&hl=en"
   }
 
+  if (loading) {
+    return null
+  }
+
+  const crumbs: Crumb[] = [
+    {
+      id: "homepageCrumb",
+      target: "/",
+    },
+    {
+      id: "devicePageCrumb",
+      target: "/device",
+    },
+    {
+      id: "servicePageCrumb",
+      target: `/service${window.location.hash.toLocaleLowerCase()}`,
+    },
+    {
+      id: "messengerpageCrumb",
+      target: "/messenger",
+    },
+  ]
+
   return (
     <IndexLayout pageTitleID="messengerpageTitle" showCTA={false} crumbs={crumbs}>
       <Container className={os}>
-        {!loading && (
-          <AnalyticsContext.Consumer>
-            {({ trackEvent }) => (
-              <>
-                <div style={{ marginBottom: 24 }}>
-                  <Display>
-                    {intl.formatMessage({ id: "messengerpageTitle" })} {deviceTitle}
-                  </Display>
+        <AnalyticsContext.Consumer>
+          {({ trackEvent }) => (
+            <>
+              <div style={{ marginBottom: 24 }}>
+                <Display>
+                  {intl.formatMessage({ id: "messengerpageTitle" })} {deviceTitle}
+                </Display>
+              </div>
+              <StyledDiv>
+                <Paragraph color={colors.gray.dark}>
+                  Med Messenger kan du ringa video- och ljudsamtal samt chatta med dina kontakter. Kom ihåg att om något går snett så är det
+                  bara att gå tillbaka och försöka på nytt.
+                </Paragraph>
+              </StyledDiv>
+              <Card>
+                <div className="cardHeader">
+                  <div style={{ marginRight: 16 }}>
+                    <img src={warningIcon} alt="Important" />
+                  </div>
+                  <Header1>Viktigt!</Header1>
                 </div>
                 <StyledDiv>
                   <Paragraph color={colors.gray.dark}>
-                    Med Messenger kan du ringa video- och ljudsamtal samt chatta med dina kontakter. Kom ihåg att om något går snett så är
-                    det bara att gå tillbaka och försöka på nytt.
+                    För att Messenger ska fungera så krävs det att du har ett Facebook-konto. Om du föredrar att inte skapa ett
+                    Facebook-konto så rekommenderar vi att du använder{" "}
+                    {os === "ios" && (
+                      <>
+                        <a href="/facetime#ios">FaceTime</a> eller
+                      </>
+                    )}{" "}
+                    <a href={`/skype#${os}`}>Skype</a> istället.
                   </Paragraph>
                 </StyledDiv>
-                <Card>
-                  <div className="cardHeader">
-                    <div style={{ marginRight: 16 }}>
-                      <img src={warningIcon} alt="Important" />
-                    </div>
-                    <Header1>Viktigt!</Header1>
-                  </div>
+              </Card>
+              <div style={{ marginBottom: 16, marginTop: 16 }}>
+                <TitleWithNumberCircle number={1}>Ladda ner appen</TitleWithNumberCircle>
+              </div>
+              <StyledDiv>
+                {os === "ios" && (
+                  <Paragraph color={colors.gray.dark}>Börja med att ladda ner Messenger- appen till din iPhone eller iPad.</Paragraph>
+                )}
+                {os === "android" && (
+                  <Paragraph color={colors.gray.dark}>Börja med att ladda ner Messenger- appen till din Android.</Paragraph>
+                )}
+              </StyledDiv>
+
+              <DownloadButton href={downloadMessengerUrl} target="_blank" rel="noopener noreferrer">
+                <span>Ladda ner Messenger</span>
+                <img src={downArrow} alt="Download Icon" />
+              </DownloadButton>
+
+              <div style={{ marginBottom: 16, marginTop: 16 }}>
+                <TitleWithNumberCircle number={2}>Logga in</TitleWithNumberCircle>
+              </div>
+              <StyledDiv>
+                <Paragraph color={colors.gray.dark}>
+                  Messenger är skapat av Facebook och kräver därför att du har ett Facebook-konto för att använda tjänsten. Om du inte har
+                  ett konto så kan du skapa ett nytt. Tryck på det alternativet som stämmer överens för dig så ges instruktioner för hur du
+                  går vidare.
+                </Paragraph>
+              </StyledDiv>
+
+              <ToggleButton
+                href="#"
+                className={toggleAccount && toggleAccount === "noaccount" ? "active" : "in-active"}
+                onClick={(e: any) => {
+                  e.preventDefault()
+                  trackEvent("NoFacebookAccountClick")
+                  setToggleAccount("noaccount")
+                }}
+              >
+                Jag har inget Facebook-konto
+              </ToggleButton>
+              <ToggleButton
+                href="#"
+                className={toggleAccount && toggleAccount === "haveaccount" ? "active" : "in-active"}
+                onClick={(e: any) => {
+                  e.preventDefault()
+                  trackEvent("HaveFacebookAccountClick")
+                  setToggleAccount("haveaccount")
+                }}
+              >
+                Jag har redan ett Facebook-konto
+              </ToggleButton>
+              {toggleAccount && toggleAccount === "noaccount" && (
+                <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>
-                      För att Messenger ska fungera så krävs det att du har ett Facebook-konto. Om du föredrar att inte skapa ett
-                      Facebook-konto så rekommenderar vi att du använder{" "}
-                      {os === "ios" && (
-                        <>
-                          <a href="/facetime#ios">FaceTime</a> eller
-                        </>
-                      )}{" "}
-                      <a href={`/skype#${os}`}>Skype</a> istället.
+                      För att skapa ett konto så öppnar du Messenger appen och trycker på Skapa nytt konto. Du kommer då att hänvisas till
+                      Facebook för att skapa ett konto där. Fyll i den begörda informationen och gå tillbaka till Messenger appen när ditt
+                      konto har skapats.
                     </Paragraph>
                   </StyledDiv>
+                  <StyledDiv>
+                    <Paragraph>Gå vidare till steg 3 när du är inloggad i Messenger.</Paragraph>
+                  </StyledDiv>
+                </>
+              )}
+              {toggleAccount && toggleAccount === "haveaccount" && (
+                <>
+                  <StyledDiv>
+                    <Paragraph color={colors.gray.dark}>
+                      Om du har ett befintligt konto på Facebook så är det bara att logga in med det direkt i Messenger. Om du har prolem
+                      med att logga in så kan du trycka på “Glömt lösenordet?” för att få instruktioner om hur du kan återställa ditt
+                      lösenord.
+                    </Paragraph>
+                  </StyledDiv>
+                  <StyledDiv>
+                    <Paragraph>Gå vidare till steg 3 när du är inloggad i Messenger.</Paragraph>
+                  </StyledDiv>
+                </>
+              )}
+
+              <div style={{ marginBottom: 16, marginTop: 16 }}>
+                <TitleWithNumberCircle number={3}>Hitta den du vill prata med</TitleWithNumberCircle>
+              </div>
+              <StyledDiv>
+                <Paragraph color={colors.gray.dark}>
+                  När du är inloggad på Messenger så kan du söka efter vänner och bekanta att prata med. Längst upp i mitten hittar du
+                  sökfältet.
+                </Paragraph>
+              </StyledDiv>
+              {os === "ios" && (
+                <StyledDiv>
+                  <img src={iosSearchChat} alt="Search Chat" />
+                </StyledDiv>
+              )}
+              {os === "android" && (
+                <StyledDiv>
+                  <img src={androidSearchChat} alt="Search Chat" />
+                </StyledDiv>
+              )}
+              <StyledDiv>
+                <Paragraph color={colors.gray.dark}>
+                  Tryck i sökfältet och skriv in namnet på personen du vill kontakta. Om du hittar personen du vill kontakta så trycker du
+                  på deras profilbild eller namn för att gå till deras profil, annars är det bara att göra en ny sökning.
+                </Paragraph>
+              </StyledDiv>
+              <div style={{ marginBottom: 16, marginTop: 16 }}>
+                <TitleWithNumberCircle number={4}>Starta ett samtal</TitleWithNumberCircle>
+              </div>
+              <StyledDiv>
+                <Paragraph color={colors.gray.dark}>
+                  Väl inne på personens profil så finns ett flertal alternativ. Nedan finns förklaringar för de viktigaste funktionerna.
+                </Paragraph>
+              </StyledDiv>
+              {os === "ios" && (
+                <StyledDiv>
+                  <img src={iosStartCall} alt="Start Call" />
+                </StyledDiv>
+              )}
+              {os === "android" && (
+                <StyledDiv>
+                  <img src={androidStartCall} alt="Start Call" />
+                </StyledDiv>
+              )}
+              {beforeCallCards.map((card) => (
+                <Card key={card.id}>
+                  <div className="cardHeader">
+                    <div style={{ marginRight: 16 }}>
+                      <img className={card.wide ? "wide" : ""} src={card.image} alt={`Teams ${card.id} icon`} />
+                    </div>
+                    <Header1>{card.title}</Header1>
+                  </div>
+                  <StyledDiv>
+                    <Paragraph color={colors.gray.dark}>{card.text}</Paragraph>
+                  </StyledDiv>
                 </Card>
-                <div style={{ marginBottom: 16, marginTop: 16 }}>
-                  <TitleWithNumberCircle number={1}>Ladda ner appen</TitleWithNumberCircle>
-                </div>
-                <StyledDiv>
-                  {os === "ios" && (
-                    <Paragraph color={colors.gray.dark}>Börja med att ladda ner Messenger- appen till din iPhone eller iPad.</Paragraph>
-                  )}
-                  {os === "android" && (
-                    <Paragraph color={colors.gray.dark}>Börja med att ladda ner Messenger- appen till din Android.</Paragraph>
-                  )}
-                </StyledDiv>
-
-                <DownloadButton href={downloadMessengerUrl} target="_blank" rel="noopener noreferrer">
-                  <span>Ladda ner Messenger</span>
-                  <img src={downArrow} alt="Download Icon" />
-                </DownloadButton>
-
-                <div style={{ marginBottom: 16, marginTop: 16 }}>
-                  <TitleWithNumberCircle number={2}>Logga in</TitleWithNumberCircle>
-                </div>
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>
-                    Messenger är skapat av Facebook och kräver därför att du har ett Facebook-konto för att använda tjänsten. Om du inte har
-                    ett konto så kan du skapa ett nytt. Tryck på det alternativet som stämmer överens för dig så ges instruktioner för hur
-                    du går vidare.
-                  </Paragraph>
-                </StyledDiv>
-
-                <ToggleButton
-                  href="#"
-                  className={toggleAccount && toggleAccount === "noaccount" ? "active" : "in-active"}
-                  onClick={(e: any) => {
-                    e.preventDefault()
-                    trackEvent("NoFacebookAccountClick")
-                    setToggleAccount("noaccount")
-                  }}
-                >
-                  Jag har inget Facebook-konto
-                </ToggleButton>
-                <ToggleButton
-                  href="#"
-                  className={toggleAccount && toggleAccount === "haveaccount" ? "active" : "in-active"}
-                  onClick={(e: any) => {
-                    e.preventDefault()
-                    trackEvent("HaveFacebookAccountClick")
-                    setToggleAccount("haveaccount")
-                  }}
-                >
-                  Jag har redan ett Facebook-konto
-                </ToggleButton>
-                {toggleAccount && toggleAccount === "noaccount" && (
-                  <>
-                    <StyledDiv>
-                      <Paragraph color={colors.gray.dark}>
-                        För att skapa ett konto så öppnar du Messenger appen och trycker på Skapa nytt konto. Du kommer då att hänvisas till
-                        Facebook för att skapa ett konto där. Fyll i den begörda informationen och gå tillbaka till Messenger appen när ditt
-                        konto har skapats.
-                      </Paragraph>
-                    </StyledDiv>
-                    <StyledDiv>
-                      <Paragraph>Gå vidare till steg 3 när du är inloggad i Messenger.</Paragraph>
-                    </StyledDiv>
-                  </>
-                )}
-                {toggleAccount && toggleAccount === "haveaccount" && (
-                  <>
-                    <StyledDiv>
-                      <Paragraph color={colors.gray.dark}>
-                        Om du har ett befintligt konto på Facebook så är det bara att logga in med det direkt i Messenger. Om du har prolem
-                        med att logga in så kan du trycka på “Glömt lösenordet?” för att få instruktioner om hur du kan återställa ditt
-                        lösenord.
-                      </Paragraph>
-                    </StyledDiv>
-                    <StyledDiv>
-                      <Paragraph>Gå vidare till steg 3 när du är inloggad i Messenger.</Paragraph>
-                    </StyledDiv>
-                  </>
-                )}
-
-                <div style={{ marginBottom: 16, marginTop: 16 }}>
-                  <TitleWithNumberCircle number={3}>Hitta den du vill prata med</TitleWithNumberCircle>
-                </div>
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>
-                    När du är inloggad på Messenger så kan du söka efter vänner och bekanta att prata med. Längst upp i mitten hittar du
-                    sökfältet.
-                  </Paragraph>
-                </StyledDiv>
-                {os === "ios" && (
-                  <StyledDiv>
-                    <img src={iosSearchChat} alt="Search Chat" />
-                  </StyledDiv>
-                )}
-                {os === "android" && (
-                  <StyledDiv>
-                    <img src={androidSearchChat} alt="Search Chat" />
-                  </StyledDiv>
-                )}
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>
-                    Tryck i sökfältet och skriv in namnet på personen du vill kontakta. Om du hittar personen du vill kontakta så trycker du
-                    på deras profilbild eller namn för att gå till deras profil, annars är det bara att göra en ny sökning.
-                  </Paragraph>
-                </StyledDiv>
-                <div style={{ marginBottom: 16, marginTop: 16 }}>
-                  <TitleWithNumberCircle number={4}>Starta ett samtal</TitleWithNumberCircle>
-                </div>
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>
-                    Väl inne på personens profil så finns ett flertal alternativ. Nedan finns förklaringar för de viktigaste funktionerna.
-                  </Paragraph>
-                </StyledDiv>
-                {os === "ios" && (
-                  <StyledDiv>
-                    <img src={iosStartCall} alt="Start Call" />
-                  </StyledDiv>
-                )}
-                {os === "android" && (
-                  <StyledDiv>
-                    <img src={androidStartCall} alt="Start Call" />
-                  </StyledDiv>
-                )}
-                {beforeCallCards.map((card) => (
-                  <Card key={card.id}>
-                    <div className="cardHeader">
-                      <div style={{ marginRight: 16 }}>
-                        <img className={card.wide ? "wide" : ""} src={card.image} alt={`Teams ${card.id} icon`} />
-                      </div>
-                      <Header1>{card.title}</Header1>
+              ))}
+              <div style={{ marginBottom: 16, marginTop: 16 }}>
+                <TitleWithNumberCircle number={5}>Under samtalet</TitleWithNumberCircle>
+              </div>
+              <StyledDiv>
+                <Paragraph color={colors.gray.dark}>
+                  När du startar ett videosamtal så dyker ett nytt fönster upp med ett par knappar. Nedan finns förklaringar till vad de
+                  viktigaste knapparna gör.
+                </Paragraph>
+              </StyledDiv>
+              {duringCallCards.map((card) => (
+                <Card key={card.id}>
+                  <div className="cardHeader">
+                    <div style={{ marginRight: 16 }}>
+                      <img src={card.image} alt={`Teams ${card.id} icon`} />
                     </div>
-                    <StyledDiv>
-                      <Paragraph color={colors.gray.dark}>{card.text}</Paragraph>
-                    </StyledDiv>
-                  </Card>
-                ))}
-                <div style={{ marginBottom: 16, marginTop: 16 }}>
-                  <TitleWithNumberCircle number={5}>Under samtalet</TitleWithNumberCircle>
-                </div>
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>
-                    När du startar ett videosamtal så dyker ett nytt fönster upp med ett par knappar. Nedan finns förklaringar till vad de
-                    viktigaste knapparna gör.
-                  </Paragraph>
-                </StyledDiv>
-                {duringCallCards.map((card) => (
-                  <Card key={card.id}>
-                    <div className="cardHeader">
-                      <div style={{ marginRight: 16 }}>
-                        <img src={card.image} alt={`Teams ${card.id} icon`} />
-                      </div>
-                      <Header1>{card.title}</Header1>
-                    </div>
-                    <StyledDiv>
-                      <Paragraph color={colors.gray.dark}>{card.text}</Paragraph>
-                    </StyledDiv>
-                  </Card>
-                ))}
-              </>
-            )}
-          </AnalyticsContext.Consumer>
-        )}
+                    <Header1>{card.title}</Header1>
+                  </div>
+                  <StyledDiv>
+                    <Paragraph color={colors.gray.dark}>{card.text}</Paragraph>
+                  </StyledDiv>
+                </Card>
+              ))}
+            </>
+          )}
+        </AnalyticsContext.Consumer>
       </Container>
     </IndexLayout>
   )

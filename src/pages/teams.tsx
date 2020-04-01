@@ -43,25 +43,6 @@ const duringCallCards = [
   { id: "cencelCall", image: cancelCallImg },
 ]
 
-const crumbs: Crumb[] = [
-  {
-    id: "homepageCrumb",
-    target: "/",
-  },
-  {
-    id: "devicePageCrumb",
-    target: "/device",
-  },
-  {
-    id: "servicePageCrumb",
-    target: "/service",
-  },
-  {
-    id: "teamsPageCrumb",
-    target: "/teams",
-  },
-]
-
 // TODO: This is now duplicated from service.tsx
 const Card = styled.div`
   display: flex;
@@ -120,6 +101,29 @@ const TeamsPage: React.FC = () => {
     }
     setLoading(false)
   })
+
+  if (loading) {
+    return null
+  }
+
+  const crumbs: Crumb[] = [
+    {
+      id: "homepageCrumb",
+      target: "/",
+    },
+    {
+      id: "devicePageCrumb",
+      target: "/device",
+    },
+    {
+      id: "servicePageCrumb",
+      target: `/service${window.location.hash.toLocaleLowerCase()}`,
+    },
+    {
+      id: "teamsPageCrumb",
+      target: "/teams",
+    },
+  ]
 
   return (
     <IndexLayout pageTitleID="teamspageTitle" showCTA={false} crumbs={crumbs}>
