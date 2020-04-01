@@ -118,7 +118,7 @@ const ServicePage: React.FC = () => {
     // Not tested for ios, android, windows
     if (device.includes("mac") || device.includes("ios") || device.includes("iphone") || device.includes("ipad")) {
       setOS("apple")
-    } else if (device.includes("android")) {
+    } else if (device.includes("linux") || device === null || device.includes("android")) {
       setOS("android")
     }
     toggleLoading(false)
