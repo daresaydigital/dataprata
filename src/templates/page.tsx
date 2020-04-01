@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import { graphql } from "gatsby"
+import { useIntl } from "gatsby-plugin-intl"
 import * as React from "react"
 import { Container } from "../components/Container"
 import { Display } from "../components/typography"
@@ -46,15 +47,18 @@ const BodyDiv = styled.div`
   }
 `
 
-export const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
-  <IndexLayout pageTitleID={data.markdownRemark.frontmatter.title} crumbs={[]}>
-    <Container>
-      <Display>{data.markdownRemark.frontmatter.title}</Display>
-      {/* eslint-disable-next-line react/no-danger */}
-      <BodyDiv dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
-    </Container>
-  </IndexLayout>
-)
+export const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => {
+  const intl = useIntl()
+  return (
+    <IndexLayout pageTitleID={data.markdownRemark.frontmatter.title} crumbs={[]}>
+      <Container>
+        <Display>{intl.formatMessage({ id: data.markdownRemark.frontmatter.title })}</Display>
+        {/* eslint-disable-next-line react/no-danger */}
+        <BodyDiv dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
+      </Container>
+    </IndexLayout>
+  )
+}
 
 export const query = graphql`
   query PageTemplateQuery($slug: String!) {
