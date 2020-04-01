@@ -64,6 +64,19 @@ const StyledLogoText = styled.p`
   margin: 0;
 `
 
+const NumberCircle = styled.span`
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #ffe000;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 16px;
+  line-height: 26px;
+`
+
 interface TypographyProps {
   color?: string
 }
@@ -88,6 +101,13 @@ export const Caption: React.FC<TypographyProps> = ({ color = colors.black, child
 
 export const LogoText: React.FC<TypographyProps> = ({ color = colors.black, children }) => (
   <StyledLogoText style={{ color }}>{children}</StyledLogoText>
+)
+
+export const TitleWithNumberCircle: React.FC<TypographyProps & { number: number }> = ({ color = colors.black, number, children }) => (
+  <HeaderLrg style={{ color }}>
+    <NumberCircle>{number}</NumberCircle>
+    {children}
+  </HeaderLrg>
 )
 
 export const InvisibleLinkStyle = css`
