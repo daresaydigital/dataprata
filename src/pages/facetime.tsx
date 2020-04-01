@@ -65,125 +65,132 @@ const StyledDiv = styled.div`
 
 const FacetimePage: React.FC = () => {
   const intl = useIntl()
+  const [loading, setLoading] = React.useState(true)
+  const [device, setDevice] = React.useState("mac")
 
-  const device = window.location.hash.toLocaleLowerCase()
-
-  let deviceTitle = "Mac"
-  if (device.includes("ios")) {
-    deviceTitle = `iPhone ${intl.formatMessage({ id: "or" })} iPad`
-  }
+  React.useEffect(() => {
+    const deviceFromHash = window.location.hash.toLocaleLowerCase()
+    let deviceTitle = "Mac"
+    if (deviceFromHash.includes("ios")) {
+      deviceTitle = `iPhone ${intl.formatMessage({ id: "or" })} iPad`
+    }
+    setDevice(deviceTitle)
+    setLoading(false)
+  })
 
   return (
     <IndexLayout pageTitle={intl.formatMessage({ id: "facetimepageTitle" })}>
-      <AppContext.Consumer>
-        {({ trackEvent }) => (
-          <Page showCTA={false}>
-            <Container>
-              <>
-                <div style={{ marginBottom: 24 }}>
-                  <Display>
-                    {intl.formatMessage({ id: "facetimepageTitle" })} {deviceTitle}
-                  </Display>
-                </div>
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph1" })}</Paragraph>
-                </StyledDiv>
-
-                <StyledDiv>
-                  <TitleWithNumberCircle number={1}>{intl.formatMessage({ id: "facetimepageStartFacetime" })}</TitleWithNumberCircle>
-                </StyledDiv>
-
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>
-                    <a
-                      href="facetime:"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link"
-                      onClick={() => trackEvent(`StartCallWithFacetime`)}
-                    >
-                      {intl.formatMessage({ id: "facetimeOpenLinkTitle" })}
-                    </a>{" "}
-                    {intl.formatMessage({ id: "facetimeOpenLinkText" })}
-                  </Paragraph>
-                </StyledDiv>
-
-                <Card>
-                  <div className="cardHeader">
-                    <Header1>{intl.formatMessage({ id: "facetimepageWhatIsAppleIdTitle" })}</Header1>
+      {loading && (
+        <AppContext.Consumer>
+          {({ trackEvent }) => (
+            <Page showCTA={false}>
+              <Container>
+                <>
+                  <div style={{ marginBottom: 24 }}>
+                    <Display>
+                      {intl.formatMessage({ id: "facetimepageTitle" })} {device}
+                    </Display>
                   </div>
-                  <Paragraph color={colors.gray.dark}>
-                    {intl.formatMessage({ id: "facetimepageWhatIsAppleIdParagraph" })}{" "}
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://support.apple.com/sv-se/HT204316"
-                      className="link"
-                      onClick={() => trackEvent(`ReadMoreAboutAppleIdClick`)}
-                    >
-                      https://support.apple.com/sv-se/HT204316
-                    </a>
-                  </Paragraph>
-                </Card>
+                  <StyledDiv>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph1" })}</Paragraph>
+                  </StyledDiv>
 
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph3" })}</Paragraph>
-                </StyledDiv>
+                  <StyledDiv>
+                    <TitleWithNumberCircle number={1}>{intl.formatMessage({ id: "facetimepageStartFacetime" })}</TitleWithNumberCircle>
+                  </StyledDiv>
 
-                <div style={{ marginBottom: 16, marginTop: 16 }}>
-                  <TitleWithNumberCircle number={2}>{intl.formatMessage({ id: "facetimepageStartCallSomeone" })}</TitleWithNumberCircle>
-                </div>
+                  <StyledDiv>
+                    <Paragraph color={colors.gray.dark}>
+                      <a
+                        href="facetime:"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="link"
+                        onClick={() => trackEvent(`StartCallWithFacetime`)}
+                      >
+                        {intl.formatMessage({ id: "facetimeOpenLinkTitle" })}
+                      </a>{" "}
+                      {intl.formatMessage({ id: "facetimeOpenLinkText" })}
+                    </Paragraph>
+                  </StyledDiv>
 
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph4" })}</Paragraph>
-                </StyledDiv>
-
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph5" })}</Paragraph>
-                </StyledDiv>
-
-                <StyledDiv>
-                  <img src={videoImg} alt="Facetime Video" />
-                </StyledDiv>
-
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph6" })}</Paragraph>
-                </StyledDiv>
-
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph7" })}</Paragraph>
-                </StyledDiv>
-
-                <StyledDiv>
-                  <img src={audioImg} alt="Facetime Audio" />
-                </StyledDiv>
-
-                <div style={{ marginBottom: 16, marginTop: 32 }}>
-                  <TitleWithNumberCircle number={3}>{intl.formatMessage({ id: "facetimepageDuringTheCall" })}</TitleWithNumberCircle>
-                </div>
-
-                <StyledDiv>
-                  <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph8" })}</Paragraph>
-                </StyledDiv>
-
-                {cards.map((card) => (
-                  <Card key={card.id}>
+                  <Card>
                     <div className="cardHeader">
-                      <div style={{ marginRight: 16 }}>
-                        <img src={card.image} alt="Facetime Menu icon" />
-                      </div>
-                      <Header1>{intl.formatMessage({ id: `facetime${card.id}Title` })}</Header1>
+                      <Header1>{intl.formatMessage({ id: "facetimepageWhatIsAppleIdTitle" })}</Header1>
                     </div>
-                    <StyledDiv>
-                      <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: `facetime${card.id}Info` })}</Paragraph>
-                    </StyledDiv>
+                    <Paragraph color={colors.gray.dark}>
+                      {intl.formatMessage({ id: "facetimepageWhatIsAppleIdParagraph" })}{" "}
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://support.apple.com/sv-se/HT204316"
+                        className="link"
+                        onClick={() => trackEvent(`ReadMoreAboutAppleIdClick`)}
+                      >
+                        https://support.apple.com/sv-se/HT204316
+                      </a>
+                    </Paragraph>
                   </Card>
-                ))}
-              </>
-            </Container>
-          </Page>
-        )}
-      </AppContext.Consumer>
+
+                  <StyledDiv>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph3" })}</Paragraph>
+                  </StyledDiv>
+
+                  <div style={{ marginBottom: 16, marginTop: 16 }}>
+                    <TitleWithNumberCircle number={2}>{intl.formatMessage({ id: "facetimepageStartCallSomeone" })}</TitleWithNumberCircle>
+                  </div>
+
+                  <StyledDiv>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph4" })}</Paragraph>
+                  </StyledDiv>
+
+                  <StyledDiv>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph5" })}</Paragraph>
+                  </StyledDiv>
+
+                  <StyledDiv>
+                    <img src={videoImg} alt="Facetime Video" />
+                  </StyledDiv>
+
+                  <StyledDiv>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph6" })}</Paragraph>
+                  </StyledDiv>
+
+                  <StyledDiv>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph7" })}</Paragraph>
+                  </StyledDiv>
+
+                  <StyledDiv>
+                    <img src={audioImg} alt="Facetime Audio" />
+                  </StyledDiv>
+
+                  <div style={{ marginBottom: 16, marginTop: 32 }}>
+                    <TitleWithNumberCircle number={3}>{intl.formatMessage({ id: "facetimepageDuringTheCall" })}</TitleWithNumberCircle>
+                  </div>
+
+                  <StyledDiv>
+                    <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph8" })}</Paragraph>
+                  </StyledDiv>
+
+                  {cards.map((card) => (
+                    <Card key={card.id}>
+                      <div className="cardHeader">
+                        <div style={{ marginRight: 16 }}>
+                          <img src={card.image} alt="Facetime Menu icon" />
+                        </div>
+                        <Header1>{intl.formatMessage({ id: `facetime${card.id}Title` })}</Header1>
+                      </div>
+                      <StyledDiv>
+                        <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: `facetime${card.id}Info` })}</Paragraph>
+                      </StyledDiv>
+                    </Card>
+                  ))}
+                </>
+              </Container>
+            </Page>
+          )}
+        </AppContext.Consumer>
+      )}
     </IndexLayout>
   )
 }
