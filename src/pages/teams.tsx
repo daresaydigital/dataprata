@@ -462,7 +462,7 @@ const TeamsPage: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span>Ladda ner Messenger</span>
+                      <span>Ladda ner Teams</span>
                       <img src={downArrow} alt="Download Icon" />
                     </DownloadButton>
                     <div style={{ marginBottom: 16, marginTop: 16 }}>
