@@ -202,7 +202,7 @@ const FacetimePage: React.FC = () => {
               </StyledDiv>
 
               <StyledDiv>
-                <img srcSet={`${videoImg}, ${audioImg2x} 2x, ${audioImg3x} 3x`} alt="Facetime Audio" />
+                <img srcSet={`${audioImg}, ${audioImg2x} 2x, ${audioImg3x} 3x`} alt="Facetime Audio" />
               </StyledDiv>
 
               <div style={{ marginBottom: 16, marginTop: 32 }}>
