@@ -350,6 +350,10 @@ const TeamsPage: React.FC = () => {
                   <TitleWithNumberCircle number={6}>{intl.formatMessage({ id: "teamspageDuringTheCall" })}</TitleWithNumberCircle>
                 </div>
 
+                <StyledDiv>
+                  <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "teamspageParagraph16" })}</Paragraph>
+                </StyledDiv>
+
                 {duringCallCards.map((card) => (
                   <Card key={card.id}>
                     <div className="cardHeader">
