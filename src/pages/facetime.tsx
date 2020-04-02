@@ -7,22 +7,36 @@ import { IndexLayout, AnalyticsContext } from "../layouts"
 import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
 import { colors } from "../styles/variables"
 
-import videoImg from "../content/facetimePage/facetimeVideo.png"
+import vidImg from "../content/facetimePage/facetimeVideo.png"
+import vidImg2x from "../content/facetimePage/faceTimeVideo@2x.png"
+import vidImg3x from "../content/facetimePage/faceTimeVideo@3x.png"
 import audioImg from "../content/facetimePage/facetimeAudio.png"
+import audioImg2x from "../content/facetimePage/facetimeAudio@2x.png"
+import audioImg3x from "../content/facetimePage/facetimeAudio@3x.png"
 
 import menuImg from "../content/facetimePage/facetimeMenu.png"
+import menuImg2x from "../content/facetimePage/facetimeMenu@2x.png"
+import menuImg3x from "../content/facetimePage/facetimeMenu@3x.png"
 import cancelImg from "../content/facetimePage/facetimeCancel.png"
+import cancelImg2x from "../content/facetimePage/facetimeCancel@2x.png"
+import cancelImg3x from "../content/facetimePage/facetimeCancel@3x.png"
 import soundOfImg from "../content/facetimePage/facetimeSoundOf.png"
+import soundOfImg2x from "../content/facetimePage/facetimeSoundOf@2x.png"
+import soundOfImg3x from "../content/facetimePage/facetimeSoundOf@3x.png"
 import turnOfVideoImg from "../content/facetimePage/facetimeVideoOf.png"
+import turnOfVideoImg2x from "../content/facetimePage/facetimeVideoOf@2x.png"
+import turnOfVideoImg3x from "../content/facetimePage/facetimeVideoOf@3x.png"
 import fullscreenImg from "../content/facetimePage/facetimeFullscreen.png"
+import fullscreenImg2x from "../content/facetimePage/facetimeFullscreen@2x.png"
+import fullscreenImg3x from "../content/facetimePage/facetimeFullscreen@3x.png"
 import { Crumb } from "../components/Crumbs"
 
 const cards = [
-  { id: "menu", image: menuImg },
-  { id: "cancel", image: cancelImg },
-  { id: "soundOf", image: soundOfImg },
-  { id: "turnOfVideo", image: turnOfVideoImg },
-  { id: "fullscreen", image: fullscreenImg },
+  { id: "menu", image: menuImg, image2x: menuImg2x, image3x: menuImg3x },
+  { id: "cancel", image: cancelImg, image2x: cancelImg2x, image3x: cancelImg3x },
+  { id: "soundOf", image: soundOfImg, image2x: soundOfImg2x, image3x: soundOfImg3x },
+  { id: "turnOfVideo", image: turnOfVideoImg, image2x: turnOfVideoImg2x, image3x: turnOfVideoImg3x },
+  { id: "fullscreen", image: fullscreenImg, image2x: fullscreenImg2x, image3x: fullscreenImg3x },
 ]
 
 // TODO: This is now duplicated from service.tsx
@@ -174,7 +188,7 @@ const FacetimePage: React.FC = () => {
               </StyledDiv>
 
               <StyledDiv>
-                <img src={videoImg} alt="Facetime Video" />
+                <img srcSet={`${vidImg}, ${vidImg2x} 2x, ${vidImg3x} 3x`} alt="Facetime Video" />
               </StyledDiv>
 
               <StyledDiv>
@@ -186,7 +200,7 @@ const FacetimePage: React.FC = () => {
               </StyledDiv>
 
               <StyledDiv>
-                <img src={audioImg} alt="Facetime Audio" />
+                <img srcSet={`${audioImg}, ${audioImg2x} 2x, ${audioImg3x} 3x`} alt="Facetime Audio" />
               </StyledDiv>
 
               <div style={{ marginBottom: 16, marginTop: 32 }}>
@@ -201,7 +215,7 @@ const FacetimePage: React.FC = () => {
                 <Card key={card.id}>
                   <div className="cardHeader">
                     <div style={{ marginRight: 16 }}>
-                      <img src={card.image} alt="Facetime Menu icon" />
+                      <img srcSet={`${card.image}, ${card.image2x} 2x, ${card.image3x} 3x`} alt="Facetime Menu icon" />
                     </div>
                     <Header1>{intl.formatMessage({ id: `facetime${card.id}Title` })}</Header1>
                   </div>
