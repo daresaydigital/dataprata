@@ -4,6 +4,7 @@ export default `
   html {
     box-sizing: border-box;
     font-feature-settings: "liga" 1, "calt" 1, "ss01" 1, "ss03" 1;
+    background-color: ${colors.black};
   }
 
   *,
