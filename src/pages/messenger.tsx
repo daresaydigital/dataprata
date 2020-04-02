@@ -269,7 +269,7 @@ const MessengerPage: React.FC = () => {
               <ToggleButton
                 href="#"
                 className={toggleAccount && toggleAccount === "noaccount" ? "active" : "in-active"}
-                onClick={(e: any) => {
+                onClick={(e) => {
                   e.preventDefault()
                   trackEvent("NoFacebookAccountClick")
                   setToggleAccount("noaccount")
@@ -280,7 +280,7 @@ const MessengerPage: React.FC = () => {
               <ToggleButton
                 href="#"
                 className={toggleAccount && toggleAccount === "haveaccount" ? "active" : "in-active"}
-                onClick={(e: any) => {
+                onClick={(e) => {
                   e.preventDefault()
                   trackEvent("HaveFacebookAccountClick")
                   setToggleAccount("haveaccount")
