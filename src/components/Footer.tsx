@@ -6,7 +6,7 @@ import { Link, useIntl } from "gatsby-plugin-intl"
 import React from "react"
 import { GibonLogo } from "../icons/logos"
 import { colors, widths } from "../styles/variables"
-import { InvisibleLinkStyle } from "./typography"
+import { InvisibleLinkStyle, Header2 } from "./typography"
 
 const StyledFooter = styled.div`
   background-color: ${colors.black};
@@ -28,7 +28,7 @@ const Container = styled.div`
   }
 
   @media (min-width: ${widths.md}px) {
-    padding: 30px 0px 20px;
+    padding: 20px 0px 20px;
   }
 `
 
@@ -42,6 +42,45 @@ const Col = styled.div`
   @media (min-width: ${widths.md}px) {
     margin: 20px;
   }
+`
+
+const Row = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 88px;
+`
+
+const InnerRowContainer = styled.div`
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: ${colors.gray.dark};
+
+  padding: 32px;
+  border-radius: 8px;
+
+  text-align: center;
+
+  @media (min-width: ${widths.md}px) {
+    width: 656px;
+  }
+`
+
+const StyledLink = styled.a`
+  justify-content: center;
+  padding: 24px;
+  background: ${colors.yellow};
+  text-decoration: none;
+  border-radius: 4px;
+
+  font-weight: 600;
+  color: ${colors.black} !important;
+
+  margin-top: 24px;
 `
 
 const UL = styled.ul`
@@ -67,6 +106,11 @@ const IconContainer = styled.span`
   text-align: right;
   padding-right: 5px;
 `
+
+const TelLink = styled.span`
+  margin-top: 16px;
+`
+
 interface Props {
   trackEvent: (name: string) => void
 }
@@ -80,9 +124,11 @@ export const Footer: React.FC<Props> = ({ trackEvent }) => {
             <LI>
               <Strong>{intl.formatMessage({ id: "footer-sponsors" })}</Strong>
             </LI>
-            <LI onClick={() => trackEvent("GibonClick")}>
-              <GibonLogo />
-            </LI>
+            <a onClick={() => trackEvent("GibonClick")} rel="noopener noreferrer" target="_blank" href="https://gibon.se">
+              <LI>
+                <GibonLogo />
+              </LI>
+            </a>
           </UL>
         </Col>
         <Col>
@@ -123,6 +169,17 @@ export const Footer: React.FC<Props> = ({ trackEvent }) => {
             </LI>
           </UL>
         </Col>
+      </Container>
+      <Container>
+        <Row>
+          <InnerRowContainer>
+            <Header2 color={colors.white}>Vill ditt företag eller organisation hjälpa till?</Header2>
+            <StyledLink href="mailto:david.furendal@daresay.co?subject=Dataprata%20partner">Bli Dataprata partner nu!</StyledLink>
+            <TelLink>
+              Eller ring: <a href="tel:+46761344367">076 134 43 67</a>
+            </TelLink>
+          </InnerRowContainer>
+        </Row>
       </Container>
     </StyledFooter>
   )
