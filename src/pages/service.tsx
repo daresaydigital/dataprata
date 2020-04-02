@@ -147,14 +147,7 @@ const ServicePage: React.FC = () => {
     toggleLoading(false)
   })
 
-  const hideTeams =
-    deviceFromHash.includes("android") ||
-    deviceFromHash.includes("ios") ||
-    deviceFromHash.includes("iphone") ||
-    deviceFromHash.includes("ipad")
   const hideMessenger = deviceFromHash.includes("pc") || deviceFromHash.includes("mac")
-
-  // window.console.log(hideTeams, hideMessenger, deviceFromHash, OS)
 
   return (
     <IndexLayout pageTitleID="servicepageTitle" crumbs={crumbs} showCTA={false}>
@@ -189,7 +182,7 @@ const ServicePage: React.FC = () => {
                 "teamsCTA",
                 "https://teams.microsoft.com/dl/launcher/launcher.html?url=%2f_%23%2fl%2fmeetup-join%2f&type=meetup-join&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true",
                 `/teams${deviceFromHash}`,
-                hideTeams,
+                false,
               )}
               {renderServiceCard(
                 intl,
