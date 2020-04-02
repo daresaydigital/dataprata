@@ -152,7 +152,6 @@ const ServicePage: React.FC = () => {
     deviceFromHash.includes("ios") ||
     deviceFromHash.includes("iphone") ||
     deviceFromHash.includes("ipad")
-  const hideMessenger = deviceFromHash.includes("pc") || deviceFromHash.includes("mac")
 
   // window.console.log(hideTeams, hideMessenger, deviceFromHash, OS)
 
@@ -199,7 +198,7 @@ const ServicePage: React.FC = () => {
                 "messengerCTA",
                 isMobile ? "fb://messaging/new" : "https://facebook.com",
                 `/messenger${deviceFromHash}`,
-                hideMessenger,
+                false,
               )}
             </div>
           </>
