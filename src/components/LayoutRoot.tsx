@@ -2,12 +2,14 @@ import { css, Global } from "@emotion/core"
 import styled from "@emotion/styled"
 import * as React from "react"
 import normalize from "../styles/normalize"
+import { colors } from "../styles/variables"
 import { Footer } from "./Footer"
 import { Header } from "./Header"
 
 const StyledLayoutRoot = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: ${colors.white};
 `
 
 interface LayoutRootProps {

@@ -28,7 +28,7 @@ export default `
     overflow-y: scroll;
     font-family: ${fonts.sansSerif};
     color: ${colors.black};
-    background-color: ${colors.white};
+    background-color: ${colors.black};
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
   }
