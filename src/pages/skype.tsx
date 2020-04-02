@@ -214,7 +214,7 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={macDownloadsImg} alt="Screenshot of Downloads folder" />
+                    <img src={macDownloadsImg} width="640px" height="217px" alt="Screenshot of Downloads folder" />
                   </StyledDiv>
 
                   <StyledDiv>
@@ -226,7 +226,7 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={installImg} alt="Screenshot of Skype install" />
+                    <img src={installImg} width="640px" height="333px" alt="Screenshot of Skype install" />
                   </StyledDiv>
                 </>
               )}
@@ -324,7 +324,7 @@ const SkypePage: React.FC = () => {
                     </Paragraph>
                   </StyledDiv>
                   <StyledDiv>
-                    {os === "ios" && <img src={iosAddContacts} alt="Screenshot of adding contacts" />}
+                    {os === "ios" && <img src={iosAddContacts} width="257px" height="460px" alt="Screenshot of adding contacts" />}
                     {os === "android" && <img src={androidAddContacts} alt="Screenshot of adding contacts" />}
                   </StyledDiv>
                 </>
@@ -360,7 +360,7 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    {os === "ios" && <img src={iosStartVideoCall} alt="Screenshot of making a call" />}
+                    {os === "ios" && <img src={iosStartVideoCall} width="257px" height="457px" alt="Screenshot of making a call" />}
                     {os === "android" && <img src={androidMakeVideoCall} alt="Screenshot of making a call" />}
                   </StyledDiv>
                 </>
