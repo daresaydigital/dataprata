@@ -34,8 +34,8 @@ Dock är dessa grupper svåra att nå digitalt så därför riktar vi vårt buds
 ## För mer information kontakta:
 
 Mia Åslander, vd Gibon <br/>
-076-188 91 77<br/>
-mia.aslander@gibon.se
+[076-188 91 77](tel:+46761889177)<br/>
+[mia.aslander@gibon.se](mailto:mia.aslander@gibon.se)</a>
 
 ## Om Gibon
 
