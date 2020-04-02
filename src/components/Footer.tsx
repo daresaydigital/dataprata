@@ -106,6 +106,11 @@ const IconContainer = styled.span`
   text-align: right;
   padding-right: 5px;
 `
+
+const TelLink = styled.span`
+  margin-top: 16px;
+`
+
 interface Props {
   trackEvent: (name: string) => void
 }
@@ -170,6 +175,9 @@ export const Footer: React.FC<Props> = ({ trackEvent }) => {
           <InnerRowContainer>
             <Header2 color={colors.white}>Vill ditt företag eller organisation hjälpa till?</Header2>
             <StyledLink href="mailto:david.furendal@daresay.co?subject=Dataprata%20partner">Bli Dataprata partner nu!</StyledLink>
+            <TelLink>
+              Eller ring: <a href="tel:+46761344367">076 134 43 67</a>
+            </TelLink>
           </InnerRowContainer>
         </Row>
       </Container>
