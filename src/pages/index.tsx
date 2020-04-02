@@ -53,6 +53,10 @@ const ContactCard = styled.div`
     }
   }
 `
+
+const StyledPhone = styled.a`
+  color: ${colors.black};
+`
 const crumbs: Crumb[] = []
 
 const IndexPage: React.FC = () => {
@@ -85,7 +89,9 @@ const IndexPage: React.FC = () => {
               <Caption color={colors.gray.dark}>{intl.formatMessage({ id: "feedback-text" })}</Caption>
             </div>
 
-            <Header1>073 151 90 83</Header1>
+            <Header1>
+              <StyledPhone href="tel:+46731519083">073 151 90 83</StyledPhone>
+            </Header1>
           </div>
           <div className="rightCol">
             <FeedbackIcon />
