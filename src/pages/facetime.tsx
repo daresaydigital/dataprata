@@ -61,6 +61,10 @@ const StyledDiv = styled.div`
     color: ${colors.black};
     letter-spacing: -0.2px;
   }
+
+  img {
+    max-width: 100%;
+  }
 `
 
 const FacetimePage: React.FC = () => {

@@ -79,6 +79,9 @@ const StyledDiv = styled.div`
     color: ${colors.black};
     letter-spacing: -0.2px;
   }
+  img {
+    max-width: 100%;
+  }
 `
 
 const TeamsPage: React.FC = () => {
@@ -349,6 +352,10 @@ const TeamsPage: React.FC = () => {
                 <div style={{ marginBottom: 16, marginTop: 16 }}>
                   <TitleWithNumberCircle number={6}>{intl.formatMessage({ id: "teamspageDuringTheCall" })}</TitleWithNumberCircle>
                 </div>
+
+                <StyledDiv>
+                  <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "teamspageParagraph16" })}</Paragraph>
+                </StyledDiv>
 
                 {duringCallCards.map((card) => (
                   <Card key={card.id}>
