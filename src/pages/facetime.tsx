@@ -7,9 +7,9 @@ import { IndexLayout, AnalyticsContext } from "../layouts"
 import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
 import { colors } from "../styles/variables"
 
-import videoImg from "../content/facetimePage/facetimeVideo.png"
-import videoImg2x from "../content/facetimePage/facetimeVideo@2x.png"
-import videoImg3x from "../content/facetimePage/facetimeVideo@3x.png"
+import vidImg from "../content/facetimePage/facetimeVideo.png"
+import vidImg2x from "../content/facetimePage/facetimeVideo@2x.png"
+import vidImg3x from "../content/facetimePage/facetimeVideo@3x.png"
 import audioImg from "../content/facetimePage/facetimeAudio.png"
 import audioImg2x from "../content/facetimePage/facetimeAudio@2x.png"
 import audioImg3x from "../content/facetimePage/facetimeAudio@3x.png"
@@ -188,7 +188,7 @@ const FacetimePage: React.FC = () => {
               </StyledDiv>
 
               <StyledDiv>
-                <img srcSet={`${videoImg}, ${videoImg2x} 2x, ${videoImg3x} 3x`} alt="Facetime Video" />
+                <img srcSet={`${vidImg}, ${vidImg2x} 2x, ${vidImg3x} 3x`} alt="Facetime Video" />
               </StyledDiv>
 
               <StyledDiv>
