@@ -462,7 +462,7 @@ const TeamsPage: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span>Ladda ner Messenger</span>
+                      <span>Ladda ner Teams</span>
                       <img src={downArrow} alt="Download Icon" />
                     </DownloadButton>
                     <div style={{ marginBottom: 16, marginTop: 16 }}>
@@ -488,12 +488,12 @@ const TeamsPage: React.FC = () => {
                     </StyledDiv>
                     {os === "ios" && (
                       <StyledDiv>
-                        <img src={iosInviteMembers} alt="Invite members screenshot" />
+                        <img src={iosInviteMembers} width="288px" height="511px" alt="Invite members screenshot" />
                       </StyledDiv>
                     )}
                     {os === "android" && (
                       <StyledDiv>
-                        <img src={androidInviteMembers} alt="Invite members screenshot" />
+                        <img src={androidInviteMembers} width="288px" height="608px" alt="Invite members screenshot" />
                       </StyledDiv>
                     )}
                     <StyledDiv>
@@ -512,12 +512,12 @@ const TeamsPage: React.FC = () => {
                     </StyledDiv>
                     {os === "ios" && (
                       <StyledDiv>
-                        <img src={iosSearch} alt="Search screenshot" />
+                        <img src={iosSearch} width="288px" height="82px" alt="Search screenshot" />
                       </StyledDiv>
                     )}
                     {os === "android" && (
                       <StyledDiv>
-                        <img src={androidSearch} alt="Search screenshot" />
+                        <img src={androidSearch} width="288px" height="97px" alt="Search screenshot" />
                       </StyledDiv>
                     )}
                     <StyledDiv>
@@ -527,12 +527,12 @@ const TeamsPage: React.FC = () => {
                     </StyledDiv>
                     {os === "ios" && (
                       <StyledDiv>
-                        <img src={iosSearch2} alt="Search screenshot part 2" />
+                        <img src={iosSearch2} width="288px" height="512px" alt="Search screenshot part 2" />
                       </StyledDiv>
                     )}
                     {os === "android" && (
                       <StyledDiv>
-                        <img src={androidSearch2} alt="Search screenshot part 2" />
+                        <img src={androidSearch2} width="288px" height="194px" alt="Search screenshot part 2" />
                       </StyledDiv>
                     )}
                     <StyledDiv>
@@ -542,12 +542,12 @@ const TeamsPage: React.FC = () => {
                     </StyledDiv>
                     {os === "ios" && (
                       <StyledDiv>
-                        <img src={iosProfile} alt="Search screenshot part 2" />
+                        <img src={iosProfile} width="288px" height="229px" alt="Search screenshot part 2" />
                       </StyledDiv>
                     )}
                     {os === "android" && (
                       <StyledDiv>
-                        <img src={androidProfile} alt="Search screenshot part 2" />
+                        <img src={androidProfile} width="288px" height="194px" alt="Search screenshot part 2" />
                       </StyledDiv>
                     )}
 
