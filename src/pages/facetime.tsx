@@ -8,9 +8,7 @@ import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../component
 import { colors } from "../styles/variables"
 
 import videoImg from "../content/facetimePage/facetimeVideo.png"
-// eslint-disable-next-line import/no-unresolved
 import videoImg2x from "../content/facetimePage/facetimeVideo@2x.png"
-// eslint-disable-next-line import/no-unresolved
 import videoImg3x from "../content/facetimePage/facetimeVideo@3x.png"
 import audioImg from "../content/facetimePage/facetimeAudio.png"
 import audioImg2x from "../content/facetimePage/facetimeAudio@2x.png"
