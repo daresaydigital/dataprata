@@ -8,8 +8,8 @@ import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../component
 import { colors } from "../styles/variables"
 
 import vidImg from "../content/facetimePage/facetimeVideo.png"
-import vidImg2x from "../content/facetimePage/facetimeVideo@2x.png"
-import vidImg3x from "../content/facetimePage/facetimeVideo@3x.png"
+import vidImg2x from "../content/facetimePage/faceTimeVideo@2x.png"
+import vidImg3x from "../content/facetimePage/faceTimeVideo@3x.png"
 import audioImg from "../content/facetimePage/facetimeAudio.png"
 import audioImg2x from "../content/facetimePage/facetimeAudio@2x.png"
 import audioImg3x from "../content/facetimePage/facetimeAudio@3x.png"
