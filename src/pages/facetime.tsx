@@ -119,8 +119,8 @@ const TipCard = styled.div`
     border: 1px solid ${colors.yellow};
   }
 
-  input[type=number]::-webkit-inner-spin-button,
-  input[type=number]::-webkit-outer-spin-button {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
@@ -128,7 +128,7 @@ const TipCard = styled.div`
   .btn {
     display: flex;
     justify-content: center;
-    /* background: ${colors.black}; */
+
     background: ${colors.yellow};
     box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 10px 20px rgba(0, 0, 0, 0.04);
 
