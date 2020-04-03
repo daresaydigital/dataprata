@@ -4,8 +4,8 @@ import { useIntl } from "gatsby-plugin-intl"
 import styled from "@emotion/styled"
 import { Container } from "../components/Container"
 import { IndexLayout, AnalyticsContext } from "../layouts"
-import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
-import { colors } from "../styles/variables"
+import { Display, Paragraph, TitleWithNumberCircle, Header1, Header2 } from "../components/typography"
+import { colors, widths } from "../styles/variables"
 
 import vidImg from "../content/facetimePage/facetimeVideo.png"
 import vidImg2x from "../content/facetimePage/faceTimeVideo@2x.png"
@@ -69,6 +69,85 @@ const Card = styled.div`
   }
 `
 
+const TipCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  background: rgba(255, 224, 0, 0.16);
+  border: 3px solid ${colors.yellow};
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+
+  .cardHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .link {
+    color: ${colors.black};
+    letter-spacing: -0.2px;
+    word-break: break-word;
+  }
+
+  .inputWrapper {
+    margin-top: 24px;
+
+    @media (min-width: ${widths.md}px) {
+      width: 256px;
+    }
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  input {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px;
+    border: 0;
+    border-radius: 6px;
+    border: 1px solid ${colors.yellow};
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .btn {
+    display: flex;
+    justify-content: center;
+    /* background: ${colors.black}; */
+    background: ${colors.yellow};
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 10px 20px rgba(0, 0, 0, 0.04);
+
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    color: ${colors.black};
+
+    margin-top: 24px;
+    padding: 16px;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+
+  .btn:focus {
+    box-shadow: 0 0 0 3px rgba(21, 156, 228, 0.8);
+  }
+`
+
 const StyledDiv = styled.div`
   margin-bottom: 16px;
   .link {
@@ -86,15 +165,26 @@ const FacetimePage: React.FC = () => {
   const [loading, setLoading] = React.useState(true)
   const [device, setDevice] = React.useState("mac")
 
+  const [renderSms, toggleSms] = React.useState(false)
+
+  const [userNumber, setUserNumber] = React.useState("")
+  const [recievingNumber, setRecievingNumber] = React.useState("")
+
   React.useEffect(() => {
     const deviceFromHash = window.location.hash.toLocaleLowerCase()
     let deviceTitle = "Mac"
     if (deviceFromHash.includes("ios")) {
       deviceTitle = `iPhone ${intl.formatMessage({ id: "or" })} iPad`
     }
+
+    if (deviceFromHash.includes("ios") || deviceFromHash.includes("mac")) {
+      toggleSms(true)
+    }
     setDevice(deviceTitle)
     setLoading(false)
   })
+
+  const renderUrl = () => `sms:${recievingNumber}&body=Tryck på den här länken när du vill ringa mig på FaceTime!  facetime://${userNumber}`
 
   if (loading) {
     return null
@@ -133,6 +223,45 @@ const FacetimePage: React.FC = () => {
               <StyledDiv>
                 <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph1" })}</Paragraph>
               </StyledDiv>
+              {renderSms && (
+                <TipCard>
+                  <div className="cardHeader">
+                    <Header1>{intl.formatMessage({ id: "facetimepageSmsTitle" })}</Header1>
+                  </div>
+                  <Paragraph color={colors.black}>{intl.formatMessage({ id: "facetimepageSmsBody" })}</Paragraph>
+                  <div className="inputWrapper">
+                    <div className="col">
+                      <Header2>{intl.formatMessage({ id: "facetimepageSmsUser" })}</Header2>
+                      <div style={{ marginTop: 8 }}>
+                        <input
+                          value={userNumber}
+                          onChange={(e) => setUserNumber(e.target.value)}
+                          type="number"
+                          placeholder={intl.formatMessage({ id: "facetimepageSmsUser" })}
+                        />
+                      </div>
+                    </div>
+                    <div className="col">
+                      <div style={{ marginTop: 16 }}>
+                        <Header2>{intl.formatMessage({ id: "facetimepageSmsReciever" })}</Header2>
+                      </div>
+                      <div style={{ marginTop: 8 }}>
+                        <input
+                          value={recievingNumber}
+                          onChange={(e) => setRecievingNumber(e.target.value)}
+                          type="number"
+                          placeholder={intl.formatMessage({ id: "facetimepageSmsReciever" })}
+                        />
+                      </div>
+                    </div>
+                    <div className="col">
+                      <a href={renderUrl()} className="btn" onClick={() => trackEvent(`GenerateSMSLink`)}>
+                        {intl.formatMessage({ id: "facetimepageSmsCTA" })}
+                      </a>
+                    </div>
+                  </div>
+                </TipCard>
+              )}
 
               <StyledDiv>
                 <TitleWithNumberCircle number={1}>{intl.formatMessage({ id: "facetimepageStartFacetime" })}</TitleWithNumberCircle>
