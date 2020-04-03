@@ -9,28 +9,68 @@ import { colors } from "../styles/variables"
 import { Crumb } from "../components/Crumbs"
 
 import toggleVideoImg from "../content/skypePage/toggleVideo.png"
+import toggleVideoImg2x from "../content/skypePage/toggleVideo@2x.png"
+import toggleVideoImg3x from "../content/skypePage/toggleVideo@3x.png"
+
 import toggleSoundImg from "../content/skypePage/toggleSound.png"
+import toggleSoundImg2x from "../content/skypePage/toggleSound@2x.png"
+import toggleSoundImg3x from "../content/skypePage/toggleSound@3x.png"
+
 import cancelCallImg from "../content/skypePage/cancelCall.png"
+import cancelCallImg2x from "../content/skypePage/cancelCall@2x.png"
+import cancelCallImg3x from "../content/skypePage/cancelCall@3x.png"
+
 import openChatImg from "../content/skypePage/openChat.png"
+import openChatImg2x from "../content/skypePage/openChat@2x.png"
+import openChatImg3x from "../content/skypePage/openChat@3x.png"
 
 import macDownloadsImg from "../content/skypePage/downloadsScreenshot.png"
+import macDownloadsImg2x from "../content/skypePage/downloadsScreenshot@2x.png"
+import macDownloadsImg3x from "../content/skypePage/downloadsScreenshot@3x.png"
+
 import pcDownloadsImg from "../content/skypePage/skypePcDownloads.png"
+import pcDownloadsImg2x from "../content/skypePage/skypePcDownloads@2x.png"
+import pcDownloadsImg3x from "../content/skypePage/skypePcDownloads@3x.png"
+
 import installImg from "../content/skypePage/skypeInstallScreenshot.png"
+import installImg2x from "../content/skypePage/skypeInstallScreenshot@2x.png"
+import installImg3x from "../content/skypePage/skypeInstallScreenshot@3x.png"
+
 import addContactsImg from "../content/skypePage/skypeAddContacts.png"
+import addContactsImg2x from "../content/skypePage/skypeAddContacts@2x.png"
+import addContactsImg3x from "../content/skypePage/skypeAddContacts@3x.png"
+
 import newContactsImg from "../content/skypePage/skypeNewContact.png"
+import newContactsImg2x from "../content/skypePage/skypeNewContact@2x.png"
+import newContactsImg3x from "../content/skypePage/skypeNewContact@3x.png"
+
 import makeACallImg from "../content/skypePage/skypeMakeACall.png"
+import makeACallImg2x from "../content/skypePage/skypeMakeACall@2x.png"
+import makeACallImg3x from "../content/skypePage/skypeMakeACall@3x.png"
+
 import iosAddContacts from "../content/skypePage/iosAddContacts.png"
+import iosAddContacts2x from "../content/skypePage/iosAddContacts@2x.png"
+import iosAddContacts3x from "../content/skypePage/iosAddContacts@3x.png"
+
 import androidAddContacts from "../content/skypePage/androidAddContacts.png"
+import androidAddContacts2x from "../content/skypePage/androidAddContacts@2x.png"
+import androidAddContacts3x from "../content/skypePage/androidAddContacts@3x.png"
+
 import iosStartVideoCall from "../content/skypePage/iosStartVideoCall.png"
+import iosStartVideoCall2x from "../content/skypePage/iosStartVideoCall@2x.png"
+import iosStartVideoCall3x from "../content/skypePage/iosStartVideoCall@3x.png"
+
 import androidMakeVideoCall from "../content/skypePage/androidMakeVideoCall.png"
+import androidMakeVideoCall2x from "../content/skypePage/androidMakeVideoCall@2x.png"
+import androidMakeVideoCall3x from "../content/skypePage/androidMakeVideoCall@3x.png"
 
 import downArrow from "../content/messengerPage/down.png"
 
 const cards = [
-  { id: "toggleVideo", image: toggleVideoImg },
-  { id: "toggleSound", image: toggleSoundImg },
-  { id: "cancelCall", image: cancelCallImg },
-  { id: "openChat", image: openChatImg },
+  { id: "toggleVideo", image: toggleVideoImg, image2x: toggleVideoImg2x, image3x: toggleVideoImg3x },
+  { id: "toggleSound", image: toggleSoundImg, image2x: toggleSoundImg2x, image3x: toggleSoundImg3x },
+  { id: "cancelCall", image: cancelCallImg, image2x: cancelCallImg2x, image3x: cancelCallImg3x },
+  { id: "openChat", image: openChatImg, image2x: openChatImg2x, image3x: openChatImg3x },
 ]
 
 const DownloadButton = styled.a`
@@ -214,7 +254,12 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={macDownloadsImg} width="640px" height="217px" alt="Screenshot of Downloads folder" />
+                    <img
+                      srcSet={`${macDownloadsImg}, ${macDownloadsImg2x} 2x, ${macDownloadsImg3x} 3x`}
+                      width="640px"
+                      height="217px"
+                      alt="Screenshot of Downloads folder"
+                    />
                   </StyledDiv>
 
                   <StyledDiv>
@@ -226,7 +271,12 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={installImg} width="640px" height="333px" alt="Screenshot of Skype install" />
+                    <img
+                      srcSet={`${installImg}, ${installImg2x} 2x, ${installImg3x} 3x`}
+                      width="640px"
+                      height="333px"
+                      alt="Screenshot of Skype install"
+                    />
                   </StyledDiv>
                 </>
               )}
@@ -252,7 +302,10 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={pcDownloadsImg} alt="Screenshot of Downloads folder" />
+                    <img
+                      srcSet={`${pcDownloadsImg}, ${pcDownloadsImg2x} 2x, ${pcDownloadsImg3x} 3x`}
+                      alt="Screenshot of Downloads folder"
+                    />
                   </StyledDiv>
 
                   <StyledDiv>
@@ -297,7 +350,7 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={addContactsImg} alt="Screenshot of adding contacts" />
+                    <img srcSet={`${addContactsImg}, ${addContactsImg2x} 2x, ${addContactsImg3x} 3x`} alt="Screenshot of adding contacts" />
                   </StyledDiv>
 
                   <StyledDiv>
@@ -305,7 +358,7 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={newContactsImg} alt="Screenshot of adding contacts" />
+                    <img srcSet={`${newContactsImg}, ${newContactsImg2x} 2x, ${newContactsImg3x} 3x`} alt="Screenshot of adding contacts" />
                   </StyledDiv>
                 </>
               )}
@@ -324,8 +377,20 @@ const SkypePage: React.FC = () => {
                     </Paragraph>
                   </StyledDiv>
                   <StyledDiv>
-                    {os === "ios" && <img src={iosAddContacts} width="257px" height="460px" alt="Screenshot of adding contacts" />}
-                    {os === "android" && <img src={androidAddContacts} alt="Screenshot of adding contacts" />}
+                    {os === "ios" && (
+                      <img
+                        srcSet={`${iosAddContacts}, ${iosAddContacts2x} 2x, ${iosAddContacts3x} 3x`}
+                        width="257px"
+                        height="460px"
+                        alt="Screenshot of adding contacts"
+                      />
+                    )}
+                    {os === "android" && (
+                      <img
+                        srcSet={`${androidAddContacts}, ${androidAddContacts2x} 2x, ${androidAddContacts3x} 3x`}
+                        alt="Screenshot of adding contacts"
+                      />
+                    )}
                   </StyledDiv>
                 </>
               )}
@@ -341,7 +406,7 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={makeACallImg} alt="Screenshot of making a call" />
+                    <img srcSet={`${makeACallImg}, ${makeACallImg2x} 2x, ${makeACallImg3x} 3x`} alt="Screenshot of making a call" />
                   </StyledDiv>
                 </>
               )}
@@ -360,8 +425,20 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    {os === "ios" && <img src={iosStartVideoCall} width="257px" height="457px" alt="Screenshot of making a call" />}
-                    {os === "android" && <img src={androidMakeVideoCall} alt="Screenshot of making a call" />}
+                    {os === "ios" && (
+                      <img
+                        srcSet={`${iosStartVideoCall}, ${iosStartVideoCall2x} 2x, ${iosStartVideoCall3x} 3x`}
+                        width="257px"
+                        height="457px"
+                        alt="Screenshot of making a call"
+                      />
+                    )}
+                    {os === "android" && (
+                      <img
+                        srcSet={`${androidMakeVideoCall}, ${androidMakeVideoCall2x} 2x, ${androidMakeVideoCall3x} 3x`}
+                        alt="Screenshot of making a call"
+                      />
+                    )}
                   </StyledDiv>
                 </>
               )}
@@ -381,7 +458,7 @@ const SkypePage: React.FC = () => {
                   <Card key={card.id}>
                     <div className="cardHeader">
                       <div style={{ marginRight: 16 }}>
-                        <img src={card.image} alt={`Skype ${card.id} icon`} />
+                        <img srcSet={`${card.image}, ${card.image2x} 2x, ${card.image3x} 3x`} alt={`Skype ${card.id} icon`} />
                       </div>
                       <Header1>{intl.formatMessage({ id: `skype${card.id}Title` })}</Header1>
                     </div>

@@ -9,37 +9,87 @@ import { colors, widths } from "../styles/variables"
 import { Crumb } from "../components/Crumbs"
 
 import warningIcon from "../content/messengerPage/warningIcon.png"
+import warningIcon2x from "../content/messengerPage/warningIcon@2x.png"
+import warningIcon3x from "../content/messengerPage/warningIcon@3x.png"
+
 import soundIcon from "../content/messengerPage/soundIcon.png"
+import soundIcon2x from "../content/messengerPage/soundIcon@2x.png"
+import soundIcon3x from "../content/messengerPage/soundIcon@3x.png"
+
 import videoIcon from "../content/messengerPage/videoIcon.png"
+import videoIcon2x from "../content/messengerPage/videoIcon@2x.png"
+import videoIcon3x from "../content/messengerPage/videoIcon@3x.png"
+
 import chattIcon from "../content/messengerPage/chattIcon.png"
+import chattIcon2x from "../content/messengerPage/chattIcon@2x.png"
+import chattIcon3x from "../content/messengerPage/chattIcon@3x.png"
+
 import cancelIcon from "../content/messengerPage/cancelIcon.png"
+import cancelIcon2x from "../content/messengerPage/cancelIcon@2x.png"
+import cancelIcon3x from "../content/messengerPage/cancelIcon@3x.png"
+
 import soundOffIcon from "../content/messengerPage/soundOffIcon.png"
+import soundOffIcon2x from "../content/messengerPage/soundOffIcon@2x.png"
+import soundOffIcon3x from "../content/messengerPage/soundOffIcon@3x.png"
+
 import addParticipantsIcon from "../content/messengerPage/addParticipantsIcon.png"
+import addParticipantsIcon2x from "../content/messengerPage/addParticipantsIcon@2x.png"
+import addParticipantsIcon3x from "../content/messengerPage/addParticipantsIcon@3x.png"
+
 import iosSearchChat from "../content/messengerPage/iosSearchChat.png"
+import iosSearchChat2x from "../content/messengerPage/iosSearchChat@2x.png"
+import iosSearchChat3x from "../content/messengerPage/iosSearchChat@3x.png"
+
 import androidSearchChat from "../content/messengerPage/androidSearchChat.png"
+import androidSearchChat2x from "../content/messengerPage/androidSearchChat@2x.png"
+import androidSearchChat3x from "../content/messengerPage/androidSearchChat@3x.png"
+
 import iosStartCall from "../content/messengerPage/iosStartCall.png"
+import iosStartCall2x from "../content/messengerPage/iosStartCall@2x.png"
+import iosStartCall3x from "../content/messengerPage/iosStartCall@3x.png"
+
 import androidStartCall from "../content/messengerPage/androidStartCall.png"
+import androidStartCall2x from "../content/messengerPage/androidStartCall@2x.png"
+import androidStartCall3x from "../content/messengerPage/androidStartCall@3x.png"
+
 import downArrow from "../content/messengerPage/down.png"
+import downArrow2x from "../content/messengerPage/down@2x.png"
+import downArrow3x from "../content/messengerPage/down@3x.png"
+
 import searchFacebookMessenger from "../content/messengerPage/searchFacebookMessenger.png"
+import searchFacebookMessenger2x from "../content/messengerPage/searchFacebookMessenger@2x.png"
+import searchFacebookMessenger3x from "../content/messengerPage/searchFacebookMessenger@3x.png"
+
 import messengerProfile from "../content/messengerPage/messengerProfile.png"
+import messengerProfile2x from "../content/messengerPage/messengerProfile@2x.png"
+import messengerProfile3x from "../content/messengerPage/messengerProfile@3x.png"
+
 import chatWindow from "../content/messengerPage/chatWindow.png"
+import chatWindow2x from "../content/messengerPage/chatWindow@2x.png"
+import chatWindow3x from "../content/messengerPage/chatWindow@3x.png"
 
 const beforeCallCards = [
   {
     id: "video",
     image: videoIcon,
+    image2x: videoIcon2x,
+    image3x: videoIcon3x,
     title: "Videosamtal",
     text: "Startar ett videosamtal med personen där ni kan se varandra samtidigt som ni pratar.",
   },
   {
     id: "sound",
     image: soundIcon,
+    image2x: soundIcon2x,
+    image3x: soundIcon3x,
     title: "Ljudsamtal",
     text: "Startar ett vanligt ljudsamtal med personen. Ungefär som att ringa ett vanligt telefonsamtal.",
   },
   {
     id: "chatt",
     image: chattIcon,
+    image2x: chattIcon2x,
+    image3x: chattIcon3x,
     title: "Chatta",
     text: "Här kan du skicka meddelanden i text. Tryck på chattfältet och skriv meddelanden med tangentbordet.",
     wide: true,
@@ -47,11 +97,20 @@ const beforeCallCards = [
 ]
 
 const duringCallCards = [
-  { id: "cancel", image: cancelIcon, title: "Avsluta", text: "Lägger på samtalet" },
-  { id: "soundOff", image: soundOffIcon, title: "Ljud av", text: "Stänger av ditt ljud så att personen du pratar med inte kan höra dig" },
+  { id: "cancel", image: cancelIcon, image2x: cancelIcon2x, image3x: cancelIcon3x, title: "Avsluta", text: "Lägger på samtalet" },
+  {
+    id: "soundOff",
+    image: soundOffIcon,
+    image2x: soundOffIcon2x,
+    image3x: soundOffIcon3x,
+    title: "Ljud av",
+    text: "Stänger av ditt ljud så att personen du pratar med inte kan höra dig",
+  },
   {
     id: "addParticipants",
     image: addParticipantsIcon,
+    image2x: addParticipantsIcon2x,
+    image3x: addParticipantsIcon3x,
     title: "Lägg till deltagare",
     text: "Tryck här för att lägga till fler deltagare till samtalet.",
   },
@@ -369,7 +428,7 @@ const MessengerPage: React.FC = () => {
               <Card>
                 <div className="cardHeader">
                   <div style={{ marginRight: 16 }}>
-                    <img src={warningIcon} alt="Important" />
+                    <img srcSet={`${warningIcon}, ${warningIcon2x} 2x, ${warningIcon3x} 3x`} alt="Important" />
                   </div>
                   <Header1>Viktigt!</Header1>
                 </div>
@@ -413,7 +472,12 @@ const MessengerPage: React.FC = () => {
                     </Paragraph>
                   </StyledDiv>
                   <StyledDiv>
-                    <img src={searchFacebookMessenger} width="350px" height="92px" alt="Search Messenger" />
+                    <img
+                      srcSet={`${searchFacebookMessenger}, ${searchFacebookMessenger2x} 2x, ${searchFacebookMessenger3x} 3x`}
+                      width="350px"
+                      height="92px"
+                      alt="Search Messenger"
+                    />
                   </StyledDiv>
 
                   <StyledDiv>
@@ -426,7 +490,12 @@ const MessengerPage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={messengerProfile} width="640px" height="301px" alt="Messenger Profile Screenshot" />
+                    <img
+                      srcSet={`${messengerProfile}, ${messengerProfile2x} 2x, ${messengerProfile3x} 3x`}
+                      width="640px"
+                      height="301px"
+                      alt="Messenger Profile Screenshot"
+                    />
                   </StyledDiv>
 
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
@@ -439,7 +508,12 @@ const MessengerPage: React.FC = () => {
                     </Paragraph>
                   </StyledDiv>
                   <StyledDiv>
-                    <img src={chatWindow} width="360px" height="487px" alt="Messenger Chat Window" />
+                    <img
+                      srcSet={`${chatWindow}, ${chatWindow2x} 2x, ${chatWindow3x} 3x`}
+                      width="360px"
+                      height="487px"
+                      alt="Messenger Chat Window"
+                    />
                   </StyledDiv>
                 </>
               )}
@@ -459,7 +533,7 @@ const MessengerPage: React.FC = () => {
 
                   <DownloadButton href={downloadMessengerUrl} target="_blank" rel="noopener noreferrer">
                     <span>Ladda ner Messenger</span>
-                    <img src={downArrow} alt="Download Icon" />
+                    <img srcSet={`${downArrow}, ${downArrow2x} 2x, ${downArrow3x} 3x`} alt="Download Icon" />
                   </DownloadButton>
 
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
@@ -486,12 +560,12 @@ const MessengerPage: React.FC = () => {
                   </StyledDiv>
                   {os === "ios" && (
                     <StyledDiv>
-                      <img src={iosSearchChat} alt="Search Chat" />
+                      <img srcSet={`${iosSearchChat}, ${iosSearchChat2x} 2x, ${iosSearchChat3x} 3x`} alt="Search Chat" />
                     </StyledDiv>
                   )}
                   {os === "android" && (
                     <StyledDiv>
-                      <img src={androidSearchChat} alt="Search Chat" />
+                      <img srcSet={`${androidSearchChat}, ${androidSearchChat2x} 2x, ${androidSearchChat3x} 3x`} alt="Search Chat" />
                     </StyledDiv>
                   )}
                   <StyledDiv>
@@ -510,12 +584,12 @@ const MessengerPage: React.FC = () => {
                   </StyledDiv>
                   {os === "ios" && (
                     <StyledDiv>
-                      <img src={iosStartCall} alt="Start Call" />
+                      <img srcSet={`${iosStartCall}, ${iosStartCall2x} 2x, ${iosStartCall3x} 3x`} alt="Start Call" />
                     </StyledDiv>
                   )}
                   {os === "android" && (
                     <StyledDiv>
-                      <img src={androidStartCall} alt="Start Call" />
+                      <img srcSet={`${androidStartCall}, ${androidStartCall2x} 2x, ${androidStartCall3x} 3x`} alt="Start Call" />
                     </StyledDiv>
                   )}
                 </>
@@ -525,7 +599,11 @@ const MessengerPage: React.FC = () => {
                 <Card key={card.id}>
                   <div className="cardHeader">
                     <div style={{ marginRight: 16 }}>
-                      <img className={card.wide ? "wide" : ""} src={card.image} alt={`Teams ${card.id} icon`} />
+                      <img
+                        className={card.wide ? "wide" : ""}
+                        srcSet={`${card.image}, ${card.image2x} 2x, ${card.image3x} 3x`}
+                        alt={`Teams ${card.id} icon`}
+                      />
                     </div>
                     <Header1>{card.title}</Header1>
                   </div>
@@ -547,7 +625,7 @@ const MessengerPage: React.FC = () => {
                 <Card key={card.id}>
                   <div className="cardHeader">
                     <div style={{ marginRight: 16 }}>
-                      <img src={card.image} alt={`Teams ${card.id} icon`} />
+                      <img srcSet={`${card.image}, ${card.image2x} 2x, ${card.image3x} 3x`} alt={`Teams ${card.id} icon`} />
                     </div>
                     <Header1>{card.title}</Header1>
                   </div>
