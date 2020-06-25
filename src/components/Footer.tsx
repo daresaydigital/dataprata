@@ -1,9 +1,11 @@
-import styled from "@emotion/styled"
-import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import { faFileContract, faHandsHelping } from "@fortawesome/free-solid-svg-icons"
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Link, useIntl } from "gatsby-plugin-intl"
+import { Link } from "gatsby"
+import { useIntl } from "gatsby-plugin-intl"
 import React from "react"
+import styled from "@emotion/styled"
+
 import { GibonLogo } from "../icons/logos"
 import { colors, widths } from "../styles/variables"
 import { InvisibleLinkStyle, Header2 } from "./typography"
@@ -124,11 +126,11 @@ export const Footer: React.FC<Props> = ({ trackEvent }) => {
             <LI>
               <Strong>{intl.formatMessage({ id: "footer-sponsors" })}</Strong>
             </LI>
-            <a onClick={() => trackEvent("GibonClick")} rel="noopener noreferrer" target="_blank" href="https://gibon.se">
+            <Link onClick={() => trackEvent("GibonClick")} rel="noopener noreferrer" target="_blank" to="https://gibon.se">
               <LI>
                 <GibonLogo />
               </LI>
-            </a>
+            </Link>
           </UL>
         </Col>
         <Col>
@@ -144,28 +146,28 @@ export const Footer: React.FC<Props> = ({ trackEvent }) => {
         <Col>
           <UL>
             <LI onClick={() => trackEvent("LicenseClick")}>
-              <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/blob/master/LICENSE" target="blank">
+              <Link css={InvisibleLinkStyle} to="https://github.com/daresaydigital/dataprata/blob/master/LICENSE" target="blank">
                 <IconContainer>
                   <FontAwesomeIcon icon={faFileContract} />
                 </IconContainer>
                 License
-              </a>
+              </Link>
             </LI>
             <LI onClick={() => trackEvent("GithubClick")}>
-              <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/" target="blank">
+              <Link css={InvisibleLinkStyle} to="https://github.com/daresaydigital/dataprata/" target="blank">
                 <IconContainer>
                   <FontAwesomeIcon icon={faGithub} />
                 </IconContainer>
                 Source
-              </a>
+              </Link>
             </LI>
             <LI onClick={() => trackEvent("ContributeClick")}>
-              <a css={InvisibleLinkStyle} href="https://github.com/daresaydigital/dataprata/issues" target="blank">
+              <Link css={InvisibleLinkStyle} to="https://github.com/daresaydigital/dataprata/issues" target="blank">
                 <IconContainer>
                   <FontAwesomeIcon icon={faHandsHelping} />
                 </IconContainer>
                 Contribute
-              </a>
+              </Link>
             </LI>
           </UL>
         </Col>

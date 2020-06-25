@@ -1,12 +1,15 @@
 import * as React from "react"
 import { useIntl } from "gatsby-plugin-intl"
+import { Link } from "gatsby"
 
-import styled from "@emotion/styled"
 import { Container } from "../components/Container"
 import { IndexLayout, AnalyticsContext } from "../layouts"
 import { Display, Paragraph, Header1, TitleWithNumberCircle } from "../components/typography"
-import { colors, widths } from "../styles/variables"
+import { colors } from "../styles/variables"
 import { Crumb } from "../components/Crumbs"
+import { deviceFromURIHash, useDeviceName, DeviceInfo } from "../components/hooks/device-probe"
+import { DownloadButton, Card, ToggleButton } from "../components/styled-components"
+import { StyledDiv, ToggleWrapper } from "../styles/messenger.styles"
 
 import warningIcon from "../content/messengerPage/warningIcon.png"
 import warningIcon2x from "../content/messengerPage/warningIcon@2x.png"
@@ -68,7 +71,7 @@ import chatWindow from "../content/messengerPage/chatWindow.png"
 import chatWindow2x from "../content/messengerPage/chatWindow@2x.png"
 import chatWindow3x from "../content/messengerPage/chatWindow@3x.png"
 
-const beforeCallCards = [
+export const beforeCallCards = [
   {
     id: "video",
     image: videoIcon,
@@ -96,7 +99,7 @@ const beforeCallCards = [
   },
 ]
 
-const duringCallCards = [
+export const duringCallCards = [
   { id: "cancel", image: cancelIcon, image2x: cancelIcon2x, image3x: cancelIcon3x, title: "Avsluta", text: "Lägger på samtalet" },
   {
     id: "soundOff",
@@ -116,116 +119,12 @@ const duringCallCards = [
   },
 ]
 
-const DownloadButton = styled.a`
-  text-align: left;
-  width: 100%;
-  background: #ffe000;
-  border-radius: 4px;
-  padding: 16px;
-  color: ${colors.black};
-  text-decoration: none;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  display: flex;
-  margin: 16px 0;
-  img {
-    align-self: flex-end;
-    width: 18px;
-    height: 18px;
-  }
-  span {
-    flex: 1;
-  }
-
-  &:hover {
-    background: #e0c500;
-  }
-`
-
-// TODO: This is now duplicated from service.tsx
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
-  background: ${colors.gray.light};
-  border: 3px solid #eee;
-  padding: 24px;
-  border-radius: 8px;
-  margin-bottom: 24px;
-
-  .cardHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
-  img {
-    width: 40px;
-    height: 40px;
-  }
-
-  img.wide {
-    width: 128px;
-    height: 40px;
-  }
-
-  .link {
-    color: ${colors.black};
-    letter-spacing: -0.2px;
-    word-break: break-word;
-  }
-`
-
-const StyledDiv = styled.div`
-  margin-bottom: 16px;
-  .link {
-    color: ${colors.black};
-    letter-spacing: -0.2px;
-  }
-  img {
-    max-width: 100%;
-  }
-`
-
-const ToggleWrapper = styled(StyledDiv)`
-  width: 100%;
-  padding: 16px 0;
-`
-
-const ToggleButton = styled.a`
-  text-align: left;
-  background: #f2f2f2;
-  border-radius: 4px;
-  padding: 16px;
-  color: ${colors.black};
-  text-decoration: none;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  margin: 8px 8px 8px 0;
-  width: 100%;
-  float: left;
-
-  &.active {
-    background: #515151;
-    color: #fff;
-  }
-
-  @media (min-width: ${widths.md}px) {
-    width: auto;
-  }
-`
-
 const AccountToggler: React.FC<{
   toggleAccount: "haveaccount" | "noaccount" | undefined
   trackEvent: (what: string) => void
+  deviceInfo: DeviceInfo
   setToggleAccount: React.Dispatch<React.SetStateAction<"noaccount" | "haveaccount" | undefined>>
-  os: "mac" | "pc" | "ios" | "android"
-}> = ({ toggleAccount, setToggleAccount, trackEvent, os }) => (
+}> = ({ toggleAccount, setToggleAccount, trackEvent, deviceInfo }) => (
   <>
     <ToggleWrapper>
       <ToggleButton
@@ -256,7 +155,7 @@ const AccountToggler: React.FC<{
         <StyledDiv>
           <Header1>Skapa ett konto</Header1>
         </StyledDiv>
-        {(os === "mac" || os === "pc") && (
+        {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
           <>
             <StyledDiv>
               <Paragraph color={colors.gray.dark}>
@@ -289,7 +188,7 @@ const AccountToggler: React.FC<{
             </StyledDiv>
           </>
         )}
-        {(os === "ios" || os === "android") && (
+        {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
           <>
             <StyledDiv>
               <Paragraph color={colors.gray.dark}>
@@ -310,7 +209,7 @@ const AccountToggler: React.FC<{
         <StyledDiv>
           <Header1>Logga in</Header1>
         </StyledDiv>
-        {(os === "mac" || os === "pc") && (
+        {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
           <>
             <StyledDiv>
               <Paragraph color={colors.gray.dark}>
@@ -337,7 +236,7 @@ const AccountToggler: React.FC<{
             </StyledDiv>
           </>
         )}
-        {(os === "ios" || os === "android") && (
+        {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
           <>
             <StyledDiv>
               <Paragraph color={colors.gray.dark}>
@@ -357,36 +256,15 @@ const AccountToggler: React.FC<{
 
 const MessengerPage: React.FC = () => {
   const intl = useIntl()
-  const [loading, setLoading] = React.useState(true)
-  const [os, setOs] = React.useState("pc")
-  const [deviceTitle, setDeviceTitle] = React.useState("Pc")
   const [toggleAccount, setToggleAccount] = React.useState<"haveaccount" | "noaccount" | undefined>(undefined)
-
-  React.useEffect(() => {
-    const deviceFromHash = window.location.hash.toLocaleLowerCase()
-    if (deviceFromHash.includes("mac")) {
-      setDeviceTitle("Mac")
-      setOs("mac")
-    } else if (deviceFromHash.includes("ios")) {
-      setDeviceTitle(`iPhone ${intl.formatMessage({ id: "or" })} iPad`)
-      setOs("ios")
-    } else if (deviceFromHash.includes("linux") || deviceFromHash === null || deviceFromHash.includes("android")) {
-      setOs("android")
-      setDeviceTitle("Android")
-    }
-    setLoading(false)
-  })
+  const deviceInfo = deviceFromURIHash()
+  const deviceName = useDeviceName(deviceInfo)
 
   let downloadMessengerUrl = "https://www.messenger.com/"
-  if (os === "ios") {
+  if (deviceInfo.os === "ios") {
     downloadMessengerUrl = "https://apps.apple.com/us/app/messenger/id454638411"
-  }
-  if (os === "android") {
+  } else if (deviceInfo.os === "android") {
     downloadMessengerUrl = "https://play.google.com/store/apps/details?id=com.facebook.orca&hl=en"
-  }
-
-  if (loading) {
-    return null
   }
 
   const crumbs: Crumb[] = [
@@ -400,23 +278,23 @@ const MessengerPage: React.FC = () => {
     },
     {
       id: "servicePageCrumb",
-      target: `/service${window.location.hash.toLocaleLowerCase()}`,
+      target: `/service/#${deviceInfo.os}`,
     },
     {
       id: "messengerpageCrumb",
-      target: "/messenger",
+      target: `/messenger/#${deviceInfo.os}`,
     },
   ]
 
   return (
     <IndexLayout pageTitleID="messengerpageTitle" showCTA={false} crumbs={crumbs}>
-      <Container className={os}>
+      <Container className={deviceInfo.os}>
         <AnalyticsContext.Consumer>
           {({ trackEvent }) => (
             <>
               <div style={{ marginBottom: 24 }}>
                 <Display>
-                  {intl.formatMessage({ id: "messengerpageTitle" })} {deviceTitle}
+                  {intl.formatMessage({ id: "messengerpageTitle" })} {deviceName}
                 </Display>
               </div>
               <StyledDiv>
@@ -436,18 +314,18 @@ const MessengerPage: React.FC = () => {
                   <Paragraph color={colors.gray.dark}>
                     För att Messenger ska fungera så krävs det att du har ett Facebook-konto. Om du föredrar att inte skapa ett
                     Facebook-konto så rekommenderar vi att du använder{" "}
-                    {os === "ios" ||
-                      (os === "mac" && (
+                    {deviceInfo.os === "ios" ||
+                      (deviceInfo.os === "mac" && (
                         <>
-                          <a href={`/facetime#${os}`}>FaceTime</a> eller
+                          <Link to={`/facetime/#${deviceInfo.os}`}>FaceTime</Link> eller
                         </>
                       ))}{" "}
-                    <a href={`/skype#${os}`}>Skype</a> istället.
+                    <Link to={`/skype/#${deviceInfo.os}`}>Skype</Link> istället.
                   </Paragraph>
                 </StyledDiv>
               </Card>
 
-              {(os === "mac" || os === "pc") && (
+              {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
                 <>
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
                     <TitleWithNumberCircle number={1}>Logga in på Facebook</TitleWithNumberCircle>
@@ -459,7 +337,12 @@ const MessengerPage: React.FC = () => {
                       instruktioner för hur du går vidare.
                     </Paragraph>
                   </StyledDiv>
-                  <AccountToggler toggleAccount={toggleAccount} trackEvent={trackEvent} setToggleAccount={setToggleAccount} os={os} />
+                  <AccountToggler
+                    deviceInfo={deviceInfo}
+                    toggleAccount={toggleAccount}
+                    trackEvent={trackEvent}
+                    setToggleAccount={setToggleAccount}
+                  />
 
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
                     <TitleWithNumberCircle number={2}>Hitta den du vill prata med</TitleWithNumberCircle>
@@ -517,16 +400,16 @@ const MessengerPage: React.FC = () => {
                   </StyledDiv>
                 </>
               )}
-              {(os === "ios" || os === "android") && (
+              {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
                 <>
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
                     <TitleWithNumberCircle number={1}>Ladda ner appen</TitleWithNumberCircle>
                   </div>
                   <StyledDiv>
-                    {os === "ios" && (
+                    {deviceInfo.os === "ios" && (
                       <Paragraph color={colors.gray.dark}>Börja med att ladda ner Messenger- appen till din iPhone eller iPad.</Paragraph>
                     )}
-                    {os === "android" && (
+                    {deviceInfo.os === "android" && (
                       <Paragraph color={colors.gray.dark}>Börja med att ladda ner Messenger- appen till din Android.</Paragraph>
                     )}
                   </StyledDiv>
@@ -547,7 +430,12 @@ const MessengerPage: React.FC = () => {
                     </Paragraph>
                   </StyledDiv>
 
-                  <AccountToggler toggleAccount={toggleAccount} trackEvent={trackEvent} setToggleAccount={setToggleAccount} os={os} />
+                  <AccountToggler
+                    deviceInfo={deviceInfo}
+                    toggleAccount={toggleAccount}
+                    trackEvent={trackEvent}
+                    setToggleAccount={setToggleAccount}
+                  />
 
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
                     <TitleWithNumberCircle number={3}>Hitta den du vill prata med</TitleWithNumberCircle>
@@ -558,12 +446,12 @@ const MessengerPage: React.FC = () => {
                       sökfältet.
                     </Paragraph>
                   </StyledDiv>
-                  {os === "ios" && (
+                  {deviceInfo.os === "ios" && (
                     <StyledDiv>
                       <img srcSet={`${iosSearchChat}, ${iosSearchChat2x} 2x, ${iosSearchChat3x} 3x`} alt="Search Chat" />
                     </StyledDiv>
                   )}
-                  {os === "android" && (
+                  {deviceInfo.os === "android" && (
                     <StyledDiv>
                       <img srcSet={`${androidSearchChat}, ${androidSearchChat2x} 2x, ${androidSearchChat3x} 3x`} alt="Search Chat" />
                     </StyledDiv>
@@ -582,12 +470,12 @@ const MessengerPage: React.FC = () => {
                       Väl inne på personens profil så finns ett flertal alternativ. Nedan finns förklaringar för de viktigaste funktionerna.
                     </Paragraph>
                   </StyledDiv>
-                  {os === "ios" && (
+                  {deviceInfo.os === "ios" && (
                     <StyledDiv>
                       <img srcSet={`${iosStartCall}, ${iosStartCall2x} 2x, ${iosStartCall3x} 3x`} alt="Start Call" />
                     </StyledDiv>
                   )}
-                  {os === "android" && (
+                  {deviceInfo.os === "android" && (
                     <StyledDiv>
                       <img srcSet={`${androidStartCall}, ${androidStartCall2x} 2x, ${androidStartCall3x} 3x`} alt="Start Call" />
                     </StyledDiv>

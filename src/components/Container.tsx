@@ -7,6 +7,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 16px;
+  width: 100%;
   @media (min-width: ${widths.md}px) {
     padding: 0;
     max-width: 656px;
