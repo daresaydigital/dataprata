@@ -3,7 +3,7 @@ import * as React from "react"
 import { Container } from "../components/Container"
 import { IndexLayout } from "../layouts"
 
-const NotFoundPage = () => (
+const NotFoundPage = (): JSX.Element => (
   <IndexLayout pageTitleID="404 :(">
     <Container>
       <h1>404: Page not found.</h1>

@@ -3,13 +3,14 @@ import { graphql, StaticQuery } from "gatsby"
 import { useIntl } from "gatsby-plugin-intl"
 import "modern-normalize"
 import * as React from "react"
-import Helmet from "react-helmet"
+import { Helmet } from "react-helmet"
 import { Crumb, CrumbsContext } from "../components/Crumbs"
 import { LayoutMain } from "../components/LayoutMain"
 import { LayoutRoot } from "../components/LayoutRoot"
 import img from "../content/dataprata.png"
 import "../styles/normalize"
 
+declare let gtag: (event: string, data: string) => void
 interface StaticQueryProps {
   site: {
     siteMetadata: {
@@ -43,7 +44,7 @@ const hotJarScript = (): JSX.Element => (
   <script>{`
 (function(h,o,t,j,a,r){
     h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-    h._hjSettings={hjid:${process.env.HOTJAR_ID},hjsv:6};
+    h._hjSettings={hjid:${process.env.HOTJAR_ID as string},hjsv:6};
     a=o.getElementsByTagName('head')[0];
     r=o.createElement('script');r.async=1;
     r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
@@ -52,7 +53,9 @@ const hotJarScript = (): JSX.Element => (
   `}</script>
 )
 
-const tagManagerScript = (): JSX.Element => <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GTAG}`} />
+const tagManagerScript = (): JSX.Element => (
+  <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GTAG as string}`} />
+)
 
 const gtagScript = (): JSX.Element => (
   <script>{`
@@ -60,7 +63,7 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
-gtag('config', '${process.env.GTAG}');
+gtag('config', '${process.env.GTAG as string}');
   `}</script>
 )
 
