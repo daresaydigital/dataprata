@@ -1,9 +1,11 @@
 import React, { useContext } from "react"
+
 import styled from "@emotion/styled"
 import { useIntl, Link } from "gatsby-plugin-intl"
 import { css } from "@emotion/core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
+
 import { colors, widths } from "../styles/variables"
 
 const Wrapper = styled.div`

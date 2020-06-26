@@ -1,10 +1,12 @@
+import React from "react"
+
 import { css, Global } from "@emotion/core"
 import styled from "@emotion/styled"
-import * as React from "react"
-import normalize from "../styles/normalize"
+
 import { colors } from "../styles/variables"
 import { Footer } from "./Footer"
 import { Header } from "./Header"
+import normalize from "../styles/normalize"
 
 const StyledLayoutRoot = styled.div`
   display: flex;

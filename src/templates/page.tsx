@@ -1,7 +1,9 @@
-import styled from "@emotion/styled"
+import React from "react"
+
 import { graphql } from "gatsby"
 import { useIntl } from "gatsby-plugin-intl"
-import * as React from "react"
+import styled from "@emotion/styled"
+
 import { Container } from "../components/Container"
 import { Display } from "../components/typography"
 import { IndexLayout } from "../layouts"

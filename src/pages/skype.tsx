@@ -1,131 +1,85 @@
-import * as React from "react"
+import React, { FC } from "react"
+
 import { useIntl } from "gatsby-plugin-intl"
 
-import styled from "@emotion/styled"
-import { Container } from "../components/Container"
-import { IndexLayout, AnalyticsContext } from "../layouts"
-import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
 import { colors } from "../styles/variables"
+import { Container } from "../components/Container"
 import { Crumb } from "../components/Crumbs"
+import { deviceFromURIHash, useDeviceName } from "../components/hooks/device-probe"
+import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
+import { DownloadButton, Card } from "../components/styled-components"
+import { IndexLayout, AnalyticsContext } from "../layouts"
+import { StyledDiv } from "../styles/skype.styles"
 
 import toggleVideoImg from "../content/skypePage/toggleVideo.png"
+import toggleVideoImg2x from "../content/skypePage/toggleVideo@2x.png"
+import toggleVideoImg3x from "../content/skypePage/toggleVideo@3x.png"
+
 import toggleSoundImg from "../content/skypePage/toggleSound.png"
+import toggleSoundImg2x from "../content/skypePage/toggleSound@2x.png"
+import toggleSoundImg3x from "../content/skypePage/toggleSound@3x.png"
+
 import cancelCallImg from "../content/skypePage/cancelCall.png"
+import cancelCallImg2x from "../content/skypePage/cancelCall@2x.png"
+import cancelCallImg3x from "../content/skypePage/cancelCall@3x.png"
+
 import openChatImg from "../content/skypePage/openChat.png"
+import openChatImg2x from "../content/skypePage/openChat@2x.png"
+import openChatImg3x from "../content/skypePage/openChat@3x.png"
 
 import macDownloadsImg from "../content/skypePage/downloadsScreenshot.png"
+import macDownloadsImg2x from "../content/skypePage/downloadsScreenshot@2x.png"
+import macDownloadsImg3x from "../content/skypePage/downloadsScreenshot@3x.png"
+
 import pcDownloadsImg from "../content/skypePage/skypePcDownloads.png"
+import pcDownloadsImg2x from "../content/skypePage/skypePcDownloads@2x.png"
+import pcDownloadsImg3x from "../content/skypePage/skypePcDownloads@3x.png"
+
 import installImg from "../content/skypePage/skypeInstallScreenshot.png"
+import installImg2x from "../content/skypePage/skypeInstallScreenshot@2x.png"
+import installImg3x from "../content/skypePage/skypeInstallScreenshot@3x.png"
+
 import addContactsImg from "../content/skypePage/skypeAddContacts.png"
+import addContactsImg2x from "../content/skypePage/skypeAddContacts@2x.png"
+import addContactsImg3x from "../content/skypePage/skypeAddContacts@3x.png"
+
 import newContactsImg from "../content/skypePage/skypeNewContact.png"
+import newContactsImg2x from "../content/skypePage/skypeNewContact@2x.png"
+import newContactsImg3x from "../content/skypePage/skypeNewContact@3x.png"
+
 import makeACallImg from "../content/skypePage/skypeMakeACall.png"
+import makeACallImg2x from "../content/skypePage/skypeMakeACall@2x.png"
+import makeACallImg3x from "../content/skypePage/skypeMakeACall@3x.png"
+
 import iosAddContacts from "../content/skypePage/iosAddContacts.png"
+import iosAddContacts2x from "../content/skypePage/iosAddContacts@2x.png"
+import iosAddContacts3x from "../content/skypePage/iosAddContacts@3x.png"
+
 import androidAddContacts from "../content/skypePage/androidAddContacts.png"
+import androidAddContacts2x from "../content/skypePage/androidAddContacts@2x.png"
+import androidAddContacts3x from "../content/skypePage/androidAddContacts@3x.png"
+
 import iosStartVideoCall from "../content/skypePage/iosStartVideoCall.png"
+import iosStartVideoCall2x from "../content/skypePage/iosStartVideoCall@2x.png"
+import iosStartVideoCall3x from "../content/skypePage/iosStartVideoCall@3x.png"
+
 import androidMakeVideoCall from "../content/skypePage/androidMakeVideoCall.png"
+import androidMakeVideoCall2x from "../content/skypePage/androidMakeVideoCall@2x.png"
+import androidMakeVideoCall3x from "../content/skypePage/androidMakeVideoCall@3x.png"
 
 import downArrow from "../content/messengerPage/down.png"
 
 const cards = [
-  { id: "toggleVideo", image: toggleVideoImg },
-  { id: "toggleSound", image: toggleSoundImg },
-  { id: "cancelCall", image: cancelCallImg },
-  { id: "openChat", image: openChatImg },
+  { id: "toggleVideo", image: toggleVideoImg, image2x: toggleVideoImg2x, image3x: toggleVideoImg3x },
+  { id: "toggleSound", image: toggleSoundImg, image2x: toggleSoundImg2x, image3x: toggleSoundImg3x },
+  { id: "cancelCall", image: cancelCallImg, image2x: cancelCallImg2x, image3x: cancelCallImg3x },
+  { id: "openChat", image: openChatImg, image2x: openChatImg2x, image3x: openChatImg3x },
 ]
 
-const DownloadButton = styled.a`
-  text-align: left;
-  width: 100%;
-  background: #ffe000;
-  border-radius: 4px;
-  padding: 16px;
-  color: ${colors.black};
-  text-decoration: none;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  display: flex;
-  margin: 16px 0;
-  img {
-    align-self: flex-end;
-    width: 18px;
-    height: 18px;
-  }
-  span {
-    flex: 1;
-  }
-
-  &:hover {
-    background: #e0c500;
-  }
-`
-
-// TODO: This is now duplicated from service.tsx
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
-  background: ${colors.gray.light};
-  border: 3px solid #eee;
-  padding: 24px;
-  border-radius: 8px;
-  margin-bottom: 24px;
-
-  .cardHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
-  img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .link {
-    color: ${colors.black};
-    letter-spacing: -0.2px;
-    word-break: break-word;
-  }
-`
-
-const StyledDiv = styled.div`
-  margin-bottom: 16px;
-  .link {
-    color: ${colors.black};
-    letter-spacing: -0.2px;
-  }
-  img {
-    max-width: 100%;
-  }
-`
-
-const SkypePage: React.FC = () => {
+const SkypePage: FC = () => {
   const intl = useIntl()
-  const [loading, setLoading] = React.useState(true)
-  const [os, setOs] = React.useState("pc")
-  const [deviceTitle, setDeviceTitle] = React.useState("Pc")
-
-  React.useEffect(() => {
-    const deviceFromHash = window.location.hash.toLocaleLowerCase()
-    if (deviceFromHash.includes("mac")) {
-      setDeviceTitle("Mac")
-      setOs("mac")
-    } else if (deviceFromHash.includes("ios")) {
-      setDeviceTitle(`iPhone ${intl.formatMessage({ id: "or" })} iPad`)
-      setOs("ios")
-    } else if (deviceFromHash.includes("linux") || deviceFromHash === null || deviceFromHash.includes("android")) {
-      setOs("android")
-      setDeviceTitle("Android")
-    }
-    setLoading(false)
-  })
-
-  if (loading) {
-    return null
-  }
+  const deviceInfo = deviceFromURIHash()
+  const deviceTitle = useDeviceName(deviceInfo)
 
   const crumbs: Crumb[] = [
     {
@@ -138,11 +92,11 @@ const SkypePage: React.FC = () => {
     },
     {
       id: "servicePageCrumb",
-      target: `/service${window.location.hash.toLocaleLowerCase()}`,
+      target: `/service/#${deviceInfo.os}`,
     },
     {
       id: "skypePageCrumb",
-      target: "/skype",
+      target: `/skype/#${deviceInfo.os}`,
     },
   ]
 
@@ -165,7 +119,7 @@ const SkypePage: React.FC = () => {
                 <TitleWithNumberCircle number={1}>{intl.formatMessage({ id: "skypepageInstall" })}</TitleWithNumberCircle>
               </StyledDiv>
 
-              {os === "ios" && (
+              {deviceInfo.os === "ios" && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>Börja med att ladda ner Skype appen till din iPhone eller iPad.</Paragraph>
@@ -181,7 +135,7 @@ const SkypePage: React.FC = () => {
                 </>
               )}
 
-              {os === "android" && (
+              {deviceInfo.os === "android" && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>Börja med att ladda ner Skype appen till din Android.</Paragraph>
@@ -193,7 +147,7 @@ const SkypePage: React.FC = () => {
                 </>
               )}
 
-              {os === "mac" && (
+              {deviceInfo.os === "mac" && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>
@@ -214,7 +168,12 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={macDownloadsImg} width="640px" height="217px" alt="Screenshot of Downloads folder" />
+                    <img
+                      srcSet={`${macDownloadsImg}, ${macDownloadsImg2x} 2x, ${macDownloadsImg3x} 3x`}
+                      width="640px"
+                      height="217px"
+                      alt="Screenshot of Downloads folder"
+                    />
                   </StyledDiv>
 
                   <StyledDiv>
@@ -226,12 +185,17 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={installImg} width="640px" height="333px" alt="Screenshot of Skype install" />
+                    <img
+                      srcSet={`${installImg}, ${installImg2x} 2x, ${installImg3x} 3x`}
+                      width="640px"
+                      height="333px"
+                      alt="Screenshot of Skype install"
+                    />
                   </StyledDiv>
                 </>
               )}
 
-              {os === "pc" && (
+              {deviceInfo.os === "windows" && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>
@@ -252,7 +216,10 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={pcDownloadsImg} alt="Screenshot of Downloads folder" />
+                    <img
+                      srcSet={`${pcDownloadsImg}, ${pcDownloadsImg2x} 2x, ${pcDownloadsImg3x} 3x`}
+                      alt="Screenshot of Downloads folder"
+                    />
                   </StyledDiv>
 
                   <StyledDiv>
@@ -265,7 +232,7 @@ const SkypePage: React.FC = () => {
                 <TitleWithNumberCircle number={2}>{intl.formatMessage({ id: "skypepageCreateAccount" })}</TitleWithNumberCircle>
               </div>
 
-              {(os === "mac" || os === "pc") && (
+              {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "skypepageParagraph6" })}</Paragraph>
@@ -276,7 +243,7 @@ const SkypePage: React.FC = () => {
                 </>
               )}
 
-              {(os === "ios" || os === "android") && (
+              {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>
@@ -290,14 +257,14 @@ const SkypePage: React.FC = () => {
                 <TitleWithNumberCircle number={3}>{intl.formatMessage({ id: "skypepageAddContacts" })}</TitleWithNumberCircle>
               </div>
 
-              {(os === "mac" || os === "pc") && (
+              {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "skypepageParagraph7" })}</Paragraph>
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={addContactsImg} alt="Screenshot of adding contacts" />
+                    <img srcSet={`${addContactsImg}, ${addContactsImg2x} 2x, ${addContactsImg3x} 3x`} alt="Screenshot of adding contacts" />
                   </StyledDiv>
 
                   <StyledDiv>
@@ -305,12 +272,12 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={newContactsImg} alt="Screenshot of adding contacts" />
+                    <img srcSet={`${newContactsImg}, ${newContactsImg2x} 2x, ${newContactsImg3x} 3x`} alt="Screenshot of adding contacts" />
                   </StyledDiv>
                 </>
               )}
 
-              {(os === "ios" || os === "android") && (
+              {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>
@@ -324,8 +291,20 @@ const SkypePage: React.FC = () => {
                     </Paragraph>
                   </StyledDiv>
                   <StyledDiv>
-                    {os === "ios" && <img src={iosAddContacts} width="257px" height="460px" alt="Screenshot of adding contacts" />}
-                    {os === "android" && <img src={androidAddContacts} alt="Screenshot of adding contacts" />}
+                    {deviceInfo.os === "ios" && (
+                      <img
+                        srcSet={`${iosAddContacts}, ${iosAddContacts2x} 2x, ${iosAddContacts3x} 3x`}
+                        width="257px"
+                        height="460px"
+                        alt="Screenshot of adding contacts"
+                      />
+                    )}
+                    {deviceInfo.os === "android" && (
+                      <img
+                        srcSet={`${androidAddContacts}, ${androidAddContacts2x} 2x, ${androidAddContacts3x} 3x`}
+                        alt="Screenshot of adding contacts"
+                      />
+                    )}
                   </StyledDiv>
                 </>
               )}
@@ -334,19 +313,19 @@ const SkypePage: React.FC = () => {
                 <TitleWithNumberCircle number={4}>{intl.formatMessage({ id: "skypepageMakeAVideoCall" })}</TitleWithNumberCircle>
               </div>
 
-              {(os === "mac" || os === "pc") && (
+              {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "skypepageParagraph9" })}</Paragraph>
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={makeACallImg} alt="Screenshot of making a call" />
+                    <img srcSet={`${makeACallImg}, ${makeACallImg2x} 2x, ${makeACallImg3x} 3x`} alt="Screenshot of making a call" />
                   </StyledDiv>
                 </>
               )}
 
-              {(os === "ios" || os === "android") && (
+              {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>
@@ -360,8 +339,20 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    {os === "ios" && <img src={iosStartVideoCall} width="257px" height="457px" alt="Screenshot of making a call" />}
-                    {os === "android" && <img src={androidMakeVideoCall} alt="Screenshot of making a call" />}
+                    {deviceInfo.os === "ios" && (
+                      <img
+                        srcSet={`${iosStartVideoCall}, ${iosStartVideoCall2x} 2x, ${iosStartVideoCall3x} 3x`}
+                        width="257px"
+                        height="457px"
+                        alt="Screenshot of making a call"
+                      />
+                    )}
+                    {deviceInfo.os === "android" && (
+                      <img
+                        srcSet={`${androidMakeVideoCall}, ${androidMakeVideoCall2x} 2x, ${androidMakeVideoCall3x} 3x`}
+                        alt="Screenshot of making a call"
+                      />
+                    )}
                   </StyledDiv>
                 </>
               )}
@@ -374,14 +365,14 @@ const SkypePage: React.FC = () => {
               </StyledDiv>
 
               {cards.map((card) => {
-                if ((os === "ios" || os === "android") && card.id === "openChat") {
+                if ((deviceInfo.os === "ios" || deviceInfo.os === "android") && card.id === "openChat") {
                   return null
                 }
                 return (
                   <Card key={card.id}>
                     <div className="cardHeader">
                       <div style={{ marginRight: 16 }}>
-                        <img src={card.image} alt={`Skype ${card.id} icon`} />
+                        <img srcSet={`${card.image}, ${card.image2x} 2x, ${card.image3x} 3x`} alt={`Skype ${card.id} icon`} />
                       </div>
                       <Header1>{intl.formatMessage({ id: `skype${card.id}Title` })}</Header1>
                     </div>

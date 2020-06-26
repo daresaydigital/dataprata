@@ -1,10 +1,12 @@
-import styled from "@emotion/styled"
-import { Link, useIntl } from "gatsby-plugin-intl"
 import * as React from "react"
-import { LogoSmall } from "../icons/logos"
+
+import { Link, useIntl } from "gatsby-plugin-intl"
+import styled from "@emotion/styled"
+
 import { colors, widths } from "../styles/variables"
 import { Crumbs } from "./Crumbs"
 import { InvisibleLinkStyle, Paragraph } from "./typography"
+import { LogoSmall } from "../icons/logos"
 
 interface Props {
   showCTA?: boolean

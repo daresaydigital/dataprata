@@ -1,11 +1,16 @@
-import * as React from "react"
-import { useIntl } from "gatsby-plugin-intl"
+import React from "react"
 
-import styled from "@emotion/styled"
-import { Container } from "../components/Container"
-import { IndexLayout, AnalyticsContext } from "../layouts"
-import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
+import { useIntl } from "gatsby-plugin-intl"
+import { Link } from "gatsby"
+
+import { Card } from "../components/styled-components"
 import { colors } from "../styles/variables"
+import { Container } from "../components/Container"
+import { Crumb } from "../components/Crumbs"
+import { deviceFromURIHash, useDeviceName } from "../components/hooks/device-probe"
+import { Display, Paragraph, TitleWithNumberCircle, Header1, Header2 } from "../components/typography"
+import { IndexLayout, AnalyticsContext } from "../layouts"
+import { StyledDiv, TipCard } from "../styles/facetime.styles"
 
 import vidImg from "../content/facetimePage/facetimeVideo.png"
 import vidImg2x from "../content/facetimePage/faceTimeVideo@2x.png"
@@ -29,7 +34,6 @@ import turnOfVideoImg3x from "../content/facetimePage/facetimeVideoOf@3x.png"
 import fullscreenImg from "../content/facetimePage/facetimeFullscreen.png"
 import fullscreenImg2x from "../content/facetimePage/facetimeFullscreen@2x.png"
 import fullscreenImg3x from "../content/facetimePage/facetimeFullscreen@3x.png"
-import { Crumb } from "../components/Crumbs"
 
 const cards = [
   { id: "menu", image: menuImg, image2x: menuImg2x, image3x: menuImg3x },
@@ -39,66 +43,16 @@ const cards = [
   { id: "fullscreen", image: fullscreenImg, image2x: fullscreenImg2x, image3x: fullscreenImg3x },
 ]
 
-// TODO: This is now duplicated from service.tsx
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
-  background: ${colors.gray.light};
-  border: 3px solid #eee;
-  padding: 24px;
-  border-radius: 8px;
-  margin-bottom: 24px;
-
-  .cardHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
-  img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .link {
-    color: ${colors.black};
-    letter-spacing: -0.2px;
-    word-break: break-word;
-  }
-`
-
-const StyledDiv = styled.div`
-  margin-bottom: 16px;
-  .link {
-    color: ${colors.black};
-    letter-spacing: -0.2px;
-  }
-
-  img {
-    max-width: 100%;
-  }
-`
-
 const FacetimePage: React.FC = () => {
+  const [userNumber, setUserNumber] = React.useState("")
+  const [recievingNumber, setRecievingNumber] = React.useState("")
   const intl = useIntl()
-  const [loading, setLoading] = React.useState(true)
-  const [device, setDevice] = React.useState("mac")
+  const deviceInfo = deviceFromURIHash()
+  const deviceName = useDeviceName(deviceInfo)
 
-  React.useEffect(() => {
-    const deviceFromHash = window.location.hash.toLocaleLowerCase()
-    let deviceTitle = "Mac"
-    if (deviceFromHash.includes("ios")) {
-      deviceTitle = `iPhone ${intl.formatMessage({ id: "or" })} iPad`
-    }
-    setDevice(deviceTitle)
-    setLoading(false)
-  })
+  const renderSms = deviceInfo.mobile || deviceInfo.os === "mac"
 
-  if (loading) {
-    return null
-  }
+  const renderUrl = () => `sms:${recievingNumber}&body=Tryck på den här länken när du vill ringa mig på FaceTime!  facetime://${userNumber}`
 
   const crumbs: Crumb[] = [
     {
@@ -111,11 +65,11 @@ const FacetimePage: React.FC = () => {
     },
     {
       id: "servicePageCrumb",
-      target: `/service${window.location.hash.toLocaleLowerCase()}`,
+      target: `/service/#${deviceInfo.os}`,
     },
     {
       id: "facetimePageCrumb",
-      target: "/facetime",
+      target: `/facetime/#${deviceInfo.os}`,
     },
   ]
 
@@ -127,12 +81,51 @@ const FacetimePage: React.FC = () => {
             <>
               <div style={{ marginBottom: 24 }}>
                 <Display>
-                  {intl.formatMessage({ id: "facetimepageTitle" })} {device}
+                  {intl.formatMessage({ id: "facetimepageTitle" })} {deviceName}
                 </Display>
               </div>
               <StyledDiv>
                 <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "facetimepageParagraph1" })}</Paragraph>
               </StyledDiv>
+              {renderSms && (
+                <TipCard>
+                  <div className="cardHeader">
+                    <Header1>{intl.formatMessage({ id: "facetimepageSmsTitle" })}</Header1>
+                  </div>
+                  <Paragraph color={colors.black}>{intl.formatMessage({ id: "facetimepageSmsBody" })}</Paragraph>
+                  <div className="inputWrapper">
+                    <div className="col">
+                      <Header2>{intl.formatMessage({ id: "facetimepageSmsUser" })}</Header2>
+                      <div style={{ marginTop: 8 }}>
+                        <input
+                          value={userNumber}
+                          onChange={(e) => setUserNumber(e.target.value)}
+                          type="number"
+                          placeholder={intl.formatMessage({ id: "facetimepageSmsUser" })}
+                        />
+                      </div>
+                    </div>
+                    <div className="col">
+                      <div style={{ marginTop: 16 }}>
+                        <Header2>{intl.formatMessage({ id: "facetimepageSmsReciever" })}</Header2>
+                      </div>
+                      <div style={{ marginTop: 8 }}>
+                        <input
+                          value={recievingNumber}
+                          onChange={(e) => setRecievingNumber(e.target.value)}
+                          type="number"
+                          placeholder={intl.formatMessage({ id: "facetimepageSmsReciever" })}
+                        />
+                      </div>
+                    </div>
+                    <div className="col">
+                      <a href={renderUrl()} className="btn" onClick={() => trackEvent(`GenerateSMSLink`)}>
+                        {intl.formatMessage({ id: "facetimepageSmsCTA" })}
+                      </a>
+                    </div>
+                  </div>
+                </TipCard>
+              )}
 
               <StyledDiv>
                 <TitleWithNumberCircle number={1}>{intl.formatMessage({ id: "facetimepageStartFacetime" })}</TitleWithNumberCircle>
@@ -159,15 +152,15 @@ const FacetimePage: React.FC = () => {
                 </div>
                 <Paragraph color={colors.gray.dark}>
                   {intl.formatMessage({ id: "facetimepageWhatIsAppleIdParagraph" })}{" "}
-                  <a
+                  <Link
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://support.apple.com/sv-se/HT204316"
+                    to="https://support.apple.com/sv-se/HT204316"
                     className="link"
                     onClick={() => trackEvent(`ReadMoreAboutAppleIdClick`)}
                   >
                     https://support.apple.com/sv-se/HT204316
-                  </a>
+                  </Link>
                 </Paragraph>
               </Card>
 

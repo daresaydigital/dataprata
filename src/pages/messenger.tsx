@@ -1,172 +1,130 @@
-import * as React from "react"
+import React from "react"
 import { useIntl } from "gatsby-plugin-intl"
+import { Link } from "gatsby"
 
-import styled from "@emotion/styled"
+import { colors } from "../styles/variables"
 import { Container } from "../components/Container"
-import { IndexLayout, AnalyticsContext } from "../layouts"
-import { Display, Paragraph, Header1, TitleWithNumberCircle } from "../components/typography"
-import { colors, widths } from "../styles/variables"
 import { Crumb } from "../components/Crumbs"
+import { deviceFromURIHash, useDeviceName, DeviceInfo } from "../components/hooks/device-probe"
+import { Display, Paragraph, Header1, TitleWithNumberCircle } from "../components/typography"
+import { DownloadButton, Card, ToggleButton } from "../components/styled-components"
+import { IndexLayout, AnalyticsContext } from "../layouts"
+import { StyledDiv, ToggleWrapper } from "../styles/messenger.styles"
 
 import warningIcon from "../content/messengerPage/warningIcon.png"
-import soundIcon from "../content/messengerPage/soundIcon.png"
-import videoIcon from "../content/messengerPage/videoIcon.png"
-import chattIcon from "../content/messengerPage/chattIcon.png"
-import cancelIcon from "../content/messengerPage/cancelIcon.png"
-import soundOffIcon from "../content/messengerPage/soundOffIcon.png"
-import addParticipantsIcon from "../content/messengerPage/addParticipantsIcon.png"
-import iosSearchChat from "../content/messengerPage/iosSearchChat.png"
-import androidSearchChat from "../content/messengerPage/androidSearchChat.png"
-import iosStartCall from "../content/messengerPage/iosStartCall.png"
-import androidStartCall from "../content/messengerPage/androidStartCall.png"
-import downArrow from "../content/messengerPage/down.png"
-import searchFacebookMessenger from "../content/messengerPage/searchFacebookMessenger.png"
-import messengerProfile from "../content/messengerPage/messengerProfile.png"
-import chatWindow from "../content/messengerPage/chatWindow.png"
+import warningIcon2x from "../content/messengerPage/warningIcon@2x.png"
+import warningIcon3x from "../content/messengerPage/warningIcon@3x.png"
 
-const beforeCallCards = [
+import soundIcon from "../content/messengerPage/soundIcon.png"
+import soundIcon2x from "../content/messengerPage/soundIcon@2x.png"
+import soundIcon3x from "../content/messengerPage/soundIcon@3x.png"
+
+import videoIcon from "../content/messengerPage/videoIcon.png"
+import videoIcon2x from "../content/messengerPage/videoIcon@2x.png"
+import videoIcon3x from "../content/messengerPage/videoIcon@3x.png"
+
+import chattIcon from "../content/messengerPage/chattIcon.png"
+import chattIcon2x from "../content/messengerPage/chattIcon@2x.png"
+import chattIcon3x from "../content/messengerPage/chattIcon@3x.png"
+
+import cancelIcon from "../content/messengerPage/cancelIcon.png"
+import cancelIcon2x from "../content/messengerPage/cancelIcon@2x.png"
+import cancelIcon3x from "../content/messengerPage/cancelIcon@3x.png"
+
+import soundOffIcon from "../content/messengerPage/soundOffIcon.png"
+import soundOffIcon2x from "../content/messengerPage/soundOffIcon@2x.png"
+import soundOffIcon3x from "../content/messengerPage/soundOffIcon@3x.png"
+
+import addParticipantsIcon from "../content/messengerPage/addParticipantsIcon.png"
+import addParticipantsIcon2x from "../content/messengerPage/addParticipantsIcon@2x.png"
+import addParticipantsIcon3x from "../content/messengerPage/addParticipantsIcon@3x.png"
+
+import iosSearchChat from "../content/messengerPage/iosSearchChat.png"
+import iosSearchChat2x from "../content/messengerPage/iosSearchChat@2x.png"
+import iosSearchChat3x from "../content/messengerPage/iosSearchChat@3x.png"
+
+import androidSearchChat from "../content/messengerPage/androidSearchChat.png"
+import androidSearchChat2x from "../content/messengerPage/androidSearchChat@2x.png"
+import androidSearchChat3x from "../content/messengerPage/androidSearchChat@3x.png"
+
+import iosStartCall from "../content/messengerPage/iosStartCall.png"
+import iosStartCall2x from "../content/messengerPage/iosStartCall@2x.png"
+import iosStartCall3x from "../content/messengerPage/iosStartCall@3x.png"
+
+import androidStartCall from "../content/messengerPage/androidStartCall.png"
+import androidStartCall2x from "../content/messengerPage/androidStartCall@2x.png"
+import androidStartCall3x from "../content/messengerPage/androidStartCall@3x.png"
+
+import downArrow from "../content/messengerPage/down.png"
+import downArrow2x from "../content/messengerPage/down@2x.png"
+import downArrow3x from "../content/messengerPage/down@3x.png"
+
+import searchFacebookMessenger from "../content/messengerPage/searchFacebookMessenger.png"
+import searchFacebookMessenger2x from "../content/messengerPage/searchFacebookMessenger@2x.png"
+import searchFacebookMessenger3x from "../content/messengerPage/searchFacebookMessenger@3x.png"
+
+import messengerProfile from "../content/messengerPage/messengerProfile.png"
+import messengerProfile2x from "../content/messengerPage/messengerProfile@2x.png"
+import messengerProfile3x from "../content/messengerPage/messengerProfile@3x.png"
+
+import chatWindow from "../content/messengerPage/chatWindow.png"
+import chatWindow2x from "../content/messengerPage/chatWindow@2x.png"
+import chatWindow3x from "../content/messengerPage/chatWindow@3x.png"
+
+export const beforeCallCards = [
   {
     id: "video",
     image: videoIcon,
+    image2x: videoIcon2x,
+    image3x: videoIcon3x,
     title: "Videosamtal",
     text: "Startar ett videosamtal med personen där ni kan se varandra samtidigt som ni pratar.",
   },
   {
     id: "sound",
     image: soundIcon,
+    image2x: soundIcon2x,
+    image3x: soundIcon3x,
     title: "Ljudsamtal",
     text: "Startar ett vanligt ljudsamtal med personen. Ungefär som att ringa ett vanligt telefonsamtal.",
   },
   {
     id: "chatt",
     image: chattIcon,
+    image2x: chattIcon2x,
+    image3x: chattIcon3x,
     title: "Chatta",
     text: "Här kan du skicka meddelanden i text. Tryck på chattfältet och skriv meddelanden med tangentbordet.",
     wide: true,
   },
 ]
 
-const duringCallCards = [
-  { id: "cancel", image: cancelIcon, title: "Avsluta", text: "Lägger på samtalet" },
-  { id: "soundOff", image: soundOffIcon, title: "Ljud av", text: "Stänger av ditt ljud så att personen du pratar med inte kan höra dig" },
+export const duringCallCards = [
+  { id: "cancel", image: cancelIcon, image2x: cancelIcon2x, image3x: cancelIcon3x, title: "Avsluta", text: "Lägger på samtalet" },
+  {
+    id: "soundOff",
+    image: soundOffIcon,
+    image2x: soundOffIcon2x,
+    image3x: soundOffIcon3x,
+    title: "Ljud av",
+    text: "Stänger av ditt ljud så att personen du pratar med inte kan höra dig",
+  },
   {
     id: "addParticipants",
     image: addParticipantsIcon,
+    image2x: addParticipantsIcon2x,
+    image3x: addParticipantsIcon3x,
     title: "Lägg till deltagare",
     text: "Tryck här för att lägga till fler deltagare till samtalet.",
   },
 ]
 
-const DownloadButton = styled.a`
-  text-align: left;
-  width: 100%;
-  background: #ffe000;
-  border-radius: 4px;
-  padding: 16px;
-  color: ${colors.black};
-  text-decoration: none;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  display: flex;
-  margin: 16px 0;
-  img {
-    align-self: flex-end;
-    width: 18px;
-    height: 18px;
-  }
-  span {
-    flex: 1;
-  }
-
-  &:hover {
-    background: #e0c500;
-  }
-`
-
-// TODO: This is now duplicated from service.tsx
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
-  background: ${colors.gray.light};
-  border: 3px solid #eee;
-  padding: 24px;
-  border-radius: 8px;
-  margin-bottom: 24px;
-
-  .cardHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
-  img {
-    width: 40px;
-    height: 40px;
-  }
-
-  img.wide {
-    width: 128px;
-    height: 40px;
-  }
-
-  .link {
-    color: ${colors.black};
-    letter-spacing: -0.2px;
-    word-break: break-word;
-  }
-`
-
-const StyledDiv = styled.div`
-  margin-bottom: 16px;
-  .link {
-    color: ${colors.black};
-    letter-spacing: -0.2px;
-  }
-  img {
-    max-width: 100%;
-  }
-`
-
-const ToggleWrapper = styled(StyledDiv)`
-  width: 100%;
-  padding: 16px 0;
-`
-
-const ToggleButton = styled.a`
-  text-align: left;
-  background: #f2f2f2;
-  border-radius: 4px;
-  padding: 16px;
-  color: ${colors.black};
-  text-decoration: none;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  margin: 8px 8px 8px 0;
-  width: 100%;
-  float: left;
-
-  &.active {
-    background: #515151;
-    color: #fff;
-  }
-
-  @media (min-width: ${widths.md}px) {
-    width: auto;
-  }
-`
-
 const AccountToggler: React.FC<{
   toggleAccount: "haveaccount" | "noaccount" | undefined
   trackEvent: (what: string) => void
+  deviceInfo: DeviceInfo
   setToggleAccount: React.Dispatch<React.SetStateAction<"noaccount" | "haveaccount" | undefined>>
-  os: "mac" | "pc" | "ios" | "android"
-}> = ({ toggleAccount, setToggleAccount, trackEvent, os }) => (
+}> = ({ toggleAccount, setToggleAccount, trackEvent, deviceInfo }) => (
   <>
     <ToggleWrapper>
       <ToggleButton
@@ -197,7 +155,7 @@ const AccountToggler: React.FC<{
         <StyledDiv>
           <Header1>Skapa ett konto</Header1>
         </StyledDiv>
-        {(os === "mac" || os === "pc") && (
+        {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
           <>
             <StyledDiv>
               <Paragraph color={colors.gray.dark}>
@@ -230,7 +188,7 @@ const AccountToggler: React.FC<{
             </StyledDiv>
           </>
         )}
-        {(os === "ios" || os === "android") && (
+        {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
           <>
             <StyledDiv>
               <Paragraph color={colors.gray.dark}>
@@ -251,7 +209,7 @@ const AccountToggler: React.FC<{
         <StyledDiv>
           <Header1>Logga in</Header1>
         </StyledDiv>
-        {(os === "mac" || os === "pc") && (
+        {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
           <>
             <StyledDiv>
               <Paragraph color={colors.gray.dark}>
@@ -278,7 +236,7 @@ const AccountToggler: React.FC<{
             </StyledDiv>
           </>
         )}
-        {(os === "ios" || os === "android") && (
+        {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
           <>
             <StyledDiv>
               <Paragraph color={colors.gray.dark}>
@@ -298,36 +256,15 @@ const AccountToggler: React.FC<{
 
 const MessengerPage: React.FC = () => {
   const intl = useIntl()
-  const [loading, setLoading] = React.useState(true)
-  const [os, setOs] = React.useState("pc")
-  const [deviceTitle, setDeviceTitle] = React.useState("Pc")
   const [toggleAccount, setToggleAccount] = React.useState<"haveaccount" | "noaccount" | undefined>(undefined)
-
-  React.useEffect(() => {
-    const deviceFromHash = window.location.hash.toLocaleLowerCase()
-    if (deviceFromHash.includes("mac")) {
-      setDeviceTitle("Mac")
-      setOs("mac")
-    } else if (deviceFromHash.includes("ios")) {
-      setDeviceTitle(`iPhone ${intl.formatMessage({ id: "or" })} iPad`)
-      setOs("ios")
-    } else if (deviceFromHash.includes("linux") || deviceFromHash === null || deviceFromHash.includes("android")) {
-      setOs("android")
-      setDeviceTitle("Android")
-    }
-    setLoading(false)
-  })
+  const deviceInfo = deviceFromURIHash()
+  const deviceName = useDeviceName(deviceInfo)
 
   let downloadMessengerUrl = "https://www.messenger.com/"
-  if (os === "ios") {
+  if (deviceInfo.os === "ios") {
     downloadMessengerUrl = "https://apps.apple.com/us/app/messenger/id454638411"
-  }
-  if (os === "android") {
+  } else if (deviceInfo.os === "android") {
     downloadMessengerUrl = "https://play.google.com/store/apps/details?id=com.facebook.orca&hl=en"
-  }
-
-  if (loading) {
-    return null
   }
 
   const crumbs: Crumb[] = [
@@ -341,23 +278,23 @@ const MessengerPage: React.FC = () => {
     },
     {
       id: "servicePageCrumb",
-      target: `/service${window.location.hash.toLocaleLowerCase()}`,
+      target: `/service/#${deviceInfo.os}`,
     },
     {
       id: "messengerpageCrumb",
-      target: "/messenger",
+      target: `/messenger/#${deviceInfo.os}`,
     },
   ]
 
   return (
     <IndexLayout pageTitleID="messengerpageTitle" showCTA={false} crumbs={crumbs}>
-      <Container className={os}>
+      <Container className={deviceInfo.os}>
         <AnalyticsContext.Consumer>
           {({ trackEvent }) => (
             <>
               <div style={{ marginBottom: 24 }}>
                 <Display>
-                  {intl.formatMessage({ id: "messengerpageTitle" })} {deviceTitle}
+                  {intl.formatMessage({ id: "messengerpageTitle" })} {deviceName}
                 </Display>
               </div>
               <StyledDiv>
@@ -369,7 +306,7 @@ const MessengerPage: React.FC = () => {
               <Card>
                 <div className="cardHeader">
                   <div style={{ marginRight: 16 }}>
-                    <img src={warningIcon} alt="Important" />
+                    <img srcSet={`${warningIcon}, ${warningIcon2x} 2x, ${warningIcon3x} 3x`} alt="Important" />
                   </div>
                   <Header1>Viktigt!</Header1>
                 </div>
@@ -377,18 +314,18 @@ const MessengerPage: React.FC = () => {
                   <Paragraph color={colors.gray.dark}>
                     För att Messenger ska fungera så krävs det att du har ett Facebook-konto. Om du föredrar att inte skapa ett
                     Facebook-konto så rekommenderar vi att du använder{" "}
-                    {os === "ios" ||
-                      (os === "mac" && (
+                    {deviceInfo.os === "ios" ||
+                      (deviceInfo.os === "mac" && (
                         <>
-                          <a href={`/facetime#${os}`}>FaceTime</a> eller
+                          <Link to={`/facetime/#${deviceInfo.os}`}>FaceTime</Link> eller
                         </>
                       ))}{" "}
-                    <a href={`/skype#${os}`}>Skype</a> istället.
+                    <Link to={`/skype/#${deviceInfo.os}`}>Skype</Link> istället.
                   </Paragraph>
                 </StyledDiv>
               </Card>
 
-              {(os === "mac" || os === "pc") && (
+              {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
                 <>
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
                     <TitleWithNumberCircle number={1}>Logga in på Facebook</TitleWithNumberCircle>
@@ -400,7 +337,12 @@ const MessengerPage: React.FC = () => {
                       instruktioner för hur du går vidare.
                     </Paragraph>
                   </StyledDiv>
-                  <AccountToggler toggleAccount={toggleAccount} trackEvent={trackEvent} setToggleAccount={setToggleAccount} os={os} />
+                  <AccountToggler
+                    deviceInfo={deviceInfo}
+                    toggleAccount={toggleAccount}
+                    trackEvent={trackEvent}
+                    setToggleAccount={setToggleAccount}
+                  />
 
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
                     <TitleWithNumberCircle number={2}>Hitta den du vill prata med</TitleWithNumberCircle>
@@ -413,7 +355,12 @@ const MessengerPage: React.FC = () => {
                     </Paragraph>
                   </StyledDiv>
                   <StyledDiv>
-                    <img src={searchFacebookMessenger} width="350px" height="92px" alt="Search Messenger" />
+                    <img
+                      srcSet={`${searchFacebookMessenger}, ${searchFacebookMessenger2x} 2x, ${searchFacebookMessenger3x} 3x`}
+                      width="350px"
+                      height="92px"
+                      alt="Search Messenger"
+                    />
                   </StyledDiv>
 
                   <StyledDiv>
@@ -426,7 +373,12 @@ const MessengerPage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    <img src={messengerProfile} width="640px" height="301px" alt="Messenger Profile Screenshot" />
+                    <img
+                      srcSet={`${messengerProfile}, ${messengerProfile2x} 2x, ${messengerProfile3x} 3x`}
+                      width="640px"
+                      height="301px"
+                      alt="Messenger Profile Screenshot"
+                    />
                   </StyledDiv>
 
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
@@ -439,27 +391,32 @@ const MessengerPage: React.FC = () => {
                     </Paragraph>
                   </StyledDiv>
                   <StyledDiv>
-                    <img src={chatWindow} width="360px" height="487px" alt="Messenger Chat Window" />
+                    <img
+                      srcSet={`${chatWindow}, ${chatWindow2x} 2x, ${chatWindow3x} 3x`}
+                      width="360px"
+                      height="487px"
+                      alt="Messenger Chat Window"
+                    />
                   </StyledDiv>
                 </>
               )}
-              {(os === "ios" || os === "android") && (
+              {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
                 <>
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
                     <TitleWithNumberCircle number={1}>Ladda ner appen</TitleWithNumberCircle>
                   </div>
                   <StyledDiv>
-                    {os === "ios" && (
+                    {deviceInfo.os === "ios" && (
                       <Paragraph color={colors.gray.dark}>Börja med att ladda ner Messenger- appen till din iPhone eller iPad.</Paragraph>
                     )}
-                    {os === "android" && (
+                    {deviceInfo.os === "android" && (
                       <Paragraph color={colors.gray.dark}>Börja med att ladda ner Messenger- appen till din Android.</Paragraph>
                     )}
                   </StyledDiv>
 
                   <DownloadButton href={downloadMessengerUrl} target="_blank" rel="noopener noreferrer">
                     <span>Ladda ner Messenger</span>
-                    <img src={downArrow} alt="Download Icon" />
+                    <img srcSet={`${downArrow}, ${downArrow2x} 2x, ${downArrow3x} 3x`} alt="Download Icon" />
                   </DownloadButton>
 
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
@@ -473,7 +430,12 @@ const MessengerPage: React.FC = () => {
                     </Paragraph>
                   </StyledDiv>
 
-                  <AccountToggler toggleAccount={toggleAccount} trackEvent={trackEvent} setToggleAccount={setToggleAccount} os={os} />
+                  <AccountToggler
+                    deviceInfo={deviceInfo}
+                    toggleAccount={toggleAccount}
+                    trackEvent={trackEvent}
+                    setToggleAccount={setToggleAccount}
+                  />
 
                   <div style={{ marginBottom: 16, marginTop: 16 }}>
                     <TitleWithNumberCircle number={3}>Hitta den du vill prata med</TitleWithNumberCircle>
@@ -484,14 +446,14 @@ const MessengerPage: React.FC = () => {
                       sökfältet.
                     </Paragraph>
                   </StyledDiv>
-                  {os === "ios" && (
+                  {deviceInfo.os === "ios" && (
                     <StyledDiv>
-                      <img src={iosSearchChat} alt="Search Chat" />
+                      <img srcSet={`${iosSearchChat}, ${iosSearchChat2x} 2x, ${iosSearchChat3x} 3x`} alt="Search Chat" />
                     </StyledDiv>
                   )}
-                  {os === "android" && (
+                  {deviceInfo.os === "android" && (
                     <StyledDiv>
-                      <img src={androidSearchChat} alt="Search Chat" />
+                      <img srcSet={`${androidSearchChat}, ${androidSearchChat2x} 2x, ${androidSearchChat3x} 3x`} alt="Search Chat" />
                     </StyledDiv>
                   )}
                   <StyledDiv>
@@ -508,14 +470,14 @@ const MessengerPage: React.FC = () => {
                       Väl inne på personens profil så finns ett flertal alternativ. Nedan finns förklaringar för de viktigaste funktionerna.
                     </Paragraph>
                   </StyledDiv>
-                  {os === "ios" && (
+                  {deviceInfo.os === "ios" && (
                     <StyledDiv>
-                      <img src={iosStartCall} alt="Start Call" />
+                      <img srcSet={`${iosStartCall}, ${iosStartCall2x} 2x, ${iosStartCall3x} 3x`} alt="Start Call" />
                     </StyledDiv>
                   )}
-                  {os === "android" && (
+                  {deviceInfo.os === "android" && (
                     <StyledDiv>
-                      <img src={androidStartCall} alt="Start Call" />
+                      <img srcSet={`${androidStartCall}, ${androidStartCall2x} 2x, ${androidStartCall3x} 3x`} alt="Start Call" />
                     </StyledDiv>
                   )}
                 </>
@@ -525,7 +487,11 @@ const MessengerPage: React.FC = () => {
                 <Card key={card.id}>
                   <div className="cardHeader">
                     <div style={{ marginRight: 16 }}>
-                      <img className={card.wide ? "wide" : ""} src={card.image} alt={`Teams ${card.id} icon`} />
+                      <img
+                        className={card.wide ? "wide" : ""}
+                        srcSet={`${card.image}, ${card.image2x} 2x, ${card.image3x} 3x`}
+                        alt={`Teams ${card.id} icon`}
+                      />
                     </div>
                     <Header1>{card.title}</Header1>
                   </div>
@@ -547,7 +513,7 @@ const MessengerPage: React.FC = () => {
                 <Card key={card.id}>
                   <div className="cardHeader">
                     <div style={{ marginRight: 16 }}>
-                      <img src={card.image} alt={`Teams ${card.id} icon`} />
+                      <img srcSet={`${card.image}, ${card.image2x} 2x, ${card.image3x} 3x`} alt={`Teams ${card.id} icon`} />
                     </div>
                     <Header1>{card.title}</Header1>
                   </div>
