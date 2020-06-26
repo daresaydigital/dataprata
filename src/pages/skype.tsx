@@ -1,12 +1,15 @@
-import * as React from "react"
+import React, { FC } from "react"
+
 import { useIntl } from "gatsby-plugin-intl"
 
-import styled from "@emotion/styled"
-import { Container } from "../components/Container"
-import { IndexLayout, AnalyticsContext } from "../layouts"
-import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
 import { colors } from "../styles/variables"
+import { Container } from "../components/Container"
 import { Crumb } from "../components/Crumbs"
+import { deviceFromURIHash, useDeviceName } from "../components/hooks/device-probe"
+import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
+import { DownloadButton, Card } from "../components/styled-components"
+import { IndexLayout, AnalyticsContext } from "../layouts"
+import { StyledDiv } from "../styles/skype.styles"
 
 import toggleVideoImg from "../content/skypePage/toggleVideo.png"
 import toggleVideoImg2x from "../content/skypePage/toggleVideo@2x.png"
@@ -73,99 +76,10 @@ const cards = [
   { id: "openChat", image: openChatImg, image2x: openChatImg2x, image3x: openChatImg3x },
 ]
 
-const DownloadButton = styled.a`
-  text-align: left;
-  width: 100%;
-  background: #ffe000;
-  border-radius: 4px;
-  padding: 16px;
-  color: ${colors.black};
-  text-decoration: none;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  display: flex;
-  margin: 16px 0;
-  img {
-    align-self: flex-end;
-    width: 18px;
-    height: 18px;
-  }
-  span {
-    flex: 1;
-  }
-
-  &:hover {
-    background: #e0c500;
-  }
-`
-
-// TODO: This is now duplicated from service.tsx
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
-  background: ${colors.gray.light};
-  border: 3px solid #eee;
-  padding: 24px;
-  border-radius: 8px;
-  margin-bottom: 24px;
-
-  .cardHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
-  img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .link {
-    color: ${colors.black};
-    letter-spacing: -0.2px;
-    word-break: break-word;
-  }
-`
-
-const StyledDiv = styled.div`
-  margin-bottom: 16px;
-  .link {
-    color: ${colors.black};
-    letter-spacing: -0.2px;
-  }
-  img {
-    max-width: 100%;
-  }
-`
-
-const SkypePage: React.FC = () => {
+const SkypePage: FC = () => {
   const intl = useIntl()
-  const [loading, setLoading] = React.useState(true)
-  const [os, setOs] = React.useState("pc")
-  const [deviceTitle, setDeviceTitle] = React.useState("Pc")
-
-  React.useEffect(() => {
-    const deviceFromHash = window.location.hash.toLocaleLowerCase()
-    if (deviceFromHash.includes("mac")) {
-      setDeviceTitle("Mac")
-      setOs("mac")
-    } else if (deviceFromHash.includes("ios")) {
-      setDeviceTitle(`iPhone ${intl.formatMessage({ id: "or" })} iPad`)
-      setOs("ios")
-    } else if (deviceFromHash.includes("linux") || deviceFromHash === null || deviceFromHash.includes("android")) {
-      setOs("android")
-      setDeviceTitle("Android")
-    }
-    setLoading(false)
-  })
-
-  if (loading) {
-    return null
-  }
+  const deviceInfo = deviceFromURIHash()
+  const deviceTitle = useDeviceName(deviceInfo)
 
   const crumbs: Crumb[] = [
     {
@@ -178,11 +92,11 @@ const SkypePage: React.FC = () => {
     },
     {
       id: "servicePageCrumb",
-      target: `/service${window.location.hash.toLocaleLowerCase()}`,
+      target: `/service/#${deviceInfo.os}`,
     },
     {
       id: "skypePageCrumb",
-      target: "/skype",
+      target: `/skype/#${deviceInfo.os}`,
     },
   ]
 
@@ -205,7 +119,7 @@ const SkypePage: React.FC = () => {
                 <TitleWithNumberCircle number={1}>{intl.formatMessage({ id: "skypepageInstall" })}</TitleWithNumberCircle>
               </StyledDiv>
 
-              {os === "ios" && (
+              {deviceInfo.os === "ios" && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>Börja med att ladda ner Skype appen till din iPhone eller iPad.</Paragraph>
@@ -221,7 +135,7 @@ const SkypePage: React.FC = () => {
                 </>
               )}
 
-              {os === "android" && (
+              {deviceInfo.os === "android" && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>Börja med att ladda ner Skype appen till din Android.</Paragraph>
@@ -233,7 +147,7 @@ const SkypePage: React.FC = () => {
                 </>
               )}
 
-              {os === "mac" && (
+              {deviceInfo.os === "mac" && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>
@@ -281,7 +195,7 @@ const SkypePage: React.FC = () => {
                 </>
               )}
 
-              {os === "pc" && (
+              {deviceInfo.os === "windows" && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>
@@ -318,7 +232,7 @@ const SkypePage: React.FC = () => {
                 <TitleWithNumberCircle number={2}>{intl.formatMessage({ id: "skypepageCreateAccount" })}</TitleWithNumberCircle>
               </div>
 
-              {(os === "mac" || os === "pc") && (
+              {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "skypepageParagraph6" })}</Paragraph>
@@ -329,7 +243,7 @@ const SkypePage: React.FC = () => {
                 </>
               )}
 
-              {(os === "ios" || os === "android") && (
+              {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>
@@ -343,7 +257,7 @@ const SkypePage: React.FC = () => {
                 <TitleWithNumberCircle number={3}>{intl.formatMessage({ id: "skypepageAddContacts" })}</TitleWithNumberCircle>
               </div>
 
-              {(os === "mac" || os === "pc") && (
+              {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "skypepageParagraph7" })}</Paragraph>
@@ -363,7 +277,7 @@ const SkypePage: React.FC = () => {
                 </>
               )}
 
-              {(os === "ios" || os === "android") && (
+              {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>
@@ -377,7 +291,7 @@ const SkypePage: React.FC = () => {
                     </Paragraph>
                   </StyledDiv>
                   <StyledDiv>
-                    {os === "ios" && (
+                    {deviceInfo.os === "ios" && (
                       <img
                         srcSet={`${iosAddContacts}, ${iosAddContacts2x} 2x, ${iosAddContacts3x} 3x`}
                         width="257px"
@@ -385,7 +299,7 @@ const SkypePage: React.FC = () => {
                         alt="Screenshot of adding contacts"
                       />
                     )}
-                    {os === "android" && (
+                    {deviceInfo.os === "android" && (
                       <img
                         srcSet={`${androidAddContacts}, ${androidAddContacts2x} 2x, ${androidAddContacts3x} 3x`}
                         alt="Screenshot of adding contacts"
@@ -399,7 +313,7 @@ const SkypePage: React.FC = () => {
                 <TitleWithNumberCircle number={4}>{intl.formatMessage({ id: "skypepageMakeAVideoCall" })}</TitleWithNumberCircle>
               </div>
 
-              {(os === "mac" || os === "pc") && (
+              {(deviceInfo.os === "mac" || deviceInfo.os === "windows") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>{intl.formatMessage({ id: "skypepageParagraph9" })}</Paragraph>
@@ -411,7 +325,7 @@ const SkypePage: React.FC = () => {
                 </>
               )}
 
-              {(os === "ios" || os === "android") && (
+              {(deviceInfo.os === "ios" || deviceInfo.os === "android") && (
                 <>
                   <StyledDiv>
                     <Paragraph color={colors.gray.dark}>
@@ -425,7 +339,7 @@ const SkypePage: React.FC = () => {
                   </StyledDiv>
 
                   <StyledDiv>
-                    {os === "ios" && (
+                    {deviceInfo.os === "ios" && (
                       <img
                         srcSet={`${iosStartVideoCall}, ${iosStartVideoCall2x} 2x, ${iosStartVideoCall3x} 3x`}
                         width="257px"
@@ -433,7 +347,7 @@ const SkypePage: React.FC = () => {
                         alt="Screenshot of making a call"
                       />
                     )}
-                    {os === "android" && (
+                    {deviceInfo.os === "android" && (
                       <img
                         srcSet={`${androidMakeVideoCall}, ${androidMakeVideoCall2x} 2x, ${androidMakeVideoCall3x} 3x`}
                         alt="Screenshot of making a call"
@@ -451,7 +365,7 @@ const SkypePage: React.FC = () => {
               </StyledDiv>
 
               {cards.map((card) => {
-                if ((os === "ios" || os === "android") && card.id === "openChat") {
+                if ((deviceInfo.os === "ios" || deviceInfo.os === "android") && card.id === "openChat") {
                   return null
                 }
                 return (
