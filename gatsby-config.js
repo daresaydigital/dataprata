@@ -61,7 +61,7 @@ module.exports = {
         // language JSON resource path
         path: `${__dirname}/src/intl`,
         // supported language
-        languages: [`sv`],
+        languages: [`sv`, `en`],
         // language file path
         defaultLanguage: `sv`,
         // option to redirect to `/sv` when connecting `/`
@@ -80,6 +80,7 @@ module.exports = {
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-react-helmet",
+    "gatsby-plugin-mdx",
     {
       resolve: `gatsby-plugin-favicon`,
       options: {
