@@ -1,14 +1,15 @@
+import React from "react"
+
 import { faFileContract, faHandsHelping } from "@fortawesome/free-solid-svg-icons"
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "gatsby"
 import { useIntl } from "gatsby-plugin-intl"
-import React from "react"
 import styled from "@emotion/styled"
 
-import { GibonLogo } from "../icons/logos"
 import { colors, widths } from "../styles/variables"
 import { InvisibleLinkStyle, Header2 } from "./typography"
+import { GibonLogo } from "../icons/logos"
 
 const StyledFooter = styled.div`
   background-color: ${colors.black};

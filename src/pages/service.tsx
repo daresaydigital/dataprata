@@ -1,18 +1,19 @@
 import React, { FC } from "react"
+
 import { IntlShape, useIntl } from "gatsby-plugin-intl"
 import { Link } from "gatsby"
 
+import { AnalyticsContext, IndexLayout } from "../layouts"
+import { colors } from "../styles/variables"
 import { Container } from "../components/Container"
+import { Crumb } from "../components/Crumbs"
+import { deviceFromURIHash } from "../components/hooks/device-probe"
 import { Display, Header2, Paragraph } from "../components/typography"
+import { ServiceCard } from "../styles/service.styles"
 import facetimeIcon from "../content/facetimeIcon.png"
 import messengerIcon from "../content/messengerIcon.png"
 import skypeIcon from "../content/skypeIcon.png"
 import teamsIcon from "../content/teamsIcon.png"
-import { AnalyticsContext, IndexLayout } from "../layouts"
-import { colors } from "../styles/variables"
-import { Crumb } from "../components/Crumbs"
-import { deviceFromURIHash } from "../components/hooks/device-probe"
-import { ServiceCard } from "../styles/service.styles"
 
 const renderServiceCard = (
   intl: IntlShape,

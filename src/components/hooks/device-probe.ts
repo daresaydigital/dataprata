@@ -11,7 +11,7 @@ export type DeviceInfo = {
 }
 
 function isKnownOS(os: string): os is OS {
-  return os === "windows" || os === "mac" || os === "linux" || os === "ios" || os === "android"
+  return ["windows", "mac", "linux", "ios", "android"].includes(os)
 }
 
 /**

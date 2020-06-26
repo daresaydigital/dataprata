@@ -1,15 +1,16 @@
 import React from "react"
+
 import { useIntl } from "gatsby-plugin-intl"
 import { Link } from "gatsby"
 
-import { Container } from "../components/Container"
-import { IndexLayout, AnalyticsContext } from "../layouts"
-import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
-import { colors } from "../styles/variables"
-import { Crumb } from "../components/Crumbs"
-import { useDeviceName, deviceFromURIHash } from "../components/hooks/device-probe"
-import { StyledDiv } from "../styles/teams.styles"
 import { Card, DownloadButton } from "../components/styled-components"
+import { colors } from "../styles/variables"
+import { Container } from "../components/Container"
+import { Crumb } from "../components/Crumbs"
+import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
+import { IndexLayout, AnalyticsContext } from "../layouts"
+import { StyledDiv } from "../styles/teams.styles"
+import { useDeviceName, deviceFromURIHash } from "../components/hooks/device-probe"
 
 import videoIcon from "../content/teamsPage/videoIcon.png"
 import videoIcon2x from "../content/teamsPage/videoIcon@2x.png"

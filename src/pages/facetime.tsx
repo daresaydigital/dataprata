@@ -1,4 +1,5 @@
 import React from "react"
+
 import { useIntl } from "gatsby-plugin-intl"
 import { Link } from "gatsby"
 

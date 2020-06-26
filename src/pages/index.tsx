@@ -1,7 +1,7 @@
-import * as React from "react"
+import React, { useContext } from "react"
+
 import styled from "@emotion/styled"
 import { useIntl } from "gatsby-plugin-intl"
-import { useContext } from "react"
 
 import { StyledLink, ContactCard } from "../styles/index.styles"
 import { Container } from "../components/Container"

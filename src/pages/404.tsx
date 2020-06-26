@@ -1,5 +1,7 @@
+import React from "react"
+
 import { Link } from "gatsby"
-import * as React from "react"
+
 import { Container } from "../components/Container"
 import { IndexLayout } from "../layouts"
 

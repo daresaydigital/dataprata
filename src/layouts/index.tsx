@@ -1,14 +1,16 @@
+import React from "react"
+
+import "modern-normalize"
 import { ApplicationInsights } from "@microsoft/applicationinsights-web"
 import { graphql, StaticQuery } from "gatsby"
-import { useIntl } from "gatsby-plugin-intl"
-import "modern-normalize"
-import * as React from "react"
 import { Helmet } from "react-helmet"
+import { useIntl } from "gatsby-plugin-intl"
+
+import "../styles/normalize"
 import { Crumb, CrumbsContext } from "../components/Crumbs"
 import { LayoutMain } from "../components/LayoutMain"
 import { LayoutRoot } from "../components/LayoutRoot"
 import img from "../content/dataprata.png"
-import "../styles/normalize"
 
 declare let gtag: (event: string, data: string) => void
 interface StaticQueryProps {

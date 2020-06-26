@@ -1,5 +1,6 @@
-import { useIntl } from "gatsby-plugin-intl"
 import React, { FC } from "react"
+
+import { useIntl } from "gatsby-plugin-intl"
 
 import { Container } from "../components/Container"
 import { Display, Header1, Header2, Paragraph } from "../components/typography"

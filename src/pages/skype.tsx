@@ -1,14 +1,15 @@
 import React, { FC } from "react"
+
 import { useIntl } from "gatsby-plugin-intl"
 
-import { StyledDiv } from "../styles/skype.styles"
-import { DownloadButton, Card } from "../components/styled-components"
-import { Container } from "../components/Container"
-import { IndexLayout, AnalyticsContext } from "../layouts"
-import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
 import { colors } from "../styles/variables"
+import { Container } from "../components/Container"
 import { Crumb } from "../components/Crumbs"
 import { deviceFromURIHash, useDeviceName } from "../components/hooks/device-probe"
+import { Display, Paragraph, TitleWithNumberCircle, Header1 } from "../components/typography"
+import { DownloadButton, Card } from "../components/styled-components"
+import { IndexLayout, AnalyticsContext } from "../layouts"
+import { StyledDiv } from "../styles/skype.styles"
 
 import toggleVideoImg from "../content/skypePage/toggleVideo.png"
 import toggleVideoImg2x from "../content/skypePage/toggleVideo@2x.png"
